@@ -118,7 +118,6 @@ def maybe_translate(text: str, locale: str, translator: Optional[object], enable
 
 def save_reports(
     final_state: Dict,
-    decision_label: str,
     ticker: str,
     trade_date: str,
     locales: List[str],
@@ -126,18 +125,13 @@ def save_reports(
     translator: Optional[object],
     translate: bool,
 ) -> List[Path]:
-    """Persist reports in the required directory structure per locale."""
+    """Persist reports, routing each file by its own decision (BUY/HOLD/SELL)."""
     saved_files: List[Path] = []
-
-    # Normalize decision directory
-    decision_dir = decision_from_text_end(decision_label)
 
     for raw_locale in locales:
         locale = raw_locale.strip().upper()
-        base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
-        ensure_dir(base_dir)
 
-        # Individual report files
+        # Individual report files (route per file by scanning the end of its text)
         reports_map = {
             "market_report.md": ("Market Report", final_state.get("market_report", "")),
             "sentiment_report.md": ("Sentiment Report", final_state.get("sentiment_report", "")),
@@ -150,15 +144,21 @@ def save_reports(
 
         for filename, (title, content) in reports_map.items():
             localized_content = maybe_translate(content, locale, translator, translate)
+            decision_dir = decision_from_text_end(localized_content or content)
+            base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
+            ensure_dir(base_dir)
             saved_files.append(
                 write_markdown_file(base_dir, filename, title, localized_content)
             )
 
-        # Complete combined report
+        # Complete combined report, routed by its final line
         combined = build_complete_markdown(final_state)
         combined_localized = maybe_translate(combined, locale, translator, translate)
+        combined_decision = decision_from_text_end(combined_localized or combined)
+        combined_dir = reports_root / trade_date / combined_decision / ticker.upper() / locale
+        ensure_dir(combined_dir)
         saved_files.append(
-            write_markdown_file(base_dir, "complete.md", f"{ticker.upper()} Report ({trade_date})", combined_localized)
+            write_markdown_file(combined_dir, "complete.md", f"{ticker.upper()} Report ({trade_date})", combined_localized)
         )
 
     return saved_files
@@ -226,7 +226,6 @@ def main():
 
     saved_files = save_reports(
         final_state=final_state,
-        decision_label=decision_label,
         ticker=ticker,
         trade_date=trade_date,
         locales=locales,
