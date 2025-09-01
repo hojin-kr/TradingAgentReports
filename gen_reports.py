@@ -2,9 +2,8 @@ import argparse
 import json
 import os
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 
-from tradingagents.graph.trading_graph import TradingAgentsGraph
 from tradingagents.default_config import DEFAULT_CONFIG
 
 
@@ -98,9 +97,9 @@ def build_complete_markdown(final_state: Dict) -> str:
     return "\n".join(buf).strip()
 
 
-def maybe_translate(text: str, locale: str, graph: TradingAgentsGraph, enable_translation: bool) -> str:
-    """Translate text to target locale using the graph's quick LLM if requested."""
-    if not text or not enable_translation:
+def maybe_translate(text: str, locale: str, translator: Optional[object], enable_translation: bool) -> str:
+    """Translate text to target locale using provided translator (must have .invoke)."""
+    if not text or not enable_translation or translator is None:
         return text
     if locale.upper() in ["EN", "EN-US", "EN-GB"]:
         return text
@@ -112,7 +111,7 @@ def maybe_translate(text: str, locale: str, graph: TradingAgentsGraph, enable_tr
     )
     messages = [("system", prompt), ("human", text)]
     try:
-        return graph.quick_thinking_llm.invoke(messages).content
+        return translator.invoke(messages).content
     except Exception:
         return text
 
@@ -124,7 +123,7 @@ def save_reports(
     trade_date: str,
     locales: List[str],
     reports_root: Path,
-    graph: TradingAgentsGraph,
+    translator: Optional[object],
     translate: bool,
 ) -> List[Path]:
     """Persist reports in the required directory structure per locale."""
@@ -150,14 +149,14 @@ def save_reports(
         }
 
         for filename, (title, content) in reports_map.items():
-            localized_content = maybe_translate(content, locale, graph, translate)
+            localized_content = maybe_translate(content, locale, translator, translate)
             saved_files.append(
                 write_markdown_file(base_dir, filename, title, localized_content)
             )
 
         # Complete combined report
         combined = build_complete_markdown(final_state)
-        combined_localized = maybe_translate(combined, locale, graph, translate)
+        combined_localized = maybe_translate(combined, locale, translator, translate)
         saved_files.append(
             write_markdown_file(base_dir, "complete.md", f"{ticker.upper()} Report ({trade_date})", combined_localized)
         )
@@ -190,15 +189,34 @@ def main():
     trade_date = args.date.strip()
     locales = [l.strip() for l in args.locales.split(",") if l.strip()]
 
-    # Prepare config and graph
-    config = DEFAULT_CONFIG.copy()
-    graph = TradingAgentsGraph(debug=False, config=config)
+    # Determine if we need translation or to run the graph
+    need_translation = args.translate and any(l.upper() not in ["EN", "EN-US", "EN-GB"] for l in locales)
+    run_graph = not args.from_log
 
-    # Run or load
+    translator = None
+    final_state: Dict
+
     if args.from_log:
         final_state = load_state_from_log(ticker, trade_date)
     else:
+        # Lazy import to avoid heavy dependencies when not needed
+        from tradingagents.graph.trading_graph import TradingAgentsGraph
+        config = DEFAULT_CONFIG.copy()
+        graph = TradingAgentsGraph(debug=False, config=config)
         final_state, _ = graph.propagate(ticker, trade_date)
+        if need_translation:
+            translator = graph.quick_thinking_llm
+
+    if args.from_log and need_translation:
+        # We only need a translator, not the full run
+        try:
+            from tradingagents.graph.trading_graph import TradingAgentsGraph
+            config = DEFAULT_CONFIG.copy()
+            graph = TradingAgentsGraph(debug=False, config=config)
+            translator = graph.quick_thinking_llm
+        except Exception:
+            translator = None
+
     # Derive decision from the end of the final decision text
     decision_label = decision_from_text_end(final_state.get("final_trade_decision", ""))
 
@@ -213,7 +231,7 @@ def main():
         trade_date=trade_date,
         locales=locales,
         reports_root=reports_root,
-        graph=graph,
+        translator=translator,
         translate=args.translate,
     )
 
