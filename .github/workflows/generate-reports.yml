@@ -49,7 +49,7 @@ jobs:
           DATE="${{ steps.date.outputs.date }}"
           for T in "${TICKERS[@]}"; do
             echo "Running reports for $T on $DATE"
-            python -m gen_reports --ticker "$T" --date "$DATE" --locales EN,KO --translate || echo "gen_reports failed for $T" >&2
+            python -m gen_reports --ticker "$T" --date "$DATE" --locales EN || echo "gen_reports failed for $T" >&2
           done
 
       - name: Commit and push changes
