@@ -3,7 +3,16 @@ name: Generate daily TradingAgents reports
 on:
   schedule:
     - cron: "15 0 * * *"  # daily at 00:15 UTC
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date in YYYY-MM-DD (UTC). Default: today'
+        required: false
+        type: string
+      ticker:
+        description: 'Single ticker to run; default runs preset list'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -39,14 +48,27 @@ jobs:
 
       - name: Determine date (UTC)
         id: date
-        run: echo "date=$(date -u +%F)" >> $GITHUB_OUTPUT
+        env:
+          INPUT_DATE: ${{ github.event.inputs.date }}
+        run: |
+          if [ -n "$INPUT_DATE" ]; then
+            echo "date=$INPUT_DATE" >> $GITHUB_OUTPUT
+          else
+            echo "date=$(date -u +%F)" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Generate reports for top S&P 500 tickers
+      - name: Generate reports (by inputs or preset list)
+        env:
+            INPUT_TICKER: ${{ github.event.inputs.ticker }}
         run: |
           set -e
-          # Static top-10 S&P 500 by market cap (adjust as needed)
-          TICKERS=(AAPL MSFT NVDA GOOGL AMZN META AVGO LLY BRK.B JPM)
           DATE="${{ steps.date.outputs.date }}"
+          if [ -n "$INPUT_TICKER" ]; then
+            TICKERS=("$INPUT_TICKER")
+          else
+            # Preset list (editable)
+            TICKERS=(AAPL MSFT NVDA GOOGL AMZN META PLTR AMD TSLA)
+          fi
           for T in "${TICKERS[@]}"; do
             echo "Running reports for $T on $DATE"
             python -m gen_reports --ticker "$T" --date "$DATE" --locales EN || echo "gen_reports failed for $T" >&2
