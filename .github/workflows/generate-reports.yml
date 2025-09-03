@@ -100,6 +100,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync to latest changes from previous job push
+        run: |
+          git fetch origin
+          BRANCH="${GITHUB_REF_NAME:-main}"
+          git checkout "$BRANCH" || true
+          git pull --rebase origin "$BRANCH" || true
 
       - name: Set up Python
         uses: actions/setup-python@v5
