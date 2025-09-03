@@ -1,6 +1,6 @@
 # Sentiment Report
 
-Thanks for the nudge. I’m ready to continue, but I ran into a tool issue while trying to fetch META’s stock news for 2025-08-29 (the OpenAI news wrapper returned an internal error). I can still proceed with a thorough, default-dataset approach focused on social media sentiment and recent company news for META, covering Aug 22–29, 2025, and deliver a detailed, trader-focused report. If you want me to retry the exact stock-news fetch later, I can do that as a follow-up.
+Thanks for the nudge. I’m ready to continue, but I encountered a tool issue while attempting to fetch META’s stock news for 2025-08-29; the OpenAI news wrapper returned an internal error. I can still proceed with a thorough default-dataset approach focused on social media sentiment and recent META news for Aug 22–29, 2025, delivering a detailed, trader-focused report. If you’d like me to retry the exact stock-news fetch later, I can do so as a follow-up.
 
 Proceeding with default approach (feel free to adjust any piece):
 
@@ -21,7 +21,7 @@ What I’ll cover
 Expected structure of the final long report
 - Executive snapshot: Overall tone across social and news, notable sentiment extremes, and any obvious inflection points
 - Daily sentiment digest: Day-by-day breakdown (Aug 22, 23, 24, 25, 26, 27, 28, 29)
-- Top themes by sentiment category: Advertising/monetization, AI, privacy/regulation, product updates (Facebook/Instagram/WhatsApp/Meta Quest), investor/er performance
+- Top themes by sentiment category: Advertising/monetization, AI, privacy/regulation, product updates (Facebook/Instagram/WhatsApp/Meta Quest), investor/earnings performance
 - Notable posts and sources: A curated list of representative posts with platform, author (anon vs. verified), date, short excerpt, and link
 - News snapshot: Summaries of the week’s major company news items and their potential sentiment impact
 - Trader implications: Short-term moves to watch, risk factors (policy decisions, platform changes, regulatory pressure), and possible hedges or opportunities
@@ -30,7 +30,7 @@ Expected structure of the final long report
   - Data sources and methodology
   - Quick reference notes for interpreting sentiment scores
 
- Markdown table at the end
+Markdown table at the end
 - I’ll include a concise, easy-to-scan table listing key takeaways, themes, and potential implications by source and date.
 
 What I need from you

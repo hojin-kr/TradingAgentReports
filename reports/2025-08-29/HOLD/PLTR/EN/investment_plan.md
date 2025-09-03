@@ -10,7 +10,7 @@ Bottom-line from the debate
 - The bull’s long-run thesis is credible, but near-term signals are not confirming a buy today. The bear’s cautions are real and actionable. The strongest conclusion from weighing both sides is to avoid adding exposure now until there’s concrete momentum confirmation.
 
 Recommendation: Hold (with a controlled path to Buy on clear confirmation)
-- I’m not comfortable buying PLTR at current levels given the near-term momentum uncertainty and the volume/momentum discrepancies highlighted by the bear view. However, the long-term story remains intact if the bull thesis plays out. So, Hold now, with a defined upgrade path to Buy if specific signalsConfirm.
+- I’m not comfortable buying PLTR at current levels given the near-term momentum uncertainty and the volume/momentum discrepancies highlighted by the bear view. However, the long-term story remains intact if the bull thesis plays out. So, Hold now, with a defined upgrade path to Buy if specific signals confirmed.
 
 Investment plan for the trader
 1) Recommendation (decisive stance)
@@ -23,7 +23,7 @@ Investment plan for the trader
 
 3) Strategic Actions (concrete steps)
 - Monitoring triggers to upgrade to Buy:
-  - Price reclaims and closes above the 10-EMA (~161) with a clear close above VWMA (~162). This would indicate renewed price-musion with volume support.
+  - Price reclaims and closes above the 10-EMA (~161) with a clear close above VWMA (~162). This would indicate renewed price movement with volume support.
   - MACD shows a constructive cross (ideally corroborated by a second momentum source, given the data-feed caveats) and RSI trending toward 50–55.
   - Price holds above VWMA on a daily close for at least 2–3 sessions; a follow-on test of the 165–170 zone with volume would further validate upside.
 - Entry approach (if/when upgrade triggers occur):

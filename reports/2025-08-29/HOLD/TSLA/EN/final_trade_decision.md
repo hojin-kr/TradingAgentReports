@@ -3,7 +3,7 @@
 Decision: Buy (with a disciplined, staged entry and strict risk controls)
 
 Executive takeaway
-- The bull case remains compelling enough on a risk-adjusted basis to justify a Buy, provided you stick to a disciplined, staged-entry plan and explicit risk controls. The debate consensus points to constructive near-term momentum, meaningful optionality in FSD/robotaxi and energy, and a clear risk framework to limit downside.
+- The bull case remains compelling on a risk-adjusted basis to justify a Buy, provided you stick to a disciplined, staged-entry plan and explicit risk controls. The consensus points to constructive near-term momentum, meaningful optionality in FSD/robotaxi and energy, and a clear risk framework to limit downside.
 
 Key arguments from each analyst (condensed, with direct references)
 - Risky Analyst (bullish case and process)

@@ -1,6 +1,6 @@
 # Market Report
 
-Here is a focused, indicator-driven view on AMZN using the latest data you pulled (date context around 2025-08-29). I’ve selected 8 indicators that give complementary, non-redundant insights and avoided overlap.
+Here is a focused, indicator-driven view of AMZN using the latest data you pulled (date context around 2025-08-29). I’ve selected 8 indicators that provide complementary, non-redundant insights and avoided overlap.
 
 Key context notes
 - Current price vicinity: The latest close in the dataset sits in the mid-210s range, with the most recent long-term references showing a price around the 214–231 area in Aug 2025. The price remains above the 200-SMA, hinting at an overall uptrend, but it sits below the 50-SMA, suggesting a near-term pullback or consolidation.
@@ -10,7 +10,7 @@ Key context notes
 
 Indicator snapshots (latest values and quick interpretation)
 - close_50_sma: 223.98660034179687
-  - Interpretation: The price is trading below the 50-SMA, which acts as a near-term resistance. This keeps the intermediate-term uptrend in doubt until price reclaims this level.
+  - Interpretation: The price is trading below the 50-SMA, which acts as near-term resistance. This keeps the intermediate-term uptrend in doubt until price reclaims this level.
   - Action: Watch for a close back above 50-SMA to shift bias toward upside; otherwise expect continued congestion near mid-210s.
 - close_200_sma: 212.81795028686523
   - Interpretation: Price is above the 200-SMA, confirming the longer-term uptrend and suggesting pullbacks could be limited by this baseline.

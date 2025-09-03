@@ -1,6 +1,6 @@
 # Sentiment Report
 
-Thanks for the nudge. I attempted to fetch the latest MSFT news for 2025-08-29 but hit a tool error (AttributeError related to the news API response). I tried twice and it still failed. I can retry immediately, but in the meantime I can proceed with a robust framework and an interim analysis plan so we’re not waiting on data alone.
+Thanks for the nudge. I attempted to fetch the latest MSFT news for 2025-08-29 but hit a tool error (AttributeError in the news API response). I tried twice, but it still failed. I can retry immediately; in the meantime, I can proceed with a robust framework and an interim analysis plan so we’re not waiting on data alone.
 
 What I can do now
 - Provide a detailed, trader-focused framework for MSFT using social sentiment and recent news analysis (without real-time numbers until the data fetch succeeds).
@@ -35,7 +35,7 @@ Proposed plan and methodology
    - Positive sentiment with constructive news catalysts → potential near-term upside risk.
    - Negative sentiment or headlines signaling guidance uncertainties → potential pullbacks or increased volatility.
    - Conflicts between sentiment and price action: warrants closer look at liquidity, option market positioning, or hedging pressures.
-   - Key risk factors: AI price set by Copilot economics, cloud pricing pressure, macros impacting enterprise IT spend.
+   - Key risk factors: Copilot economics, cloud pricing pressure, macros impacting enterprise IT spend.
 
 Draft report structure you can expect (once data is available)
 - Executive Summary

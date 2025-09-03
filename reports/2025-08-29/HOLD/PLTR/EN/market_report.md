@@ -41,7 +41,7 @@ Nuanced trend interpretation and context
   - Near-term pullback or consolidation risk: The price sits near the 50SMA and just below the 10-EMA, with the RSI in the mid-40s. This points to a potential pause or shallow pullback rather than a fresh downtrend.
 
 - Momentum dynamics:
-  - MACD is negative on the latest reading, signaling softer near-term momentum. However, macd values in the recent history show waning momentum followed by spikes in other periods; the current reading should be treated with caution given the potential data misalignment discussed below.
+  - MACD is negative on the latest reading, signaling softer near-term momentum. However, MACD values in the recent history show waning momentum followed by spikes in other periods; the current reading should be treated with caution given the potential data misalignment discussed below.
   - RSI near 44 suggests neutral momentum rather than an imminent reversal, which aligns with a stall phase in a broader uptrend.
 
 - Volume and volatility context:
@@ -67,7 +67,7 @@ Trade considerations and what to watch next
 
 Summary table: key points and readings (as of 2025-08-29)
 
-- Indicator: close_50_sma | Current reading: 155.5234 | Interpretation: Trendive support/resistance; price above suggests medium-term uptrend | Action: Consider pullback support; potential to add on a reclaim above 10-EMA/price near 160
+- Indicator: close_50_sma | Current reading: 155.5234 | Interpretation: Trend-based support/resistance; price above suggests a medium-term uptrend | Action: Consider pullback support; potential to add on a reclaim above 10-EMA/price near 160
 - Indicator: close_200_sma | Current reading: 108.9874 | Interpretation: Long-term uptrend confirmed; price well above | Action: Trend remains bullish; favors buy-on-dip opportunities if other signals align
 - Indicator: close_10_ema | Current reading: 160.7935 | Interpretation: Short-term momentum; price near but below 10-EMA | Action: Watch for reclaim above 10-EMA for bullish momentum resumption
 - Indicator: macd | Current reading: approx -0.35 | Interpretation: Near-term momentum softness; potential pullback signal, but data may be misaligned | Action: Confirm with another data source before trading on this alone

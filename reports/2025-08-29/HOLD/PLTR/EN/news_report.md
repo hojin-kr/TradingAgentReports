@@ -1,10 +1,10 @@
 # News Report
 
-I attempted to pull fresh headlines via the configured news tools, but I ran into rate-limit and validation errors. I’ll deliver a comprehensive, trader-focused synthesis based on the current macro backdrop and Palantir’s business trajectory as of 2025-08-29, and I can fetch updated headlines as soon as the tool issues are resolved.
+I attempted to pull fresh headlines via the configured news tools but encountered rate-limit and validation errors. I’ll deliver a comprehensive, trader-focused synthesis based on the current macro backdrop and Palantir’s business trajectory as of 2025-08-29, and I can fetch updated headlines once the tool issues are resolved.
 
 Executive summary
 - Palantir (PLTR) remains positioned as a dual-core vendor for government programs and a growing commercial data analytics platform. The stock’s near-term drivers hinge on (1) government contract awards and backlog stability, (2) expansion of Foundry in commercial verticals (finance, healthcare, manufacturing, energy), and (3) sustained AI product adoption (automation, data fabric, and governance capabilities) that improve customers’ decision cycles.
-- Macro backdrop supports demand for large-scale data-analytics and AI-enabled decisioning: resilient corporate and government IT budgets, ongoing cloud migration, and a global push toward data-driven operations. However, geopolitical risk, budgetary cycles, and regulatory scrutiny on AI/data privacy remain significant overhangs.
+- Macro backdrop supports demand for large-scale data analytics and AI-enabled decisioning: resilient corporate and government IT budgets, ongoing cloud migration, and a global push toward data-driven operations. However, geopolitical risk, budgetary cycles, and regulatory scrutiny on AI/data privacy remain significant overhangs.
 - The main risk factors for PLTR: reliance on U.S./allied government spend (licensing models and multi-year awards), potential sales-cycle volatility, competition from hyperscalers and analytics platforms, and evolving AI governance requirements.
 
 Global macro backdrop relevant to Palantir
@@ -12,7 +12,7 @@ Global macro backdrop relevant to Palantir
 - Global growth and capex: Moderate global growth, with pockets of resilience in enterprise IT budgets and government spending. Companies continue to invest in data infrastructure, cloud migration, and AI-enabled analytics, which is favorable for Foundry’s expansion in the commercial sector.
 - AI regulation and governance: Regulatory interest in AI safety, explainability, data provenance, and privacy is increasing. Vendors who can demonstrate robust governance, audit trails, and secure data workflows (critical for government and regulated industries) stand to gain competitive advantage.
 - Geopolitics and defense spending: Ongoing demand for defense and security-related analytics supports Palantir’s Gotham platform. Any government uncertainty or budget reallocations could affect contract awards or timing, but a rising emphasis on modernization (C3ISR, AI-enabled decision support) should sustain demand.
-- FX and international growth: Palantir’s international footprint means revenue sensitivity to USD strength vs key currencies (EUR, GBP, APAC currencies). A diversified commercial mix and localization can help mitigate some FX risk, but cambered revenue growth abroad will depend on local sales cycles and regulatory clearance.
+- FX and international growth: Palantir’s international footprint means revenue sensitivity to USD strength versus key currencies (EUR, GBP, APAC currencies). A diversified commercial mix and localization can help mitigate some FX risk, but foreign-revenue growth abroad will depend on local sales cycles and regulatory clearance.
 
 Palantir-specific developments to watch (as of Aug 2025)
 - Government/contracts trajectory

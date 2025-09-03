@@ -43,7 +43,7 @@ Neutral (balanced, waits for evidence but not paralyzed)
 Here’s my take on this round of debate and a concrete plan you can use in practice.
 
 A. Decision framework
-- Position stance: Hold GOOG now. Maintain a cautious, staged exposure rather than chasing a breakout.
+- Position stance: Hold GOOGL now. Maintain a cautious, staged exposure rather than chasing a breakout.
 
 B. Positioning and exposure
 - If you already have exposure: keep a core but do not chase more. Use laddered additions on dips only, with volume support and robust risk controls.
@@ -81,6 +81,6 @@ H. Optional enhancements (for risk-tolerant setups)
 - Enhanced review cadence: tighten review if volatility spikes or catalysts land in bursts.
 
 4) Bottom line
-- Hold GO OGL now. The debate supports a cautious stance that preserves upside while controlling risk. The proposed laddered, evidence-driven entry plan with ATR stops and hedges gives you a practical, actionable path to participate if momentum confirms and to protect capital if conditions worsen.
+- Hold GOOGL now. The debate supports a cautious stance that preserves upside while controlling risk. The proposed laddered, evidence-driven entry plan with ATR stops and hedges gives you a practical, actionable path to participate if momentum confirms and to protect capital if conditions worsen.
 
 If you’d like, I can convert this into a precise, numbers-driven scenario with probability-weighted targets, a compact ladder plan, and a simple hedging rubric tailored to your position size and risk tolerance.

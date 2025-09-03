@@ -1,7 +1,7 @@
 # Investment Plan
 
- short synthesis of the debate
-- Bull analyst: The setup for AAPL is constructive on multiple dimensions: durable cash flow and a high-margin Services mix backing hardware growth; AI-enabled features and ecosystem monetization offer expandable upside; catalysts like the iPhone 17 launch and tariff relief can re-accelerate momentum. Technically, price is already above the 50- and 200-day SMAs, RSI around 66, ATR ~4.3, and near-term catalysts are in sight. Overall, a multi-year growth runway with financial discipline and buybacks supports a bullish stance.
+Short synthesis of the debate
+- Bull analyst: The setup for AAPL is constructive on multiple dimensions: durable cash flow and a high-margin Services mix backing hardware growth; AI-enabled features and ecosystem monetization offer expandable upside; catalysts such as the iPhone 17 launch and tariff relief could re-accelerate momentum. Technically, the price is above the 50- and 200-day SMAs, RSI around 66, ATR about 4.3, and near-term catalysts are in sight. Overall, a multi-year growth runway with financial discipline and buybacks supports a bullish stance.
 - Bear analyst: Risks are real and non-trivial: macro demand sensitivity for consumer discretionary, “sell the news” risk around a big launch, regulatory risk on App Store economics, AI monetization uncertainty, and a high valuation premium that can compress if growth slows. Technically, MACD shows a negative histogram (momentum pause), no golden cross yet, and the stock sits in a potentially vulnerable zone if catalysts disappoint or macro data worsens.
 
 Decision: Buy, but with strict risk controls and staged exposure

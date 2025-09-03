@@ -5,7 +5,7 @@ Thanks for the nudge. I hit a brief hiccup fetching data from the live “Fundam
 Proposed defaults (please confirm or adjust):
 - Platform/source: Treat as the site/process you referred to as “Fundamental” (e.g., Fundamental.com). If you have a specific URL or platform, share it and I’ll target that exact source.
 - Date window: July 1, 2025 through August 29, 2025 inclusive.
-- Output format: Markdown table in the chat (I can provide CSV as well if you want).
+- Output format: Markdown table in the chat (CSV is also available if you prefer).
 - Table structure (one row per AMD discussion post in the window):
   - Post date
   - Post title (with URL)

@@ -1,6 +1,6 @@
 # Fundamentals Report
 
-Thanks for the prompt. I hit a tool hiccup fetching the latest fundamentals via the OpenAI-based Fundamentals tool (an internal content wrapper returned an error). I can still move the analysis forward in a couple of ways:
+Thanks for the prompt. I hit a hiccup fetching the latest fundamentals via the OpenAI-based Fundamentals tool (an internal content wrapper returned an error). I can still move the analysis forward in a couple of ways:
 
 Option A (recommended): I provide a high-quality, trader-focused fundamental overview of Apple (AAPL) as of late 2025 based on established business dynamics, typical metrics to watch, and historical patterns. Then, once the data-fetch tool is functioning, I can append precise, date-stamped figures (P/E, P/S, FCF, etc.) for the specified window.
 
@@ -22,7 +22,7 @@ Business model and revenue mix (structural context)
 
 Financial performance volume and margins (qualitative read)
 - Revenue trajectory: Historically, a mix shift toward Services has supported margin stability even as device cycles introduce volatility in hardware revenue.
-- Gross margin discipline: Apple maintains a robust hardware gross margin with expanding Services margin, supported by favorable product mix and ongoing efficiency improvements.
+- Gross margin discipline: Apple maintains robust hardware gross margins with expanding Services margin, supported by favorable product mix and ongoing efficiency improvements.
 - Operating leverage: R&D and SG&A investments are substantial to support platform-level growth (Apple Silicon, Services ecosystem, and new silicon-enabled platforms). The company typically benefits from economies of scale and favorable amortization of software/services investments.
 - Free cash flow and capital allocation: The company generates robust free cash flow, enabling a large and predictable buyback program along with regular dividends. This supports per-share value even in slower hardware cycles.
 

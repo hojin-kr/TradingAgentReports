@@ -126,7 +126,7 @@ Strategic actions (step-by-step)
 2) For new allocations (wait-for-breakout approach):
    - Entry criteria: wait for a daily close above 223.99 with confirming volume (VWMA push above price, MACD positive and widening, RSI moving up from ~50 toward 60+).
    - Position sizing: use a phased approach (e.g., 25% of intended position on first breakout, 75% total after a second confirming close above VWMA and rising momentum).
-   - Initial target plan: first objective around VWMA at ~227.40, then test the prior highs in the low-to-mid 230s if momentum sustains.
+   - Initial target plan: first objective around VWMA at 227.40, then test the prior highs in the low-to-mid 230s if momentum sustains.
    - Risk framework: use ATR-based stops, targeting 1–2x ATR (ATR is ~4.58, so initial stop could be roughly 8–9 points from entry depending on where you enter).
 
 3) Risk controls and hedging
@@ -186,7 +186,7 @@ Indicator snapshots (latest values and quick interpretation)
 
 Detailed trend interpretation
 - Market regime and regime shifts
-  - The long-term trend remains bullish, as evidenced by price above the 200-SMA and the 50-SMA sitting above the 200-SMA. This is a classic bullish substrate that would require a sustained break below the 200-SMA or a major reversal in MACD/RSI to flip.
+  - The long-term trend remains bullish, as evidenced by price above the 200-SMA and the 50-SMA above the 200-SMA. This is a classic bullish substrate that would require a sustained break below the 200-SMA or a major reversal in MACD/RSI to flip.
   - The near-term picture is more fragile: price under the 50-SMA and well below the 10-EMA points to a pullback or consolidation phase. This is a typical pause in an uptrend after a strong run, especially with VWMA holding above price.
 
 - Momentum and conviction
@@ -195,7 +195,7 @@ Detailed trend interpretation
 
 - Level-based thoughts and risk context
   - Immediate resistance: 50-SMA at 223.99; a reclaim above this level would be a meaningful bullish signal in combination with VWMA, which currently sits higher at ~227.40.
-  - Support and risk: 200-SMA at 212.82 provides a solid longer-term floor. A move below this with above-average volume could suggest a more meaningful retracement; keep an eye on volume patterns around this level.
+  - Support and risk: 200-SMA at 212.82 provides a solid longer-term floor. A move below this with above-average volume could signal a more meaningful retracement; keep an eye on volume patterns around this level.
   - Critical conditioning for a breakout: A sustained move above 50-SMA and VWMA with MACD maintaining bullish posture and RSI trending toward the 60s would be a stronger confirmation of a fresh leg higher.
 
 - Volatility and risk management
@@ -277,7 +277,7 @@ Scope: Analysis of social media sentiment, public discourse, and recent news abo
 - Positive catalysts: stronger AWS growth/margin improvement, favorable AI product uptake, better-than-expected earnings/guide, cost reductions, favorable regulatory outcomes.
 - Neutral catalysts: product updates or minor platform changes with modest financial impact, steady but uninspiring cloud metrics, policy/regulatory chatter with unclear implications.
 - Negative catalysts: AWS softness or margin compression, rising logistics costs, softer ad revenue guidance, regulatory pressures, or foreseeably higher opex.
-- Trader takeaway patterns: 
+- Trader takeaway patterns:
   - Positive sentiment + bullish news => potential upside bias; watch for resistance levels near recent highs.
   - Positive sentiment + neutral/negative news => sentiment may be noise; wait for earnings cadence or concrete guidance.
   - Negative sentiment + negative news => heightened risk of downside moves; adjust risk exposures and watch for support levels.
@@ -314,7 +314,7 @@ Scope: Analysis of social media sentiment, public discourse, and recent news abo
 - Map sentiment signals to potential 1–2 week price implications and key support/resistance levels.
 - Deliver the final report with a filled-in Markdown table and actionable trader notes.
 
-Markdown table (Makrdown table) — to be filled with live data once the news tool works
+Markdown table (Markdown table) — to be filled with live data once the news tool works
 | Date | Source | Sentiment | Headline/Topic | Impact Signal | Trader Takeaway |
 |---|---|---|---|---|---|
 | [DATE] | [SOURCE] | [Positive/Neutral/Negative] | [MAIN TOPIC OR HEADLINE] | [Bullish/Bearish/Neutral + Magnitude] | [Action: BUY/HOLD/SELL or notes] |
@@ -334,14 +334,14 @@ Here’s a comprehensive, trader-focused snapshot of the current macro backdrop 
 - Monetary policy trajectory: Markets are parsing a potential shift toward rate cuts later in 2025. The week’s chatter included signals from officials and market commentary suggesting that the pace and size of rate hikes may ease if inflation continues to drift toward target and growth remains resilient. This environment tends to support higher-beta equities and tech-heavy indices, but requires tolerance for episodic volatility around rate-speculation catalysts.
 - Inflation and labor market signals: Mixed signals persist—headline inflation has cooled in several regions, while core measures and wage dynamics remain a key risk factor for the pace and trajectory of policy. The labor market remains tight in many economies, limiting near-term policy pivots, but a gradual cooling would underpin bigger moves toward looser financial conditions, aiding equities with strong growth profiles.
 - Equity market regime: A recent high-water mark for tech stocks has faced a pullback as investors digest AI spend, cloud capex, and the durability of earnings growth in a higher-rate, asset-light environment. The broader narrative remains favorable for high-growth software, cloud, and AI-enabled platforms if earnings power and free cash flow generation prove durable.
-- Sectoral breadth and risk: The rally in AI and cloud dogs the leadership in tech, but there’s notable dispersion—semis and hyperscalers (AWS-like players) remain sensitive to capex cycles, while consumer discretionary (including online retail players like AMZN) can be more sensitive to consumer demand and logistics costs.
+- Sectoral breadth and risk: The rally in AI and cloud leaders remains leadership in tech, but dispersion is notable—semis and hyperscalers (AWS-like players) remain sensitive to capex cycles, while consumer discretionary (including online retail players like AMZN) can be more sensitive to consumer demand and logistics costs.
 - Key read on AWS and AI ecosystems: Several outlets frame AWS as a continued growth engine with potential acceleration in 2026, driven by enterprise cloud adoption, AI tooling, and capacity expansion. This is a bullish read for AMZN’s margin and FCF trajectory if sustained.
 
 2) AMZN-specific read (what matters for trading and macro-driven positioning)
 Catalysts and growth drivers
-- AWS growth trajectory: Morgan Stanley and other analysts/pieces point to AWS growth above 20% in 2026. If AWS sustains or accelerates, operating margins for AMZN can remain under pressure in the near term (due to AI/machine learning investments and data-center capex) but could improve as scale and pricing power stabilize. A 20%+ growth path for AWS is a meaningful tailwind for free cash flow generation and overall company profitability.
-- AI infrastructure expenditure: AMZN remains one of the focal points in the AI infra buildout. Wall Street coverage notes that AI investments are ongoing, with consensus that AWS and related services will be central to AI workloads and enterprise adoption. This supports a longer-duration growth narrative for AMZN, albeit with near-term capital intensity.
-- Retail/e-commerce dynamics: US consumer demand remains mixed, with a clear consumer shift toward efficiency in logistics and value. Any improvement in consumer spending, faster delivery economics, and Prime ecosystem monetization would lift AMZN’s retail margins and cash flow. Conversely, ongoing cost pressures (labor, shipping, fulfillment) could weigh on near-term profitability.
+- AWS growth trajectory: Morgan Stanley and other pieces point to AWS growth above 20% in 2026. If AWS sustains or accelerates, operating margins for AMZN can remain under pressure in the near term due to AI/machine learning investments and data-center capex but could improve as scale and pricing power stabilize. A 20%+ growth path for AWS is a meaningful tailwind for free cash flow generation and overall profitability.
+- AI infrastructure expenditure: AMZN remains a focal point in the AI infra buildout. Wall Street coverage notes AI investments are ongoing, with consensus that AWS and related services will be central to AI workloads and enterprise adoption. This supports a longer-duration growth narrative for AMZN, albeit with near-term capital intensity.
+- Retail/e-commerce dynamics: US consumer demand remains mixed, with a shift toward efficiency in logistics and value. Any improvement in consumer spending, faster delivery economics, and Prime ecosystem monetization would lift AMZN’s retail margins and cash flow. Conversely, ongoing cost pressures (labor, shipping, fulfillment) could weigh on near-term profitability.
 
 Risks and caveats
 - Cost structure and margin pressure: Elevated fulfillment, transportation costs, energy/power for data centers, and ongoing AI-related capex may press near-term margins, even as AWS growth supports long-run earnings power.
@@ -350,8 +350,8 @@ Risks and caveats
 - Earnings cadence and sentiment: Investor sentiment around AI spend efficiency, profitability of ads, and advertising-to-retail mix will be important for near-term stock performance, especially if macro volatility spikes.
 
 Trading implications and scenario guidance
-- Bullish scenario (constructive AWS growth, stable FCF, efficient AI spend): If AWS grows >20% in 2026, data-center margins stabilize or expand as scale improves, and AMZN maintains strong cash conversion (FCF > cash capex net of invests), AMZN could re-rate on a multi-year horizon as an AI-infrastructure and cloud-led growth story. Tactical play could be to hold/accumulate on dips with a focus on 6–12 month horizon, while monitoring AWS growth and margin inflection indicators.
-- Base-case / mixed signal: AWS growth in line with expectations (high-teens to ~20%), with continued capex intensity and modest margin progression. In this regime, AMZN stock could exhibit choppiness tied to macro signals (rates, inflation) and tech sector rotation. A balanced approach (HOLD with selective buy-the-d dips) may be prudent.
+- Bullish scenario (constructive AWS growth, stable FCF, efficient AI spend): If AWS grows >20% in 2026, data-center margins stabilize or expand as scale improves, and AMZN maintains strong cash conversion (FCF > capex net of invests), AMZN could re-rate on a multi-year horizon as an AI-infrastructure and cloud-led growth story. Tactical play could be to hold/accumulate on dips with a focus on 6–12 month horizon, while monitoring AWS growth and margin inflection indicators.
+- Base-case / mixed signal: AWS growth in line with expectations (high-teens to ~20%), with continued capex intensity and modest margin progression. In this regime, AMZN stock could exhibit choppiness tied to macro signals (rates, inflation) and tech sector rotation. A balanced approach (HOLD with selective buy-the-dips) may be prudent.
 - Bearish scenario (AWS growth slows or cost target burn persists): If AWS growth slows meaningfully and margin pressure persists, AMZN’s profitability could undershoot consensus, pressuring stock performance. In this case, risk-managed exits or hedging around the name would be warranted; look for counter-trend strength only if AWS shows clear signs of re-acceleration or if cost-reduction initiatives begin to yield durable margin expansion.
 
 What to monitor next 1–2 weeks
@@ -363,7 +363,7 @@ What to monitor next 1–2 weeks
 Key takeaways for AMZN positioning
 - The near-term risk-reward for AMZN hinges on AWS growth and operating margin dynamics; a continued healthy AWS growth path supports multiple expansion potential.
 - The macro backdrop remains supportive of risk assets if rate cuts become more concrete, but sector dispersion means AMZN will react to company-specific quarterly signals as much as macro shifts.
-- Positive catalysts include: AWS growth beats, AI infrastructure monetization, and stronger Prime/ads monetization; negative pivots include: softer AWS growth, higher-than-expected AI capex drag, or regulatory/legal headwinds.
+- Positive catalysts include: AWS growth beats, AI infrastructure monetization, and stronger Prime/ads monetization; negative pivots include: softer AWS growth, higher-than-expected AI capex drag, or regulatory/headwinds.
 
 Appendix: quick reference signals (for quick monitoring)
 - AWS growth rate trajectory and gross margins

@@ -17,7 +17,7 @@ What I will deliver once data is available (and how I’ll structure it)
 
 - Major catalysts and their implications
   - Product announcements, earnings clues, supply chain news, AI/compute demand anecdotes, competitor context.
-  - Likelihood and potential impact on momentum, margination, and valuation.
+  - Likelihood and potential impact on momentum, margins, and valuation.
 
 - Risk and opportunity assessment for traders
   - Short-term catalysts that could drive volatility (earnings timing, product launch windows, supply constraints).
@@ -33,7 +33,7 @@ What I will deliver once data is available (and how I’ll structure it)
   - 3–5 bullet points summarizing the most important near-term indicators and list of headlines to monitor.
 
 Proposed Markdown table (end of report)
-- I will append a structured Makrdown table like this (you’ll fill with the actual data once the fetch works):
+- I will append a structured Markdown table like this (you’ll fill with the actual data once the fetch works):
 - Columns: Date, Platform, Headline/Topic, Sentiment (score), Mentions, News vs. Price Indicator, Catalysts, Notes
 - Example row (placeholder): 2025-08-29 | Twitter | “AMD announces…”, -0.15 | 1,230 | Neutral, minor pullback | Product cadence concerns | Monitor for follow-up momentum
 

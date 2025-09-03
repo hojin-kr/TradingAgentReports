@@ -3,22 +3,24 @@
 Recommendation: Buy (with strict, staged risk controls)
 
 Short synthesis of the debate
-- All three analysts converge on a constructive AAPL setup: a bullish longer-term growth story (Services, durable cash flow, AI monetization) and near-term catalysts (iPhone launch, tariff relief) support upside. But they differ on timing and risk tolerance.
+- All three analysts converge on a constructive AAPL setup: a bullish longer-term growth story (Services, durable cash flow, AI monetization) and near-term catalysts (iPhone launch, tariff relief) support upside, but they differ on timing and risk tolerance.
 - Risky argues the setup warrants a two-stage, momentum-confirmed long with ATR-based risk controls and hedges around catalysts; he views momentum as supportive and sees meaningful upside if catalysts land.
-- Safe pushes back on optimism, stressing that momentum isn’t accelerating yet, there’s no golden cross, and event-driven risk (iPhone) can produce a pullback; hedging and tighter entry rules are warranted.
+- Safe pushes back on optimism, stressing that momentum isn’t accelerating yet, there’s no golden cross, and event-driven risk around the iPhone launch can produce a pullback; hedging and tighter entry rules are warranted.
 - Neutral sits in between: acknowledges the bullish context and staged exposure, but insists on confirmers for add-ons and clear risk management; provides a balanced, executable framework with defined triggers and hedges.
 
 Key arguments from each analyst (direct quotes excerpted and paraphrased)
 - Risky (supporting Buy with risk discipline)
-  - “Price is decisively above both the 50-day and 200-day SMAs … anchors a bullish trend bias.” 
+  - “Price is decisively above both the 50-day and 200-day SMAs … anchors a bullish trend bias.”
   - “MACD is positive (4.85) but the histogram is slightly negative (-0.10) … points to a pause or consolidation, not a reversal, and it creates the exact kind of environment where a momentum-confirmation entry is prudent.”
   - “The plan prioritizes upside from Apple’s durable cash generation, expanding Services, and AI-enabled monetization, while respecting the near-term momentum risks.”
   - “Two-stage entry aligned to momentum confirmation, and employ ATR-based risk controls and a hedge around the iPhone launch window.”
+
 - Safe (prudence and hedging emphasis)
   - “Momentum is not accelerating. MACD is positive but its histogram is slightly negative, and the MACD line is below its signal.”
-  - “No golden cross … but that isn’t the only signal of strength; Relying on a breakout without clear momentum accelerates risk.”
+  - “No golden cross … but that isn’t the only signal of strength; relying on a breakout without clear momentum accelerates risk.”
   - “Sell-the-news risk around the iPhone launch is real … hedging is prudent and should be explicit, not implied.”
   - “Regulatory tail risk persists; hedging is essential, and near-term volatility around catalysts should be anticipated.”
+
 - Neutral (balanced, actionable framework)
   - “Price is above 50SMA and 200SMA, and the setup is bullish, but momentum isn’t accelerating yet.”
   - “A staged exposure remains attractive for capturing upside with guardrails, especially with catalysts.”
@@ -49,8 +51,8 @@ Baseline, two-stage plan (balanced, executable)
 Direct actions you can implement now (a concise checklist)
 - Start now with 0.75–1% of capital in a starter long.
 - Monitor for Stage 1 momentum trigger: daily close above 235–236 + MACD histogram turning positive + RSI 60–65 + volume spike.
-- If Stage 1 triggers, size to reach 2–2.5% total exposure; place Stage 1 stop at entry − 1x ATR (roughly around 231–232 if entry near 235–236).
-- Watch 200SMA region (220–221) for a safer Stage 2 entry if momentum shows a pullback but thesis remains intact; limit Stage 2 to 0.5–1%.
+- If Stage 1 triggers, size to reach 2–2.5% total exposure; place Stage 1 stop at entry minus 1x ATR (roughly around 231–232 if entry near 235–236).
+- Watch the 200SMA region (220–221) for a safer Stage 2 entry if momentum shows a pullback but thesis remains intact; limit Stage 2 to 0.5–1%.
 - Consider a hedging tool around the iPhone launch (collar or near-term protective puts) with cost-conscious sizing.
 - Update your post-event thesis with AI monetization progress and Services metrics; be ready to re-run risk controls if macro or regulatory headlines shift.
 

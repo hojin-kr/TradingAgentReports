@@ -5,9 +5,9 @@ Here’s how I’m weighing the debate and what I’m doing with META now.
 Summary of the key points from both sides
 - Bull analyst (META bulls)
   - Core thesis: META has a durable uptrend underpinned by AI-driven ad efficiency, a multi-year AI infrastructure build, and a broad, high-velocity ecosystem that monetizes more touchpoints with first-party data.
-  - Evidence and catalysts: Q2 2025 ad revenue growth in the low-to-mid 20s, AI-enabled targeting and attribution improving advertiser ROI, sizable AI capex intended to sustain a long-term moat, and a large, engaged user base across Facebook, Instagram, WhatsApp, Messenger, and Quest.
-  - Price/technical context: Stock trades well above 200SMA and rising above the 50SMA; momentum indicators show churn-down in the near term but a re-acceleration is plausible on MACD cross and RSI re-acceleration, with good upside risk/reward if price holds key support.
-  - Resorts to risk controls: Buy-the-dip posture with clear support around 735–751, and a buy trigger if momentum reasserts and price breaks the near-term resistance with volume.
+  - Evidence and catalysts: Q2 2025 ad revenue growth in the low-to-mid 20s; AI-enabled targeting and attribution improving advertiser ROI; sizable AI capex intended to sustain a long-term moat; and a large, engaged user base across Facebook, Instagram, WhatsApp, Messenger, and Quest.
+  - Price/technical context: Stock trades well above 200SMA and rising above the 50SMA; momentum indicators show near-term deceleration but a re-acceleration is plausible on a MACD cross and RSI re-acceleration, with favorable upside risk/reward if price holds key support.
+  - Risk controls: Buy-the-dip posture with clear support around 735–751, and a buy trigger if momentum reasserts and price breaks the near-term resistance with volume.
 - Bear analyst (META bears)
   - Core thesis: The uptrend is real but near-term momentum is fading, valuation is expensive, and META faces near-term cost headwinds from AI infrastructure spend, regulatory risk, and competitive pressures that could erode ROI and multiple expansion.
   - Risks highlighted: Ad-market sensitivity to macro headwinds; the AI capex is a long-duration cash cost with uncertain near-term ROI; regulatory/privacy pressures and potential governance drag; competition from GOOG/MSFT/NVDA could close the moat; and near-term indicators (RSI ~46, MACD losing momentum) warn of possible chop or a pullback.
@@ -15,7 +15,7 @@ Summary of the key points from both sides
 
 Decision: Hold
 Rationale for Hold (strong, not a default)
-- Short-term setup is mixed: Momentum is cooling (RSI ~46, MACD decelerating with a negative histogram), the stock sits well above major trend lines but has not yet shown a decisive breakout above resistance on strong volume. The risk/reward favors waiting for clearer momentum confirmation rather than chasing here.
+- Short-term setup is mixed: Momentum is cooling (RSI ~46, MACD decelerating with a negative histogram); the stock sits well above major trend lines but has not yet shown a decisive breakout above resistance on strong volume. The risk/reward favors waiting for clearer momentum confirmation rather than chasing here.
 - The bull case remains intact over multi-year horizons, but near-term risks (AI capex cash costs; regulatory scrutiny; potential ad-market softness) pose meaningful downside if the AI efficiency story disappoints on timing or ROI.
 - With the stock near upper resistance and ATR indicating meaningful intraday swings, a tactical pause helps avoid a false breakout and preserves capital for a more certain entry when signals align.
 - Put differently: the upside remains compelling, but the immediate risk-reward is not favorable enough to justify new straight long exposure without a verifiable momentum catalyst.

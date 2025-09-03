@@ -3,12 +3,12 @@
 Thanks! I can proceed, but I need a few confirmations to fetch the right data and structure the report.
 
 Proposed defaults (please confirm or adjust):
-- Date window: 2025-08-22 to 2025-08-29 (inclusive)
+- Date window: 2025-08-22 through 2025-08-29 (inclusive)
 - Platforms: public posts from X (formerly Twitter), Reddit (e.g., r/TSLA, r/investing), and StockTwits
-  - Exclude: Facebook public posts, TikTok, Instagram, etc. unless you want them included
-- Output format: a summarized digest (daily sentiment, top topics, notable drivers) plus a handful of representative posts with links
+  - Exclude: Facebook public posts, TikTok, Instagram, etc., unless you want them included
+- Output format: a summarized digest (daily sentiment, top topics, and notable drivers) plus a handful of representative posts with links
   - Also provide a detailed forward-looking implications section for traders
-- Language: English only (can include non-English if you want)
+- Language: English only (non-English content can be included if desired)
 - Constraints:
   - Include posts that explicitly mention TSLA (ticker: TSLA or $TSLA) or “Tesla”
   - Exclude posts that only mention the company in passing (prefer posts with substantive content or sentiment)

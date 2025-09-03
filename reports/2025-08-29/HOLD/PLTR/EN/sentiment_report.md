@@ -1,6 +1,6 @@
 # Sentiment Report
 
-I ran into an internal tool error while trying to fetch the latest stock news for PLTR (AttributeError related to the news fetch function). Because of that, I don’t have the day-by-day news sentiment data from the tool to plug into the full report right now. I can proceed in two ways:
+I encountered an internal tool error while attempting to fetch the latest stock news for PLTR (AttributeError related to the news fetch function). As a result, I do not have the day-by-day news sentiment data from the tool to include in the full report right now. I can proceed in two ways:
 
 - Option A: Retry the stock-news fetch now (and then deliver the full, data-grounded report with day-by-day sentiment and the latest news highlights).
 - Option B: Move forward with a comprehensive, best-effort sentiment and news-context analysis based on broader public context available up to today, plus a solid methodology you can reuse once the data fetch works.
@@ -39,7 +39,7 @@ What I can deliver right now (Plan if you want to proceed without the immediate 
 3) Report structure (ready to populate once news data comes back)
 - Executive snapshot: One-page summary of sentiment trend, key catalysts, and trading implications.
 - Day-by-day sentiment and news snapshot (last 7–10 days): For each day, sentiment score, top themes, notable posts, and referenced news items.
-- Thematic analysis: Break down by major themes (government contracts, commercial adoption, AI/Foundry enhancements, valuation discourse, regulatory/regulatory risk).
+- Thematic analysis: Break down by major themes (government contracts, commercial adoption, AI/Foundry enhancements, valuation discourse, regulatory risk).
 - News highlights and their impact: Short debriefs on the most influential headlines and why they matter for PLTR’s path and multiple.
 - Trader implications and risk factors: Practical takeaways for positioning, risk controls, and potential entry/exit levels.
 - Data gaps and next steps: Acknowledgement of any missing data, planned fetch steps, and sensitivity analysis notes.

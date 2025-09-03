@@ -1,6 +1,6 @@
 # Sentiment Report
 
-Thanks for trying again. I’m running into a tool error with the stock news fetch (AttributeError: 'ResponseFunctionWebSearch' object has no attribute 'content') when attempting to pull the latest news for GOOGL on 2025-08-29 (and the surrounding dates). I retried multiple times, but the issue persists. I can’t retrieve the live daily news feed right now.
+Thanks for trying again. I’m encountering a tool error with the stock news fetch: AttributeError: 'ResponseFunctionWebSearch' object has no attribute 'content'. This occurs when pulling the latest news for GOOGL on 2025-08-29 (and surrounding dates). I retried several times, but the issue persists. I can’t retrieve the live daily news feed right now.
 
 What I can do right away
 - Provide a high-quality framework and detailed plan for the long-form report so you’re ready to go once the news tool is back.

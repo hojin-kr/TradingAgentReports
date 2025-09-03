@@ -1,10 +1,10 @@
 # Fundamentals Report
 
-Thanks. I can proceed as soon as you confirm the defaults. Here are my recommended choices (you can adjust):
+Thanks. I can proceed once you confirm the defaults. Here are my recommended choices (you can adjust):
 
 Recommended defaults
 - Date window: July 29, 2025 → August 29, 2025 (inclusive)
-  - Why: captures the most recent 1-month period ending today (2025-08-29).
+  - Why: captures the most recent one-month period ending today (2025-08-29).
 - Data source: Fundamental (the site/app that shows PE, PS, cash flow, etc.)
   - If you’d prefer a different site (e.g., Seeking Alpha, Yahoo Finance discussions, etc.), tell me and I’ll switch.
 - Table output: Consolidated snapshot (averages/medians) across all posts in the window

@@ -24,9 +24,9 @@ Rationale and actionable refinements:
   - Watch for technical shifts: price staying above 200SMA on a closing basis, MACD momentum, and any tests of the 330 level as risk events unfold.
 
 Lessons applied:
-- No reliance on a single signal; confirmed by multiple indicators (price vs SMAs, MACD, RSI, ATR).
+- No single signal relied upon; confirmed by multiple indicators (price vs SMAs, MACD, RSI, ATR).
 - Risk-controlled, staged exposure to prevent overbetting on volatility.
-- Explicit scenario planning for catalysts and regulatory/regulatory timing risk.
+- Explicit scenario planning for catalysts and regulatory timing risk.
 - Hedging considered during binary catalyst windows to protect downside while staying positioned for upside.
 
 If you want, I can produce a one-page executive snapshot or a formal rule-based playbook with trigger logic for the eight indicators you rely on. But the core decision remains: Buy with a disciplined, staged approach and explicit risk controls.

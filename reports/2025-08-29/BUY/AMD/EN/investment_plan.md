@@ -1,6 +1,6 @@
 # Investment Plan
 
-Short verdict: Hold for now. The bear case is kicking in on the near-term momentum and key resistance, while the bull case remains valid longer-term but hasn’t shown the decisive catalyst yet in the immediate price action. Waiting for a clear technical trigger keeps you from chasing a consolidation or a potential dip, but it preserves optionality to re-enter on a defined upside.
+Short verdict: Hold for now. The bear case is weighing on near-term momentum and key resistance, while the bull case remains valid over the longer term but has not produced a decisive catalyst in the immediate price action. Waiting for a clear technical trigger avoids chasing a consolidation or a potential dip, while preserving optionality to re-enter on a defined upside.
 
 Concise synthesis of the debate points
 
@@ -11,7 +11,7 @@ Concise synthesis of the debate points
   - Catalysts: RDNA4/Zen6 cadence milestones, ROCm ecosystem expansion, and sustained AI capex.
 
 - Bear arguments (why the near term could drag)
-  - Momentum fatigue: MACD negative histogram, MACD lagging, RSI ~46—no obvious near-term upturn yet.
+  - Momentum fatigue: MACD negative histogram, MACD lagging, RSI ~46 — no obvious near-term upturn yet.
   - Price action: stalling near 170–175 resistance with VWMA/50SMA as critical zones; a sustained break above 170–175 with volume is needed to re-accelerate.
   - Macro/cyclic risk: AI capex cycle can wobble; Nvidia leadership and CUDA lock-in present real upside risk to AMD’s share gains if the cadence slips.
   - Cadence/execution risk: RDNA4/Zen6 timing and IBM/other partnerships must deliver tangible order flow; delays or underwhelming performance could erase upside quickly.
@@ -63,4 +63,4 @@ Lessons incorporated from past mistakes (learning guardrails)
 - Maintain a flexible stance: be ready to switch from Hold to Buy on a strong, verifiable breakout or to Sell/trim if momentum continues to deteriorate and key levels break.
 
 Bottom line
-- Hold now, with a disciplined plan to re-enter on a clear bullish trigger or on a favorable pullback setup that proves the bear-case risk has diminished. The longer-term AMD bull narrative remains credible, but the near-term momentum and resistance dynamics argue for patience rather than chasing. Focus on price-confirmation signals and use rigorous risk controls to structure your next move. If a decisive breakout materializes with volume and momentum, you can shift toward a Buy; if the breakout fails and momentum deteriorates further, be prepared to reassess with a quick Sell or reduction.
+- Hold now, with a disciplined plan to re-enter on a clear bullish trigger or on a favorable pullback setup that proves the bear-case risk has diminished. The longer-term AMD bull narrative remains credible, but near-term momentum and resistance dynamics argue for patience rather than chasing. Focus on price-confirmation signals and use rigorous risk controls to structure your next move. If a decisive breakout materializes with volume and momentum, you can shift toward a Buy; if the breakout fails and momentum deteriorates further, be prepared to reassess with a quick Sell or reduction.

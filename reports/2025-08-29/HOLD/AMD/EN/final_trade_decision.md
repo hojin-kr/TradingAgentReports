@@ -3,9 +3,9 @@
 Short verdict: Hold for now.
 
 Concise synthesis and decision context
-- The bear case argues near-term momentum is fading and AMD faces a meaningful resistance band. Key points: momentum indicators are not strong enough to confirm a durable breakout, the stock sits around 170–175 with a need for a high-volume close above that zone, and macro/AI capex risk could trigger a pullback if catalysts don’t land soon.
-- The bull case remains intact longer-term but lacks an immediate catalyst to propel a decisive move today. Catalysts exist (RDNA4/Zen6 cadence, ROCm ecosystem, enterprise partnerships), but they haven’t translated into an actionable price move yet.
-- Given the mixed signals, the strongest risk-reward in the near term is to avoid chasing and wait for clear confirmation, preserving optionality for a defined upside.
+- The bear case argues near-term momentum is fading and AMD faces a meaningful resistance band. Key points: momentum indicators are not strong enough to confirm a durable breakout; the stock trades around 170–175 with a high-volume close above that zone required; macro/AI capex risk could trigger a pullback if catalysts don’t land soon.
+- The bull case remains intact longer term but lacks an immediate catalyst to propel a decisive move today. Catalysts exist (RDNA4/Zen6 cadence, ROCm ecosystem, enterprise partnerships), but they haven’t translated into an actionable price move yet.
+- Given the mixed signals, the strongest near-term risk-reward is to avoid chasing and wait for clear confirmation, preserving optionality for a defined upside.
 
 Rationale anchored in the debate (with direct-context quotes)
 - From Risky (bullish tilt with caveats):

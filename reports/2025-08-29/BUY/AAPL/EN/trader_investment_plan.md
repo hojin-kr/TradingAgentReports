@@ -1,10 +1,10 @@
 # Trader Investment Plan
 
-Recommendation: Buy with risk-managed, staged exposure for AAPL, using the proposed plan as the baseline.
+Recommendation: Buy with risk-managed, staged exposure in AAPL, using the proposed plan as the baseline.
 
 Rationale (why this aligns with the plan and current setup)
 - Structural support: Apple’s durable cash flow, high-margin Services mix, and AI-enabled monetization create a multi-year growth runway that supports a bullish stance.
-- Catalysts and catalysts risk balance: iPhone 17 launch, AI feature integration, and tariff relief offer near-term upside; bear risks include macro demand softness, regulatory pressure, and potential “sell the news” dynamics around big launches.
+- Catalysts and risk balance: iPhone 17 launch, AI feature integration, and tariff relief offer near-term upside; bearish risks include macro demand softness, regulatory pressure, and potential “sell the news” dynamics around big launches.
 - Technical framing: Price has shown bullish positioning relative to key moving averages, with momentum needing confirmation. The plan emphasizes momentum-confirmed entry rather than a naked breakout.
 
 Concrete execution steps (two-stage, risk-controlled)
@@ -15,7 +15,7 @@ Concrete execution steps (two-stage, risk-controlled)
 3) Pullback re-entry (safer second entry):
    - If price tests the 200-day region (~220–221) and holds, with RSI > 60 and MACD turning up, consider a second entry.
 4) Risk controls (ATR-based):
-   - Use ATR ~4.3 as a guide. Initial stop ~1x ATR below entry (roughly 231–232 for entries near 235–236). If entering on a breakout, use 1x ATR tighter stop; as you layer in, allow up to 2x ATR.
+   - Use ATR ~4.3 as a guide. Initial stop ~1x ATR below entry (roughly 231–232 for entries near 235–236). If entering on a breakout, use a tighter 1x ATR stop; as you layer in, allow up to 2x ATR.
 5) Hedging around catalysts:
    - Consider a modest protective hedge (e.g., protective puts or a collar) around the iPhone launch window to bound drawdown if headlines disappoint.
 6) Target framework and trailing plan:

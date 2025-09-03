@@ -43,7 +43,7 @@ Actionable, phased-entry plan (risk-controlled)
   - Hedging (optional): Consider a lightweight hedge (protective put or collar) to cap downside while preserving upside optionality, especially when layering in.
 
 - Monitoring cadence
-  - Weekly momentum check (MACD, RSI, volume) plus a watch on OpenAI terms, NFL partnerships, Azure/Copilot updates.
+  - Weekly momentum check (MACD, RSI, volume) plus a watch on OpenAI terms, NFL partnerships, and Azure/Copilot updates.
   - Event-driven reviews: AI monetization milestones, regulatory signals, and macro news that could affect risk/reward.
 
 - Reassessment rules
@@ -63,7 +63,7 @@ Bottom line
 Deliverables and next steps (if you want)
 - A tight, data-driven watchlist with explicit entry/exit scripts aligned to Trigger A and Trigger B.
 - A compact bull/bear briefing slide capturing the Hold stance and the exact triggers that would flip to Buy.
-- Optional: a data table with Azure YoY growth, Copilot monetization milestones, and regulatory/news milestones to refresh the thesis.
+- Optional: a data table with Azure YoY growth, Copilot monetization milestones, and regulatory/news milestones to refresh the thesis quickly.
 
 If you’d like, I can tailor the watchlist, entry scripts, and hedging templates to your position size and risk tolerance, and pull in fresh numbers to sharpen the next few sessions.
 
@@ -361,7 +361,7 @@ Trading implications and scenarios
   - Competitive dynamics from Nvidia, AWS, and Alphabet in cloud/AI, which inform MSFT’s relative growth trajectory and margin positioning.
 
 What to watch next week (high-signal items)
-- MSFT quarterly or cadence updates related to Azure and Copilot; any color on pricing, ARR, and cross-sell across products.
+- MSFT quarterly cadence updates related to Azure and Copilot; any color on pricing, ARR, and cross-sell across products.
 - Developments around OpenAI’s strategic arrangements, cloud access terms, or IP/usage policies that could affect MSFT’s entitlement to AI tools and revenue share.
 - Ecosystem momentum in NFL AI initiatives and related enterprise tools adoption.
 - Market-wide inflation and rate expectations, which drive equity beta and sector rotation into or out of tech.
@@ -369,7 +369,7 @@ What to watch next week (high-signal items)
 Markdown table: Key points, signals, and implications
 | Category | Signal / Event | MSFT Implication | Macro/Market Context | Trade/Judgment |
 |---|---|---|---|---|
-| AI/Cloud Growth | Azure YoY growth in 2025 around mid-30s; Azure revenue framework cited at roughly $75B in certain exec summaries | Supports durable earnings growth and margin resilience if gross mix remains favorable | AI infrastructure demand remains robust; Nvidia-led data-center cycle persists | Positive for long-dtein horizon; monitor Azure guidance and gross margin trajectory |
+| AI/Cloud Growth | Azure YoY growth in 2025 around mid-30s; Azure revenue framework cited at roughly $75B in certain exec summaries | Supports durable earnings growth and margin resilience if gross mix remains favorable | AI infrastructure demand remains robust; Nvidia-led data-center cycle persists | Positive for long-run horizon; monitor Azure guidance and gross margin trajectory |
 | AI Partnerships | NFL AI partnership extension with multi-year scope | Potential uplift in Copilot/Azure usage across sports/media workflows; cross-sell opportunities with enterprise tools | AI ecosystem expanding; enterprise AI adoption accelerates | Bullish if partnership monetizes well and scales beyond pilot |
 | OpenAI Relationship | Reports on OpenAI leadership changes and restructuring | Near-term uncertainty around cloud/IP terms; could affect cloud revenue cadence | Cloud/IP negotiations matter for MSFT’s overall AI stack economics | Monitor for clarity on terms; risk event if terms tighten |
 | Valuation / Sentiment | Mixed analyst comments; price targets around $600s; current MSFT price around $500s | Valuation risk may cap near-term upside; potential for multiple compression if growth decelerates | High-growth tech multiples sensitive to rate expectations | Neutral to cautious stance; use stops and watch for guidance changes |
@@ -379,7 +379,7 @@ If you’d like, I can pull more precise EODHD and Finnhub-era specifics (e.g., 
 
 ## Fundamentals Report
 
-Thanks for the update. I hit an internal error trying to fetch the data, and I don’t want to guesswork the source or the exact metrics you want.
+Thanks for the update. I hit an internal error trying to fetch the data, and I don’t want to guess at the source or the exact metrics you want.
 
 To move forward efficiently, please confirm a few details. If you’d like, I can also proceed with a reasonable default setup:
 

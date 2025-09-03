@@ -12,7 +12,7 @@ Recommendation
 - Buy TSLA with a staged-entry approach and explicit risk controls. Start with a core position now, and consider adding into weakness if bullish signals persist. Maintain hedges or protective measures as catalysts approach or if the technicals deteriorate.
 
 Rationale
-- Near-term momentum supports upside: The stock trades above the 50SMA (rising) and the 200SMA, with MACD positive and widening, and RSI not yet overbought. This suggests room to run as the growth narrative, especially around software/moat and energy ecosystem synergies, remains intact.
+- Near-term momentum supports upside: The stock trades above the rising 50SMA and above the 200SMA, with MACD positive and widening, and RSI not yet overbought. This suggests room to run as the growth narrative, especially around software/moat and energy ecosystem synergies, remains intact.
 - Growth optionality remains meaningful: FSD/robotaxi monetization and energy products provide optionality that can compound over time, potentially supporting multiple expansion if milestones materialize.
 - Risk controls are actionable: The current data allows for ATR-adjusted stops and a staged entry that avoids a full commitment on a single signal. This aligns with the volatility typical of high-beta, growth names while preserving upside capture.
 
@@ -28,10 +28,10 @@ Strategic actions (concrete steps)
   - Longer-term optionality: 420–460 if FSD/energy catalysts materialize and the growth path remains intact with expanding software/energy contribution.
 - Hedging and risk mitigation:
   - Consider a protective put or collar to limit downside during key catalyst windows (e.g., regulatory updates, FSD milestones). A small hedge can protect upside capture while keeping room for upside.
-  - Maintain a disciplined review cadence: weekly check-ins to reassess macro signals, demand signals in Europe/US/China, and any regulatory/regulatory timing risk for autonomy.
+  - Maintain a disciplined review cadence: weekly check-ins to reassess macro signals, demand signals in Europe/US/China, and any regulatory timing risk for autonomy.
 - Catalysts and monitoring:
   - Track FSD milestones, regulatory progress, and regional demand signals (Europe US China). Watch for changes in subsidy environments, competition dynamics (BYD), and energy project pipelines.
-  - Monitor the technical framework: ensure price remains above the 200SMA on a closing basis for the base case; monitor MACD/histogram for signs of momentum exhaustion; observe any early tests of 330 as key risk level.
+  - Monitor the technical framework: ensure price remains above the 200SMA on a closing basis for the base case; monitor MACD/histogram for signs of momentum exhaustion; observe any early tests of 330 as a key risk level.
 
 Lessons from past mistakes and how they inform this plan
 - While there are no explicit prior mistakes logged here, the plan explicitly embeds learnings common to rounds like this:

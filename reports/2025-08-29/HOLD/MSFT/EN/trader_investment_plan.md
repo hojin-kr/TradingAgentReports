@@ -5,7 +5,7 @@ Recommendation: Hold MSFT for now.
 Rationale
 - Near-term momentum remains fragile: MACD negative, histogram negative, RSI in the 40s, and price testing dynamic supports around the 50-day/10-day averages. No clear conviction breakout yet.
 - Long-term thesis intact: Azure growth, Copilot monetization, and enterprise AI adoption support a durable growth trajectory and potential multiple expansion if momentum confirms.
-- Risks near term: AI capex margins, regulatory/regulatory scrutiny, macro sensitivity, and potential pullbacks if momentum deteriorates further.
+- Risks near term: AI capex margins, regulatory scrutiny, macro sensitivity, and potential pullbacks if momentum deteriorates further.
 - Positioning plan aligned with risk controls: Maintain exposure but avoid aggressive adds until a confirmed momentum breakout with volume accompanies price action.
 
 Triggers to move from Hold to Buy (conviction signals)

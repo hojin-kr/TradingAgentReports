@@ -15,7 +15,7 @@ Key points from both sides (condensed and focused on what actually moves the nee
   - Valuation risk: even with growth optionality, multiple compression is possible if near-term earnings power isn’t clearly improving.
   - Key risk levels: a break below the 200-SMA (~212.82) on higher volume would worsen the setup and tilt the balance toward deeper retracement.
 
-The definitive stance: Hold. The strongest evidence supports patience and a permission-to-buy-on-clear-confirmation rather than committing now.
+The definitive stance: Hold. The strongest evidence supports patience and waiting for clear confirmation before buying rather than committing now.
 
 Detailed investment plan for the trader
 
@@ -24,7 +24,7 @@ Recommendation
 
 Rationale (why this stance fits the debate’s strongest points)
 - The near-term technicals are not yet constructive enough to justify fresh buying: price sits below the 50-SMA and the 10-EMA, with VWMA above current price and RSI in a neutral zone. This is a cautious, choppier backdrop rather than a clean up-leg.
-- The bull thesis is credible over the longer horizon (AWS growth, AI monetization, ads/Prime strength, moat defensiveness), but the market needs visible, volume-backed progress to justify a forward-looking, higher-muplicate entry. Reclaims of 223.99 (50-SMA) and ideally VWMA at ~227.40 with momentum drivers turning positive would tilt the odds toward a meaningful return to upside.
+- The bull thesis is credible over the longer horizon (AWS growth, AI monetization, ads/Prime strength, moat defensiveness), but the market needs visible, volume-backed progress to justify a forward-looking, higher-multiple entry. Reclaims of 223.99 (50-SMA) and ideally VWMA at ~227.40 with momentum drivers turning positive would tilt the odds toward a meaningful return to upside.
 - Bear risk is substantive: near-term margin pressure from AI capex, regulatory risk, and potential macro headwinds all argue for patience and risk discipline.
 
 Strategic actions (step-by-step)
@@ -35,7 +35,7 @@ Strategic actions (step-by-step)
 
 2) For new allocations (wait-for-breakout approach):
    - Entry criteria: wait for a daily close above 223.99 with confirming volume (VWMA push above price, MACD positive and widening, RSI moving up from ~50 toward 60+).
-   - Position sizing: use a phased approach (e.g., 25% of intended position on first breakout, 75% total after a second confirming close above VWMA and rising momentum).
+   - Position sizing: use a phased approach (e.g., 25% of the intended position on the first breakout, with the remaining 75% added after a second confirming close above VWMA and rising momentum).
    - Initial target plan: first objective around VWMA at ~227.40, then test the prior highs in the low-to-mid 230s if momentum sustains.
    - Risk framework: use ATR-based stops, targeting 1–2x ATR (ATR is ~4.58, so initial stop could be roughly 8–9 points from entry depending on where you enter).
 

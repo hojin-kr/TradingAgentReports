@@ -1,15 +1,15 @@
 # Trader Investment Plan
 
-Summary: Based on the foundation provided and the current near-term signals, the recommended stance is to Hold PLTR today. The long-term story remains intact, but momentum confirmation is lacking right now, so I’m not comfortable initiating or increasing exposure until additional signals confirm.
+Summary: Based on the foundation provided and current near-term signals, the recommended stance is to Hold PLTR today. The long-term story remains intact, but momentum confirmation is lacking; I’m not comfortable initiating or increasing exposure until additional signals confirm.
 
 What this implies right now
 - Stance: Hold (no new buying today). Upgrade to Buy only on a clear momentum breakout with volume support.
 - Why holding makes sense now:
-  - Near-term momentum markers are weak: MACD is negative, RSI around 44, and the price is trading with VWMA above it, indicating volume-led upside hasn’t materialized.
+  - Near-term momentum markers are weak: MACD negative, RSI around 44, and the price is trading with VWMA above it, indicating volume-led upside hasn’t materialized.
   - Price hasn’t reclaimed key levels yet (e.g., 10-EMA around 161) with sustained volume, so risk-reward favors patience.
   - The bull case remains intact over the longer horizon (Foundry expansion, Gotham backlog, governance moat), but those catalysts don’t guarantee a near-term move without confirming momentum.
 - What would flip to Buy (upgrade triggers):
-  - Price closes above and sustains above the 10-EMA (~161) with a close above VWMA (~162) and a clear MACD cross (supported by a second momentum signal) plus RSI trending toward 50–55.
+  - Price closes above and sustains above the 10-EMA (~161), with a close above VWMA (~162), a clear MACD cross (supported by a second momentum signal), and RSI trending toward 50–55.
   - Price holds above VWMA for 2–3 sessions and tests the 165–170 zone with sustained volume.
   - ARR/backlog signals show accelerating demand and margin visibility supporting a fresh upside bias.
 - Action plan if/when upgrade triggers:

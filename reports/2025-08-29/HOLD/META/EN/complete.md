@@ -29,7 +29,7 @@ How I’m weighing the debate and what I’m doing with META now
 Operational plan (basically, what to do now)
 - If you are already long:
   - Risk controls: place a disciplined stop around the dynamic support zone near 751 (or just below 751) with an ATR buffer (approximately 1x–1.5x current ATR, ~15–25 points). Consider a partial hedge with an AI/tech peer (GOOG, MSFT) or a small AI-focused ETF to diversify AI-cycle risk.
-  - Entry/size: do not add aggressively on pullbacks unless momentum signals re-assert (MACD cross up, RSI rising toward 55–60) and price breaks decisively above a resistance with higher-than-average volume.
+  - Entry/size: do not add aggressively on pullbacks unless momentum signals re-assert (MACD cross up, RSI rising toward 55–60) and price breaks decisively above resistance with higher-than-average volume.
 - If you are not long yet:
   - Do not chase. If you want an entry, wait for a confluence of signals:
     - Price pullback toward 735–751 with price stability, RSI moving toward 55–60, MACD crossing up.
@@ -69,7 +69,7 @@ Position guidance
   - Hedge or diversify some exposure to limit downside if near-term catalysts disappoint (e.g., GOOG, MSFT, or an AI-focused ETF).
   - Look to add only on a confirmed momentum restart: a MACD cross up and RSI re-acceleration toward 55–60, together with a decisive breakout above resistance on higher-than-average volume.
 - If you are not yet long:
-  - Do not chase here. Consider entry only on a confluence of signals:
+  - Do not chase. Consider entry only on a confluence of signals:
     - Price pullback toward 735–751 with solid support,
     - Momentum re-acceleration (MACD cross up, RSI climbing toward 55–60),
     - A clear breakout beyond 792.86 with strong volume.
@@ -79,11 +79,11 @@ Monitoring checklist (quick, practical)
 - Is META holding above 50SMA and above 751 with increasing volume?
 - Is MACD turning up and RSI moving toward 55–60?
 - Is there a decisive breakout above 792.86 on meaningful volume?
-- Are there any fresh regulatory or AI governance headlines that could shift risk?
+- Are there any fresh regulatory or AI governance headlines that could shift risk/reward?
 
 Learning from approach (kept in mind)
 - Distinguish momentum blips from trend shifts; confirmation signals matter before adding risk.
-- Separate near-term volatility from the long-term thesis; avoid overreacting to quarterly noise.
+- Separate near-term volatility from the longer-term thesis; avoid overreacting to quarterly noise.
 - Use a scenario-based framework with explicit catalysts to change position posture.
 
 Final decision
@@ -98,7 +98,7 @@ Here’s how I’m weighing the debate and what I’m doing with META now.
 Summary of the key points from both sides
 - Bull analyst (META bulls)
   - Core thesis: META has a durable uptrend underpinned by AI-driven ad efficiency, a multi-year AI infrastructure build, and a broad, high-velocity ecosystem that monetizes more touchpoints with first-party data.
-  - Evidence and catalysts: Q2 2025 ad revenue growth in the low-to-mid 20s, AI-enabled targeting and attribution improving advertiser ROI, sizable AI capex intended to sustain a long-term moat, and a large, engaged user base across Facebook, Instagram, WhatsApp, Messenger, and Quest.
+  - Evidence and catalysts: Q2 2025 ad revenue growth in the low-to-mid-20s, AI-enabled targeting and attribution improving advertiser ROI, sizable AI capex intended to sustain a long-term moat, and a large, engaged user base across Facebook, Instagram, WhatsApp, Messenger, and Quest.
   - Price/technical context: Stock trades well above 200SMA and rising above the 50SMA; momentum indicators show churn-down in the near term but a re-acceleration is plausible on MACD cross and RSI re-acceleration, with good upside risk/reward if price holds key support.
   - Resorts to risk controls: Buy-the-dip posture with clear support around 735–751, and a buy trigger if momentum reasserts and price breaks the near-term resistance with volume.
 - Bear analyst (META bears)
@@ -133,11 +133,12 @@ Strategic Actions
     - Price pullback toward 735–751 with clear price support.
     - Momentum re-acceleration: MACD crosses up, RSI climbs back toward 55–60.
     - A decisive breakout above upper resistance with strong volume, ideally beyond the upper Bollinger band near 792.86.
-  - Entry sizing: if you do get a pullback entry, start small and scale up only on confirmed momentum, not on a single day move. Use ATR-based sizing to ensure the risk per trade remains controlled.
-- Position management and risk controls:
-  - Maintain awareness of regulatory headlines and AI governance updates as potential source of volatility.
-  - Keep exposure modest to moderate; avoid delving into concentrated bets without a strong, confirmatory momentum signal.
-  - Regularly reassess in 4–6 weeks or sooner if regulatory or AI-news catalysts hit, and adjust exposure accordingly.
+  - Entry sizing: if you do get a pullback entry, start small and scale up only on confirmed momentum, with ATR-based risk sizing.
+
+Position management and risk controls
+- Maintain awareness of regulatory headlines and AI governance updates as potential source of volatility.
+- Keep exposure modest to moderate; avoid delving into concentrated bets without a strong, confirmatory momentum signal.
+- Regularly reassess in 4–6 weeks or sooner if regulatory or AI-news catalysts hit, and adjust exposure accordingly.
 - Monitoring checklist (quick, practical):
   - Is META holding above 50SMA and approaching/holding above 751 with volume?
   - Is MACD crossing up with RSI moving toward 55–60?
@@ -150,7 +151,7 @@ Learning from past mistakes (how these insights refine the approach)
 - Scenario-based thinking: I’ll maintain a clear bull/bear/scenario framework and require a defined catalyst before moving from Hold to Buy or from Hold to Sell, ensuring decisions are data-driven rather than sentiment-driven.
 - Governance realism: I’ll factor regulatory and governance risks with proportional weight, recognizing they can be meaningful near-term shocks even if the longer-term fundamentals are solid.
 
-If you’d like, I can deliver a tight, one-page bull/bear snapshot with a crisp Buy/Hold/Sell decision grid, a momentum-trigger checklist for entries, and a practical dialogue script you can use in reviews to push back against bullish arguments with discipline and data.
+If you’d like, I can tailor a scenario-based price target (e.g., base/bull/bear) for META using a simple discount model tied to AI-ad revenue growth, capex trajectory, and regulatory risk, or pull in additional data from EODHD, Finnhub, and current earnings guidance to refine the view.
 
 ## Market Report
 
@@ -287,9 +288,9 @@ Comprehensive macro/trading-focused report on META Platforms (META) – as of 20
 
 Executive snapshot
 - META remains the standout AI-advertising proxy in the current tech and macro narrative. Early-2025 strength in AI-driven ad efficiency and a large-scale AI infrastructure build are translating into stronger top-line ad-revenue growth, even as broader macro headwinds persist.
-- Recent data points suggest Q2 2025 was a renewal of momentum: revenue around $47.5 billion, up roughly 22% year-over-year, with ad revenue delivering a similar growth profile. Market chatter continues to emphasize the AI-enabled ad toolbox as a driver of higher click-throughs, conversions, and pricing power.
+- Recent data points suggest Q2 2025 was a renewal of momentum: revenue around $47.5 billion, up roughly 22% year over year, with ad revenue delivering a similar growth profile. Market chatter emphasizes the AI-enabled ad toolbox as a driver of higher click-throughs, conversions, and pricing power.
 - The stock has drifted higher on AI optimism and solid execution, but remains exposed to several risk factors: regulatory scrutiny in AI governance, potential ad-market shifts, and the capex-intensive path to AI infrastructure (data centers, custom silicon).
-- Near-term catalysts include Nvidia results (tech/AI demand signal), Meta’s ongoing AI tooling/advertising enhancements, and any regulatory updates on AI governance or privacy. The price action in late August shows modest gains on light volume, implying the market is digesting continued optimism but watching for clearer earnings visibility.
+- Near-term catalysts include Nvidia results (AI demand signal), Meta’s ongoing AI tooling/advertising enhancements, and any regulatory updates on AI governance or privacy. The price action in late August shows modest gains on light volume, implying the market is digesting continued optimism but watching for clearer earnings visibility.
 
 Macro backdrop and how META fits
 - AI demand cycle remains a dominant market force. META’s ad stack optimization and AI-powered bidding/targeting are positioned to benefit from a broader AI infrastructure upgrade cycle (chips, data centers, silicon design). Nvidia’s results and AI hardware demand are key macro drivers to watch because they influence marketing spend capacity and advertising efficiency across platforms.
@@ -307,7 +308,7 @@ META fundamentals and recent momentum
 - Stock price action and market positioning:
   - In late August, META rose around 0.5% on the day with roughly $5.6B in average volume, trading in a high-valuation tech narrative. Price levels around mid-to-high $700s reflect a market pricing in durable AI-driven growth, with upside risk tied to AI adoption and regulatory clarity.
 - Regulatory and governance signals:
-  - Several market narratives cite governance and regulatory risk as a potential drag on longer-dated returns. Reports of GDPR-scale risk and AI governance scrutiny (as discussed in some market commentaries) could act as a check on the long-duration AI investment thesis if negative headlines accelerate.
+  - Several market narratives cite governance and regulatory risk as a potential drag on longer-dated returns. Reports of GDPR-scale risk and AI governance scrutiny could act as a check on the long-duration AI investment thesis if negative headlines accelerate.
 
 Key catalysts and risks for the rest of 2025
 - Catalysts to watch:

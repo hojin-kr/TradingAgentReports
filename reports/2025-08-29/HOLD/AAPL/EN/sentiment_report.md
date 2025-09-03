@@ -1,10 +1,10 @@
 # Sentiment Report
 
-Apologies — the news data fetch for AAPL on 2025-08-29 hit a backend error (AttributeError in the OpenAI news wrapper). I’m unable to retrieve the latest company news right now. I can proceed in a couple of ways:
+Apologies — the news data fetch for AAPL on 2025-08-29 hit a backend error (AttributeError in the OpenAI news wrapper). I’m currently unable to retrieve the latest company news. I can proceed in a couple of ways:
 
 - Retry now: I can attempt the news fetch again immediately.
 - Retry after a short wait: I can retry in a few minutes to give the API time to recover.
-- Use alternative sources: I can pull from other public news feeds or press releases if you’d like (e.g., investor relations releases, major media outlets, or social media sentiment summaries from other services). 
+- Use alternative sources: I can pull from other public news feeds or press releases if you’d like (e.g., investor relations releases, major media outlets, or social media sentiment summaries from other services).
 - Proceed with methodology only: I can outline the full analysis framework and data points I will collect once I have the data, then run the analysis as soon as the news feed is working.
 
 Please tell me which option you prefer. If you want me to proceed with the framework now, I can deliver a detailed long-report template (without live data) so you’ll have a ready-to-fill structure as soon as the feed comes back.

@@ -1,11 +1,11 @@
 # Trader Investment Plan
 
-Based on the proposed AMD plan and current technical setup, the next trading decision is to HOLD AMD.
+Based on the proposed AMD plan and the current technical setup, the next trading decision is to hold AMD.
 
 Rationale
-- Near-term setup: AMD is capped around the 170–175 resistance with recent price action showing a lack of decisive follow-through. Momentum indicators are shy of confirming a breakdown or breakout (MACD negative histogram, RSI ~46), which aligns with the hold stance.
-- Longer-term thesis intact: Bull case remains plausible on AI/data-center growth, platform breadth, and upcoming cadence milestones (RDNA4/Zen6, ROCm ecosystem). However, immediate catalysts aren’t delivering a clear-trigger move yet.
-- Risk/reward balance: Chasing the breakout absent a clean high-volume signal risks a pullback into the 159–165 area or a deeper correction if macro/AI capex cycles wobble. Waiting for a definitive technical trigger preserves optionality.
+- Near-term setup: AMD is capped around the 170–175 resistance, with recent price action showing a lack of decisive follow-through. Momentum indicators are not confirming a breakout or breakdown (MACD histogram negative, RSI around 46), which aligns with the hold stance.
+- Longer-term thesis intact: The bull case remains plausible on AI/data-center growth, platform breadth, and cadence milestones (RDNA4/Zen6, ROCm ecosystem). However, immediate catalysts aren’t delivering a clear-trigger move yet.
+- Risk/reward balance: Chasing a breakout without a clean high-volume signal risks a pullback into the 159–165 area or a deeper correction if macro/AI capex cycles wobble. Waiting for a definitive technical trigger preserves optionality.
 
 Actionable plan
 - If you’re currently long, maintain exposure but avoid adding into this resistance zone without a confirmed breakout.

@@ -163,7 +163,7 @@ Investment plan for the trader
 
 3) Strategic Actions (concrete steps)
 - Monitoring triggers to upgrade to Buy:
-  - Price reclaims and closes above the 10-EMA (~161) with a clear close above VWMA (~162). This would indicate renewed price-musion with volume support.
+  - Price reclaims and closes above the 10-EMA (~161) with a clear close above VWMA (~162). This would indicate renewed price-movement with volume support.
   - MACD shows a constructive cross (ideally corroborated by a second momentum source, given the data-feed caveats) and RSI trending toward 50–55.
   - Price holds above VWMA on a daily close for at least 2–3 sessions; a follow-on test of the 165–170 zone with volume would further validate upside.
 - Entry approach (if/when upgrade triggers occur):
@@ -171,7 +171,7 @@ Investment plan for the trader
 - Risk controls (critical for a Hold-to-Buy plan):
   - Position sizing: cap new exposure to a modest percentage of portfolio (e.g., 2–3% initial, with scale-in only on confirmation).
   - Stops: use ATR-based stops around 1.5–2x ATR to accommodate normal swings (current ATR around 7.5; stop ~10–15 points). Consider a mental stop around 150–152 if price breaks below major supports with high volume.
-  - Profit-taking/exit path: if price reaches 165–170 but momentum falters (MACD not confirming, RSI stalling, or VWMA once again failing to align), trim or tighten stops to protect gains.
+  - Profit-taking/exit path: if price reaches 165–170 but momentum falters (MACD not confirming, RSI weakening, or VWMA once again failing to align), trim or tighten stops to protect gains.
 - Position management:
   - For the interim, keep exposure modest and focus on building conviction via cross-checks: ARR growth signals, Foundry cross-sell cadence, and Gotham backlog quality.
   - Maintain liquidity and a bias toward confirmation rather than chasing a quick tilt to Buy.
@@ -232,7 +232,7 @@ Nuanced trend interpretation and context
   - Near-term pullback or consolidation risk: The price sits near the 50SMA and just below the 10-EMA, with the RSI in the mid-40s. This points to a potential pause or shallow pullback rather than a fresh downtrend.
 
 - Momentum dynamics:
-  - MACD is negative on the latest reading, signaling softer near-term momentum. However, macd values in the recent history show waning momentum followed by spikes in other periods; the current reading should be treated with caution given the potential data misalignment discussed below.
+  - MACD is negative on the latest reading, signaling softer near-term momentum. However, MACD values in the recent history show waning momentum followed by spikes in other periods; the current reading should be treated with caution given the potential data misalignment discussed below.
   - RSI near 44 suggests neutral momentum rather than an imminent reversal, which aligns with a stall phase in a broader uptrend.
 
 - Volume and volatility context:
@@ -382,7 +382,7 @@ Global macro backdrop relevant to Palantir
 Palantir-specific developments to watch (as of Aug 2025)
 - Government/contracts trajectory
   - Backlog and new awards: Palantir’s Gotham platform continues to win in defense/intelligence and homeland security segments. Watch for announcements of multi-year awards, renewal rates, and expansion within existing programs (e.g., next-gen data integration for sensitive operations).
-  - Commercial vs. government mix: The commercial segment remains higher-velocity but lower-margin relative to government. Growth here is critical to diversification and margin resilience. Indicators to watch: net-new logo velocity, annual recurring revenue (ARR) growth in Foundry, and cross-sell rates into existing government customers.
+  - Commercial vs. government mix: The commercial segment remains higher-velocity but lower-margin relative to government. Growth here is critical to diversification and margin resilience. Indicators to watch: net-new logo velocity, ARR growth in Foundry, and cross-sell rates into existing government customers.
 - Foundry adoption in the commercial sector
   - Vertical rollout: Sectors likely to drive growth include financial services, manufacturing, energy, and healthcare. Look for case-study releases detailing time-to-value, data integration depth, and efficiency gains (e.g., decision cycle reduction, cost savings).
   - Product roadmap: Enhancements in governance, data lineage, security, and AI-assisted analytics will be crucial to enterprise buyers concerned with risk and regulatory compliance.

@@ -1,6 +1,6 @@
 # Investment Plan
 
-Here’s my take on this round of debate and a concrete plan you can use in practice.
+Here is my take on this round of debate and a concrete plan you can use in practice.
 
 Summary of the key points from both sides
 - Bull case (GOOGL): Alphabet has a multi-legged growth engine beyond ads—AI (Gemini), cloud monetization (enterprise AI, Meta deal), cross-platform potential (Gemini/Siri across devices), and device ecosystem advantages (Pixel, YouTube). These create durable revenue growth and margin leverage. Technically, the setup is constructive: price ~211.6, well above 50SMA (190.2) and 200SMA (178.2); MACD positive (5.53 vs signal 5.16); RSI ~74; ATR ~4.4; Bollinger upper around 202.7. The bear acknowledges risk but argues the upside is real if AI/cloud monetization scales and regulatory risk remains manageable.
@@ -12,7 +12,7 @@ Hold. The strongest near-term argument against a fresh, full-sized long entry is
 Investment plan for the trader
 
 Recommendation
-Hold GOOGL now, with a disciplined plan to scale in only on disciplined pullbacks and confirmed strength, and with hedges or limited downside exposure if you need protection.
+Hold GOOGL now, with a disciplined plan to scale in only on pullbacks and confirmed strength, and with hedges or limited downside exposure if protection is required.
 
 Rationale (why this conclusion follows from the debate)
 - The bull case is compelling over multi-quarter horizons, driven by AI/cloud monetization and cross-platform synergies. But those catalysts are not guaranteed to materialize quickly or smoothly, and the bear risks—valuation compression, regulatory shocks, ad-cycle sensitivity, and competitive pressure—could materialize faster than the bullish thesis improves earnings visibility.

@@ -1,11 +1,11 @@
 # News Report
 
-Here is a comprehensive, trader-focused synthesis of the world and Apple–specific signals for the week ending 2025-08-29. Note: one of the parallel news fetches encountered a technical hiccup, but the bulk of the macro and Apple-specific signals are still actionable and summarized below.
+Trader-focused synthesis of global and Apple–specific signals for the week ending 2025-08-29. Note: one parallel news fetch encountered a technical hiccup; the bulk of the macro and Apple-specific signals remain actionable and are summarized below.
 
 Executive snapshot
-- Global macro backdrop: US growth momentum remains resilient into late August, with even a slight upgrade to Q2 GDP in the narrative. Markets are positioned for further US monetary accommodation if inflation signals soften, but a shift in expectations remains highly data-dependent ahead of the next inflation prints and payrolls data.
-- US policy path: The prevailing view in the signal set is skewed toward rate cuts later in 2025, with at least some forecasters and analysts (UBS commentary and related coverage) signaling a likelihood of Fed easing in September or soon after, contingent on inflation trajectories and labor market resilience.
-- Tech capital expenditure and AI spending: The macro narrative continues to elevate tech capex and AI infrastructure as a meaningful driver of domestic demand and productivity. This supports tech equities with high-growth potential, though valuations and policy risk remain a counterweight.
+- Global macro backdrop: US growth momentum remains resilient into late August, with a modest upgrade to Q2 GDP in the narrative. Markets are pricing further US monetary accommodation if inflation signals soften, but a shift in expectations remains highly data-dependent ahead of the next inflation prints and payrolls data.
+- US policy path: The prevailing view in the signal set is skewed toward rate cuts later in 2025, with some forecasters (UBS commentary and related coverage) signaling a likelihood of Fed easing in September or soon after, contingent on inflation trajectories and labor market resilience.
+- Tech capex and AI spending: The macro narrative continues to elevate tech capex and AI infrastructure as meaningful drivers of domestic demand and productivity. This supports tech equities with high-growth potential, though valuations and policy risk remain a counterweight.
 - Apple (AAPL) specifics: Apple remains a focal point for investor attention due to upcoming product cycles, AI-related partnerships, and policy/regulatory risk considerations. The iPhone 17 launch window and potential Gemini-powered AI enhancements for Siri are key catalysts, with a recent tilt toward optimism on tariff risk and AI partnerships, even as some traders watch for “sell the news” dynamics around big product events.
 
 Macro/macro-linked signals (highlights from the latest news stream)
@@ -13,7 +13,7 @@ Macro/macro-linked signals (highlights from the latest news stream)
   - US Q2 GDP was revised higher, around 3.3% annualized, underscoring domestic demand resilience. This keeps the US growth trajectory healthy despite elevated macro headwinds and tariff chatter in earlier months.
   - The narrative around the Fed’s path remains data-dependent. Several market observers and firms suggest a plausible path to rate cuts, particularly if inflation cools alongside a steady labor market.
   - Inflation data releases remain a critical risk dial. Markets are positioned for inflation prints that could either reinforce a later-September/early-Q4 cut path or push the timing out if price pressures re-accelerate.
-  - Global macro and cross-asset signals: Some coverage notes that a broad tech and AI investment wave is lifting real economic activity indicators (and some macro feeds now on-chain or blockchain-linked data experiments), though this is still a developing and contested area.
+  - Global macro and cross-asset signals: Some coverage notes that a broad tech and AI investment wave is lifting real-economy activity indicators (and some macro feeds now on-chain or blockchain-linked data experiments), though this is still a developing and contested area.
 
 - US macro data and market response
   - A broad set of signals points to a US economy that can deliver solid growth into the back half of 2025, with equities flirting with all-time highs in a risk-on backdrop, but with caution warranted until CPI and payrolls confirm a durable trend.
@@ -24,7 +24,7 @@ Macro/macro-linked signals (highlights from the latest news stream)
 
 Apple-specific signals and trading-context (AAPL)
 - Product and event catalysts
-  - Apple’s iPhone 17 launch event is commanded for September 9, 2025. Historically, “sell the news” dynamics can occur around major launch events, but the long-term demand signal may be positive if the new lineup meaningfully raises revenue through upgrades and services.
+  - Apple’s iPhone 17 launch event is scheduled for September 9, 2025. Historically, “sell the news” dynamics can occur around major launch events, but the long-term demand signal may be positive if the new lineup meaningfully raises revenue through upgrades and services.
   - There is chatter around potential integration of Google’s Gemini AI model into Siri, signaling strategic AI-adjacent product enhancements. Such partnerships could influence user engagement and services margins if successful.
 
 - Tariffs and policy risk
@@ -35,7 +35,7 @@ Apple-specific signals and trading-context (AAPL)
 
 - Market actions and positioning
   - Trading volumes around AAPL have been elevated, with multiple reports noting large one-day turnover and notable intraday moves. This often implies responsive positioning around headlines (launch timing, supplier / tariff signals, or partner news).
-  - Some coverage notes institutional activity in AAPL, including incremental changes to hedge/bullish exposure. This can imply capitalization of the post-earnings or product-cycle optimism, but also warrants watching for reversals if upcoming news disappoints.
+  - Some coverage notes institutional activity in AAPL, including incremental changes to hedge/bullish exposure. This can imply capitalization on the post-earnings or product-cycle optimism, but also warrants watching for reversals if upcoming news disappoints.
 
 - Risks specific to AAPL
   - iPhone-cycle risk: If September launch fails to meet expectations or if early feedback is lukewarm, risk-off sentiment could pressure the stock, at least in the near term.
@@ -71,7 +71,7 @@ Appendix: Key points table
 | On-chain / alternative data signals | Blockchains broadcasting macro data; broader AI spending signals | Indirect macro support; sentiment and correlation signals for risk assets | Medium term | Data reliability and interpretation risk; regulatory implications |
 
 Notes on data quality
-- One of the parallel news fetches did not return clean content due to a tool error, but a substantial set of macro and Apple-focused signals were captured from the Google News streams and macro summaries. The synthesis above reflects the most actionable, corroborated signals across sources.
+- One parallel news fetch did not return clean content due to a tool error, but a substantial set of macro and Apple-focused signals was captured from the Google News streams and macro summaries. The synthesis above reflects the most actionable, corroborated signals across sources.
 
 If you want, I can:
 - Narrow the focus to a specific headline risk (e.g., iPhone 17 expectations vs. a potential sell-the-news dynamic).

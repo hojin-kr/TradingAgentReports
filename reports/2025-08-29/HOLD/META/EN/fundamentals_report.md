@@ -1,6 +1,6 @@
 # Fundamentals Report
 
-Thanks for the prompt. I’m running into a technical issue with the fundamentals tool (get_fundamentals_openai) when trying to fetch META data for 2025-08-29. The tool is returning an internal error (AttributeError related to a web-search response object), so I can’t pull the latest numbers right now.
+Thanks for the prompt. I’m encountering a technical issue with the fundamentals tool (get_fundamentals_openai) when attempting to fetch META data for 2025-08-29. The tool returns an internal error (AttributeError related to a web-search response object), so I can’t pull the latest numbers at this time.
 
 Here are two practical paths forward. Choose the one you prefer, and I’ll proceed accordingly:
 
@@ -11,7 +11,7 @@ Option A — Retry once the tool is healthy
 Option B — Manual, high-quality fundamentals snapshot (no tool required)
 - I’ll deliver a structured, trader-focused META fundamentals report based on publicly available information up to mid-2024 (and the general business context for 2025), clearly labeling data that is post-cutoff as unavailable or estimated.
 - I’ll include a detailed qualitative assessment of drivers (advertising market, AI initiatives, platform ecosystem, data monetization, regulatory risks) and a conservative set of metrics (e.g., latest reported revenue, margins, cash flow signals, debt, buyback activity) with explicit caveats.
-- I’ll still end with a Markdown table that outlines the key points, but numbers may be placeholder or ranges if up-to-date figures aren’t retrieved.
+- I’ll still end with a Markdown table that outlines the key points, but numbers may be placeholders or ranges if up-to-date figures aren’t retrieved.
 
 If you want the most current numbers (Option A), I’ll retry as soon as the tool is available again. If you’re okay with a robust, well-sourced snapshot that’s not dependent on the latest weekly fetch (Option B), I can deliver that right away.
 

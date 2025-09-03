@@ -3,8 +3,8 @@
 Recommendation: HOLD META now.
 
 Rationale (why this stance aligns with the plan and current setup)
-- Near-term momentum: RSI around 46 and a fading MACD suggest the uptrend is pausing rather than accelerating. Price sits above key trend lines but has not demonstrated a decisive breakout on strong volume.
-- Key levels to watch: Support zone around 735–751 provides a cushion if downside pressure resumes. A robust, volume-confirmed breakout above ~792.86 would be the clear catalyst for re-establishing upside momentum.
+- Near-term momentum: RSI near 46 and a fading MACD suggest the uptrend is pausing rather than accelerating. Price sits above key trend lines but has not demonstrated a decisive breakout on strong volume.
+- Key levels to watch: Support around 735–751 provides a cushion if downside pressure resumes. A robust, volume-confirmed breakout above approximately 792.86 would be the clear catalyst for re-establishing upside momentum.
 - Long-term thesis intact: AI-driven monetization, a large first-party data flywheel, and a broad ecosystem support a durable longer-term narrative. The near-term AI capex, regulatory considerations, and ad-market sensitivity keep the risk/reward balanced in the meantime.
 - Valuation and risk: The stock is not a clear cheap buy given capital intensity and potential near-term earnings volatility if AI ROI lags or macro/regulatory headwinds worsen. Hence, chasing here is not prudent.
 

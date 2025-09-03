@@ -1,10 +1,10 @@
 # Fundamentals Report
 
-I’m ready to proceed, but I need a couple of clarifications to fetch exactly what you want.
+I’m ready to proceed, but I need a few clarifications to fetch exactly what you want.
 
 Please confirm the following (or provide the specifics if different):
 - Date range: July 1, 2025 through August 29, 2025 inclusive (2025-07-01 to 2025-08-29). Is that correct?
-- Source URL: What is the exact URL or name of the “Fundamental” site you want me to search? If you don’t have a URL, I can proceed with a clearly defined default (e.g., a widely used fundamentals source) but I’ll need to know which one you prefer.
+- Source URL: What is the exact URL or name of the “Fundamental” site you want me to search? If you don’t have a URL, I can proceed with a clearly defined default (e.g., a widely used fundamentals source), but I’ll need to know which one you prefer.
 - What constitutes a “discussion” entry: Should I pull data only from posts/articles that discuss GOOGL/Alphabet, or include all discussions mentioning the ticker within that period?
 - Metrics to include: Your proposed set (as a practical default) is:
   - P/E (TTM)

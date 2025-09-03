@@ -1,6 +1,6 @@
 # Fundamentals Report
 
-Thanks for the update. I hit an internal error trying to fetch the data, and I don’t want to guesswork the source or the exact metrics you want.
+Thanks for the update. I encountered an internal error fetching the data and don’t want to guess the source or the exact metrics you want.
 
 To move forward efficiently, please confirm a few details. If you’d like, I can also proceed with a reasonable default setup:
 
@@ -15,7 +15,7 @@ Clarifications (please confirm)
   - Others: Dividend Yield, Cash & Equivalents, Total Debt
   - Currency: Typically USD
 - Granularity/format:
-  - One row per data point (e.g., each post/date) or one row per date with all metrics?
+  - One row per data point (e.g., each ticker/date) or one row per date with all metrics?
   - Output: plain text table or CSV/Excel-friendly format?
 - Insider data: Do you want insider sentiment and insider transactions included? If yes, should I pull:
   - Insider transactions (SEC Form 4 filings) and summarized sentiment, or

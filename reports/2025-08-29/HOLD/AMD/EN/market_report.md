@@ -1,6 +1,6 @@
 # Market Report
 
-Here is a focused, multi-indicator review for AMD as of 2025-08-29, using a complementary set of up to 8 indicators. I’ve selected indicators to give you a well-rounded view: trend, momentum, volatility, and volume context, with no redundant overlaps.
+Here is a focused, multi-indicator review for AMD as of 2025-08-29, using a complementary set of up to eight indicators to provide a well-rounded view: trend, momentum, volatility, and volume context, with no redundant overlaps.
 
 Indicators used (latest values on 2025-08-29)
 - close_200_sma: 125.3375
@@ -15,15 +15,15 @@ Indicators used (latest values on 2025-08-29)
 Analysis and insights
 
 1) Trend direction and strength (long-, mid-, and short-term)
-- Long-term trend (200 SMA): The price remains well above the 200 SMA (price around 170s to 180s vs 125 SMA). This suggests a strong bullish canvas and favorable longer-term context.
-- Medium-term trend (50 SMA): The price sits above the 50 SMA (50SMA ~159.15). This supports a constructive intermediate-term trend and helps confirm that recent price action is not just a short-lived spike.
+- Long-term trend (200 SMA): The price remains well above the 200 SMA (price around the 170s–180s versus 125 SMA). This suggests a strong bullish canvas and favorable longer-term context.
+- Medium-term trend (50 SMA): The price sits above the 50 SMA (50SMA ~159.15). This supports a constructive intermediate-term trend and helps confirm that recent price action is not merely a short-lived spike.
 - Short-term momentum (10 EMA): The price is above the 10 EMA (~167.33), indicating near-term upside momentum and a willingness of the price to stay above a responsive short-term baseline.
-- Interpretation: The alignment of price above 200 SMA, 50 SMA, and 10 EMA points to an overarching bullish regime, with room to ride the trend as long as the key moving averages remain supportive and price doesn’t close back below them.
+- Interpretation: The alignment of price above the 200 SMA, 50 SMA, and 10 EMA points to an overarching bullish regime, with room to ride the trend as long as the key moving averages remain supportive and the price doesn’t close back below them.
 
 2) Momentum signals
-- MACD (1.31) is positive, indicating net bullish momentum, but note that the MACD line value is markedly lower than the MACD signal (macds ~3.38). The MACD histogram is negative (-2.07), which suggests momentum has cooled relative to recent highs and may be signaling a near-term slowdown or consolidation.
+- MACD (1.31) is positive, indicating net bullish momentum, but note that the MACD line value is markedly lower than the MACD signal (macds ~3.38). The MACD histogram is negative (-2.07), which suggests momentum has cooled relative to recent highs and may signal near-term slowdown or consolidation.
 - RSI (46.3) sits in a neutral zone, not signaling overbought conditions. This offers room for the price to move higher without immediate RSI-driven reversal risk, but it also means there’s no current RSI-based contrarian alert.
-- Interpretation: While the price context is bullish, the diverging MACD readings hint at a potential pause or pullback risk in the near term if momentum continues to fade. The neutral RSI supports and aligns with a consolidation scenario rather than an aggressive breakout.
+- Interpretation: While the price context is bullish, the diverging MACD readings hint at a potential pause or pullback risk in the near term if momentum continues to fade. The neutral RSI supports a consolidation scenario rather than an aggressive breakout.
 
 3) Volatility and risk management (how much price action to expect)
 - ATR (6.59) shows elevated but not extreme volatility for AMD in this window. This is useful for setting dynamic stops and position sizing; a typical stop could be a multiple of ATR below the current price to accommodate normal volatility without being prematurely stopped out.
@@ -40,8 +40,8 @@ Analysis and insights
 - Trade management takeaway: If you’re already long, you can consider maintaining the position with a trailing stop based on ATR and the 50/200 SMA levels as guardrails. Watch for a break back below the 50 SMA (159) or a sustained MACD crossover where the MACD line crosses above its signal (a potential bullish cue) for an entry/scale-in signal in a continuation scenario. A clean break above recent resistance zones (e.g., previous swing highs near 190–195) with MACD confirming momentum could re-accelerate upside.
 
 6) Potential scenarios
-- Bullish continuation scenario: Price keeps trading above 50 SMA and 200 SMA with MACD turning up toward a bullish cross (MACD line crosses above MACD signal) and RSI rising above 50. VWMA-supported volume would reinforce the move. Stop could be placed below the ATR-based trail (e.g., a multiple of ATR beneath the current price) to protect profits.
-- Consolidation/near-term pullback scenario: Momentum fades (MACD remains below or near MACD signal, negative histogram persists) and price pulls toward the 50 SMA or VWMA, while RSI remains around 40-50. In this case, wait for a breakout with MACD confirmation or a test of VWMA as a bounce point before adding or adding aggressively.
+- Bullish continuation scenario: Price keeps trading above the 50 SMA and 200 SMA with the MACD turning up toward a bullish cross (MACD line crosses above the MACD signal) and the RSI rising above 50. VWMA-supported volume would reinforce the move. Stop could be placed below the ATR-based trail (e.g., a multiple of ATR beneath the current price) to protect profits.
+- Consolidation/near-term pullback scenario: Momentum fades (MACD remains below or near the MACD signal, negative histogram persists) and price pulls toward the 50 SMA or VWMA, while RSI remains around 40–50. In this case, wait for a breakout with MACD confirmation or a test of VWMA as a bounce point before adding or increasing exposure.
 
 8-indicator snapshot recap (for quick reference)
 - Trend: Price well above 200 SMA and 50 SMA; price above 10 EMA.
@@ -50,18 +50,18 @@ Analysis and insights
 - Volume: VWMA supportive; volume-backed rally appears credible.
 
 Actionable quick take
-- If you’re holding AMD: Consider a disciplined trailing stop using ATR and keep an eye on MACD for a potential bullish cross. A break above resistance toward 190–195, accompanied by MACD bullish cross and RSI rising, would be a signal to consider adding or increasing exposure.
+- If you’re holding AMD: Consider a disciplined trailing stop using ATR and monitor for a potential bullish MACD cross. A break above resistance toward 190–195, accompanied by a MACD bullish cross and a rising RSI, would be a signal to consider adding or increasing exposure.
 - If you’re looking to enter: Wait for a clear MACD bullish cross and a pullback to or bounce from VWMA/50 SMA with bullish price action, to ensure momentum alignment with the uptrend.
 
 Key points at a glance (table)
 
 - Indicator: close_200_sma
   - Current value: 125.3375
-  - Insight: Price above long-term trend; bullish backdrop
+  - Insight: Price above the long-term trend; bullish backdrop
 
 - Indicator: close_50_sma
   - Current value: 159.1452
-  - Insight: Price above mid-term trend; supportive of ongoing uptrend
+  - Insight: Price above the mid-term trend; supportive of ongoing uptrend
 
 - Indicator: close_10_ema
   - Current value: 167.3285

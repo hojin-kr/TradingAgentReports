@@ -1,10 +1,10 @@
 # News Report
 
-Here’s a comprehensive, trader-focused briefing on the current macro landscape and the specific state of TSLA as of 2025-08-29. Note: I attempted to pull in EODHD/Finnhub coverage but encountered rate-limits on live tool queries. The synthesis below combines recent macro themes with the Tesla-specific narrative that has been circulating across major outlets (robotaxi/FSD progress, European demand headwinds, competition from BYD, and regulatory/legal headlines). Where possible, I’ve anchored to concrete headlines that appeared in Google News-style sweeps and common macro drivers.
+Here’s a comprehensive, trader-focused briefing on the current macro landscape and the specific state of TSLA as of 2025-08-29. Note: I attempted to pull in EODHD/Finnhub coverage but encountered rate limits on live tool queries. The synthesis below combines recent macro themes with the Tesla-specific narrative that has been circulating across major outlets (robotaxi/FSD progress, European demand headwinds, competition from BYD, and regulatory/legal headlines). Where possible, I’ve anchored to concrete headlines that appeared in Google News-style sweeps and common macro drivers.
 
 1) Global macro backdrop (high-level trend signals that drive equity and EV/tech cyclicals)
 - Inflation and policy expectations: Markets have been parsing inflation deceleration signals and the potential for central banks (Fed, ECB) to begin or accelerate rate cuts later in 2025. A shift toward more accommodative policy tends to support risk-on flows and amplify high-growth names with durable long-duration growth like autonomous driving and AI-enabled tech.
-- Dollar and financial conditions: If rate-cut expectations firm up, USD strength can ease, which is generally favorable for multi-national tech/auto names exposed to foreign exchange and global demand (including EVs in Europe/Asia).
+- Dollar and financial conditions: If rate-cut expectations firm up, USD strength may ease, which is generally favorable for multi-national tech/auto names exposed to foreign exchange and global demand (including EVs in Europe/Asia).
 - Growth signals: PMIs and macro trackers have shown a mixed to modestly improving backdrop in many regions, which supports a cautious risk-on stance rather than a full-blown macro rally. Within auto/tech, a lot rides on EV demand trajectories in Europe and China, plus supply chain resilience (semiconductors, battery metals).
 - Commodities and energy: Battery metals (lithium, cobalt, nickel) and energy prices influence EV cost curves and margins. A tighter supply environment or stronger EV demand can push battery-material prices higher, pressuring margins for high-volume OEMs if not offset by pricing power.
 
@@ -20,10 +20,10 @@ Key themes circulating in the past week:
 - Near-term triggers to watch:
   - Federal Reserve/ECB communications and any concrete rate-cut signals. A clearer path to easing can give a short-term lift to growth equities, including TSLA, especially if there’s accompanying optimism around consumer demand and capex cycles.
   - Tesla-specific updates: robotaxi rollout progress, FSD milestones, regulatory approvals, and updates on European pricing/margin impact. Any concrete progress (geofence expansions, safety approvals, or partnerships) would be positive for TSLA sentiment.
-  - EU regulatory/regulatory cost shifts: Any changes to EV incentives, import rules, or tariffs in Europe that could affect Tesla’s competitive position vs BYD and domestic brands.
+  - EU regulatory changes: Any changes to EV incentives, import rules, or tariffs in Europe that could affect Tesla’s competitive position vs BYD and domestic brands.
   - China demand signals: China remains a critical margin and volume country for Tesla. Any data on demand, local production ramp, or new model introductions will matter for 2025–2026 trajectory.
 - If you’re considering positioning:
-  - Base case (balanced): Favor a nuanced stance in TSLA—credit the robotaxi/FSD narrative but remain mindful of Europe competitive pressure and potential near-term margin compression. A mild long bias with risk controls around macro kicks (rate cuts, dollar moves) could work.
+  - Base case (balanced): Favor a nuanced stance in TSLA—credit the robotaxi/FSD narrative but remain mindful of Europe competitive pressure and potential near-term margin compression. A mild long bias with risk controls around macro catalysts (rate cuts, dollar moves) could work.
   - Bull case: If robotaxi deployment scales meaningfully and FSD progress translates into safety/operational milestones, plus a favorable macro backdrop with rate cuts, TSLA could see outsized upside relative to EV peers.
   - Bear case: Prolonged European demand weakness coupled with sustained margin compression and regulatory hurdles in key markets could cap gains or cause drawdowns, especially if macro risk-on conditions fade.
 - Hedging ideas (if you’re trading TSLA specifically):
