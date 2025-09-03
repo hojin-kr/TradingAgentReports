@@ -10,7 +10,7 @@ DEFAULT_CONFIG = {
     ),
     # LLM settings
     "llm_provider": "openai",
-    "deep_think_llm": "gpt-5",
+    "deep_think_llm": "gpt-5-mini",
     "quick_think_llm": "gpt-5-mini",
     "backend_url": "https://api.openai.com/v1",
     # Debate and discussion settings
