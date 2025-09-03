@@ -10,13 +10,13 @@ DEFAULT_CONFIG = {
     ),
     # LLM settings
     "llm_provider": "openai",
-    "deep_think_llm": "gpt-5-nano",
-    "quick_think_llm": "gpt-5-nano",
+    "deep_think_llm": "gpt-5",
+    "quick_think_llm": "gpt-5-mini",
     "backend_url": "https://api.openai.com/v1",
     # Debate and discussion settings
     "max_debate_rounds": 1,
     "max_risk_discuss_rounds": 1,
-    "max_recur_limit": 100,
+    "max_recur_limit": 10,
     # Tool settings
     "online_tools": True,
 }
