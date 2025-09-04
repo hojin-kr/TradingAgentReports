@@ -29,28 +29,28 @@ Snapshot — latest reference values (2025-09-03)
 Detailed, nuanced analysis and trading-relevant observations
 
 1) Trend posture — short / medium / long
-- Short-term: price is slightly below the 10 EMA (price 334.09 vs 10 EMA 336.61). That indicates a mild short-term pullback or consolidation; the 10 EMA and VWMA sit a few points above price, offering immediate resistance.
-- Medium-term: price is above the 50 SMA (323.65). The 50 SMA has been rising steadily over the past months (from the mid‑200s in spring to low‑300s now), signaling a constructive medium-term regime.
-- Long-term: price is also above the 200 SMA (329.97), and the 200 SMA has been trending upward (it rose from ~290–300 area into the low‑330s over the period shown). That confirms an improving long-term trend.
-- Important nuance: the 50 SMA remains below the 200 SMA (50 ≈ 323.65 < 200 ≈ 329.97). That means the medium-term average has not yet crossed above the long-term average — i.e., we have a bullish price position (price > both SMAs) while the moving-average structure is still in the “50 under 200” configuration. The averages are rising and converging; a golden‑cross (50 > 200) would further validate a structural bullish shift if it occurs.
+- Short-term: price is slightly below the 10 EMA (price 334.09 vs 10 EMA 336.61). This indicates a mild short-term pullback or consolidation; the 10 EMA and VWMA sit a few points above price and act as immediate resistance.
+- Medium-term: price is above the 50 SMA (323.65). The 50 SMA has been rising steadily over the past months (from the mid‑200s in spring to the low‑300s now), signaling a constructive medium-term regime.
+- Long-term: price is also above the 200 SMA (329.97), and the 200 SMA has been trending upward (it rose from ~290–300 into the low‑330s over the period shown). That confirms an improving long-term trend.
+- Important nuance: the 50 SMA remains below the 200 SMA (50 ≈ 323.65 < 200 ≈ 329.97). So while price sits above both SMAs (structurally bullish), the moving-average structure is still in the “50 under 200” configuration. The averages are rising and converging; a golden‑cross (50 > 200) would further validate a structural bullish shift if it occurs.
 
-Interpretation: structurally bullish (price above both SMAs and both SMAs trending higher), but short-term momentum shows a mild weakening / pullback (price < 10 EMA and < VWMA).
+Interpretation: structurally bullish (price above both SMAs and both SMAs trending higher), but short-term momentum shows mild weakening / pullback (price < 10 EMA and < VWMA).
 
 2) Momentum picture (MACD, MACD histogram, RSI)
 - MACD positive (4.27) shows the faster EMA remains above the slower EMA — underlying momentum is still tilted to the upside.
 - MACD histogram is negative (-0.67), and recent histogram values moved from positive to negative in the last session(s). That is an early sign of momentum loss: the MACD line is converging toward and has crossed below its signal line, or is very close to doing so — classically a warning that the short-term bullish impulse is decelerating.
-- RSI is neutral ~51.5 — no overbought/oversold extremes. Neutral RSI means there is room for either continuation of the rally (if momentum re-accelerates) or a deeper pullback (if momentum further softens).
-- Combined nuance: MACD line positive but MACD histogram turning negative + RSI neutral = still bullish on the baseline but with a clear short‑term loss of bullish acceleration. That pattern often precedes a short consolidation or a 1–2 ATR pullback before trend continuation, unless supports fail.
+- RSI is neutral (~51.5) — no overbought/oversold extremes. Neutral RSI means there is room for either continuation of the rally (if momentum re-accelerates) or a deeper pullback (if momentum further softens).
+- Combined nuance: MACD > 0 but MACD histogram turning negative, plus neutral RSI = still bullish on the baseline but with a clear short‑term loss of bullish acceleration. That pattern often precedes a short consolidation or a 1–2 ATR pullback before trend continuation, unless supports fail.
 
 3) Volume-weighted confirmation (VWMA)
-- VWMA (≈336.35) sits above the current price and is essentially aligned with the 10 EMA. VWMA > price suggests the volume-weighted average traded price is higher than now — recent higher-volume trading has priced in higher levels. That is consistent with short-term distribution/high-volume selling around those higher prices and supports the interpretation that the rally’s short-term velocity cooled and heavier volume accompanied higher levels (a possible warning sign).
+- VWMA (≈336.35) sits above the current price and is essentially aligned with the 10 EMA. VWMA > price suggests the volume-weighted average traded price is higher than now — recent higher-volume trading has priced in higher levels. That aligns with short-term distribution / higher-volume selling around those prices and supports the view that the rally’s short-term velocity cooled while heavier volume accompanied higher levels.
 - If price moves above the VWMA + 10 EMA on strong volume, that would confirm a renewed short-term bullish thrust; if price continues to drift below VWMA while volume remains elevated on down days, that warns of a deeper pullback.
 
 4) Volatility and risk sizing (ATR)
-- ATR ≈ 12.42 means typical daily true-range is ~$12.4. Use ATR multiples to set stops and position size:
+- ATR ≈ 12.42 means typical daily true range is ~$12.4. Use ATR multiples to set stops and position size:
   - A tight intraday stop might be 1× ATR (~$12) from entry.
-  - A swing stop for trend traders might be 1.5–2× ATR (~$18–25) below a key support level (more below).
-- Example: with price 334, an initial stop ≈ 334 − 1.5×ATR ≈ 334 − 18.6 ≈ 315 (a tighter swing). If you prefer to anchor to moving averages: the 200 SMA ≈ 330 is nearby; a stop below 200 SMA (e.g., 1×ATR below 200 SMA ≈ 330 − 12 ≈ 318) would give extra margin for noise while respecting the structural support.
+  - A swing stop for trend traders might be 1.5–2× ATR (~$18–25) below a key support level.
+- Example: with price 334, an initial stop ≈ 334 − 1.5×ATR ≈ 334 − 18.6 ≈ 315 (a tighter swing). If you prefer to anchor to moving averages: the 200 SMA ≈ 330 is nearby; a stop below the 200 SMA (e.g., 1×ATR below 200 SMA ≈ 330 − 12 ≈ 318) would give extra margin for noise while respecting the structural support.
 
 5) Support / resistance levels (actionable levels)
 - Immediate resistance cluster: 10 EMA and VWMA ≈ 336–337 (short-term supply zone). If price clears and holds >337 on good volume, expect acceleration toward recent highs.
@@ -68,7 +68,7 @@ Interpretation: structurally bullish (price above both SMAs and both SMAs trendi
 
 7) Practical trade/readiness suggestions (risk aware, not prescriptive)
 - For current longs:
-  - Consider tightening stops toward just below the 200 SMA (≈ 330) or use an ATR-based trailing stop (1× to 1.5× ATR) to lock gains if you’re short-term.
+  - Consider tightening stops toward just below the 200 SMA (≈330) or use an ATR-based trailing stop (1× to 1.5× ATR) to lock gains if you’re short-term.
   - If you prefer wider cushion: stop ~1.5–2× ATR below 200 SMA (~318–317).
 - For new entries:
   - Conservative entry: wait for price to reclaim and close above 10 EMA/VWMA (~337) on convincing volume and MACD histogram turning positive — look for confirmation (two sequential closes).

@@ -1,7 +1,7 @@
 # Trader Investment Plan
 
 Summary judgment
-I agree with the plan’s conclusion: constructive long-term thesis but increased near-term risk — so the correct actionable posture is to accumulate MSFT now, prudently and hedged. The core trade is a staged, size‑controlled buy with ATR stops and event hedges; do not initiate a full unhedged position.
+I agree with the plan’s conclusion: a constructive long-term thesis but increased near-term risk — so the correct actionable posture is to accumulate MSFT now, prudently and hedged. The core trade is a staged, size‑controlled buy with ATR stops and event hedges; do not initiate a full unhedged position.
 
 Clear, specific recommendation
 Buy (accumulate in stages) with defined size limits, ATR-based stops, and options protection around near‑term catalysts. Execute an immediate starter tranche now and add materially only after a confirmed technical reclaim or on measured dips per the rules below.
@@ -25,7 +25,7 @@ Stops & risk controls
 - Use ATR(14) ≈ $7.7 for stop sizing (adjust as ATR moves).
   - Tactical stop per tranche: 1×ATR below entry (tight) or 1.5×ATR for swing positions (safer).
   - Example: entry 505 → 1.5×ATR stop ≈ 493.5; entry 509 → stop ≈ 497.5.
-- Total position cap: never exceed your predefined core target (4–12%) without explicit re‑risking decision.
+- Total position cap: never exceed your predefined core target (4–12%) without an explicit re‑risking decision.
 
 Hedging (must do if fully sizing or if you care about binary risk)
 - If you reach full target and there’s an imminent catalyst (earnings, DoD/GSA), buy protective puts covering 20–50% of shares through the event.

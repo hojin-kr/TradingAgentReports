@@ -9,15 +9,15 @@ Actionable steps (execute immediately)
 - If you prefer collars instead of put spreads: sell a near‑dated covered call (e.g., 1–3 month strike ~$360–380 depending on IV) and buy a 3–6 month 320 put.
 
 Trade management rules and stops
-- Immediate stop for remaining unhedged shares: tighten risk — if you hold any unhedged shares, set a stop ~1×ATR (~$12) under your entry or under the 200‑SMA support (~$318–320 if you intend to use $330 support).
-- Short/active bearish trades: use put spreads only (no naked shorts). Trigger a new bearish spread if daily close <200‑SMA (~$330) on expanding volume and MACD histogram stays negative. Targets: $323 (50‑SMA), then $300, then $275. Place profit-taking in tranches.
+- Immediate stop for remaining unhedged shares: tighten risk — set a stop ~1×ATR (~$12) below your entry or below the 200‑SMA support (roughly $318–320; you may alternatively use $330 as a conservative support level).
+- Short/active bearish trades: use put spreads only (no naked shorts). Trigger a new bearish spread if daily close <200‑SMA (~$330) on expanding volume and the MACD histogram remains negative. Targets: $323 (50‑SMA), then $300, then $275. Take profits in tranches.
 - Hedge roll/upgrade: if price breaks <200‑SMA with heavy volume, widen and/or roll the protective put spread lower (e.g., buy 300/260) and consider selling another 20–25% of the original position.
 
 Re‑entry rules (strict, event‑driven)
 - Only rebuild longs on BOTH technical and fundamental confirmation:
-  - Technical: daily close >10‑EMA/VWMA (~>$337) on expanding volume plus MACD histogram turning sustainably positive and a subsequent higher high above the prior swing ($351–363).
-  - Fundamental: clear signs of MoM stabilization in China deliveries/ASPs (no additional price cuts), improving margin commentary, or visible improvement in FSD/subscription unit economics.
-- If those conditions are met, redeploy proceeds in tranches (e.g., 25% then 25%) with ATR-based trailing stops.
+  - Technical: daily close >10‑EMA/VWMA (~>$337) on expanding volume, MACD histogram turning sustainably positive, and a subsequent higher high above the prior swing ($351–363).
+  - Fundamental: clear signs of month‑over‑month stabilization in China deliveries/ASPs (no additional price cuts), improving margin commentary, or visible improvement in FSD/subscription unit economics.
+- If those conditions are met, redeploy proceeds in tranches (e.g., 25% then 25%) with ATR‑based trailing stops.
 
 Risk management & sizing
 - Per‑trade risk: limit to 1–2% of portfolio on any directional trade.

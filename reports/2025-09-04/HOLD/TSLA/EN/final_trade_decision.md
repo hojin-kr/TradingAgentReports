@@ -3,11 +3,11 @@
 Recommendation: SELL (trim exposure now), with a balanced, hedged execution — not full capitulation but meaningful reduction and staged follow‑through if confirmed weakness.
 
 1) Short summary of the trader’s original plan
-- Original stance: Reduce exposure now because near‑term margin pressure (China price cuts, Europe weakness) + fragile short‑term technicals increase downside risk. Sell/trim, hedge remaining holdings (prefer put spreads or collars), and only re‑enter on strict technical + fundamental confirmations (>~$337 on volume + margin/delivery stabilization).
+- Original stance: Reduce exposure now because near‑term margin pressure (China price cuts, Europe weakness) and fragile short‑term technicals increase downside risk. Sell/trim, hedge remaining holdings (prefer put spreads or collars), and only re‑enter on strict technical + fundamental confirmations (>~$337 on volume + margin/delivery stabilization).
 
 2) Summaries of each analyst’s strongest points (the clearest, most relevant lines)
 - Risky (pro‑sell/aggressive): “Sell 50% of current long position immediately. Buy a 3–6 month 320/280 put spread sized to the retained shares.” Key logic: momentum deceleration, volume distribution (VWMA > price), and concrete fundamental downside mean you should trim now and buy crash insurance while IV is still reasonable so you have ammo to buy a washout.
-- Safe (conservative): “Sell 25–35% of your position now … use a financed collar (buy 3–6 month put ~320, sell 1–3 month call ~360) or a smaller put spread covering part of retained delta.” Key logic: trend still intact (price above 50/200 SMAs), hedging/transaction frictions and whipsaws argue for a smaller trim, lower‑cost hedges, and multi‑day confirmation before heavier action.
+- Safe (conservative): “Sell 25–35% of your position now … use a financed collar (buy 3–6 month put ~320, sell 1–3 month call ~360) or a smaller put spread covering part of retained delta.” Key logic: trend still intact (price above 50/200 SMAs); hedging/transaction frictions and whipsaws argue for a smaller trim, lower‑cost hedges, and multi‑day confirmation before heavier action.
 - Neutral (balanced): “Trim ~40%; hedge the remainder partially (not full delta); staged additional action on confirmed deterioration.” Key logic: combine material risk reduction with partial hedging and explicit triggers to avoid over‑realizing or over‑hedging — a midpoint between Risky and Safe.
 
 3) Why I choose SELL (trim now) — decisive rationale, quoting and countering the debate

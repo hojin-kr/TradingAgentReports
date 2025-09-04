@@ -3,7 +3,7 @@
 Summary of the debate — the clearest points, fast
 
 Bull’s strongest points
-- Tesla has real structural advantages: global gigafactories, vertical integration, OTA/software ecosystem, Supercharger network, and a large data loop that supports FSD progress. Those create optionality for higher-margin, recurring revenue (FSD, energy, software) and a pathway to margin recovery over time.
+- Tesla has real structural advantages: global gigafactories, vertical integration, OTA/software ecosystem, Supercharger network, and a large data loop that supports FSD progress. These create optionality for higher‑margin, recurring revenue (FSD, energy, software) and a pathway to margin recovery over time.
 - Technicals are not broken for the longer term: price sits above the 200‑SMA and 50‑SMA (both rising), MACD still positive, RSI neutral — so the medium/long trend can remain intact even while short‑term consolidation occurs.
 - Tactical playbook: wait for clear confirmations (close > 10‑EMA/VWMA ≈ $337 on volume, or resilient support at ~$330) and use ATR‑based sizing and hedges. Don’t treat Optimus as immediate value; demand milestone evidence.
 
@@ -15,13 +15,13 @@ Bear’s strongest points
 My decision — Sell (reduce exposure)
 
 Rationale in plain terms
-The bear case is more convincing for the near term. The margin impact from confirmed price cuts in China and weakness in Europe is real and immediate — these compress ASPs and EPS now. The technical picture is fragile: short‑term indicators are weakening with price below key short‑term averages and volume profile showing distribution. Tesla’s long-term optionality (FSD, Optimus, energy) is real but remains timing‑and‑milestone dependent; that optionality cannot be counted on to protect the stock against current operational/margin weakness. Given the combination of concrete near‑term negative drivers and fragile technicals, downside risk currently outweighs upside odds. Therefore the actionable stance is to sell/trim exposure and hedge remaining holdings.
+The bear case is more convincing for the near term. The margin impact from confirmed price cuts in China and weakness in Europe is real and immediate — these compress ASPs and EPS now. The technical picture is fragile: short‑term indicators are weakening with price below key short‑term averages and volume profile showing distribution. Tesla’s long‑term optionality (FSD, Optimus, energy) is real but remains timing‑and‑milestone dependent; that optionality cannot be counted on to protect the stock against current operational/margin weakness. Given the combination of concrete near‑term negative drivers and fragile technicals, downside risk currently outweighs upside odds. Therefore the actionable stance is to sell/trim exposure and hedge remaining holdings.
 
 Concrete investment plan and tactical playbook
 
 What I recommend you do now (for a typical long investor/trader)
 1) Trim or exit outright depending on your horizon and exposure
-- If you are a full‑exposure long (significant single‑stock risk), reduce position size immediately. Target trimming to a lower core holding (for example reduce to 25–40% of prior position) rather than holding full-sized exposure into event risk.
+- If you are a full‑exposure long (significant single‑stock risk), reduce position size immediately. Target trimming to a lower core holding (for example reduce to 25–40% of prior position) rather than holding full‑sized exposure into event risk.
 - If you’re a smaller long (position <2% portfolio), consider selling half and hedging the remainder.
 
 2) Hedge remaining exposure
@@ -30,11 +30,11 @@ What I recommend you do now (for a typical long investor/trader)
 - Alternative for conservative holders: collar — sell a nearer‑dated call (income) and buy a protective put (cheaper financing). That locks in downside protection while giving up some upside.
 
 3) Short / active bearish trade (if you are a trader)
-- Preferred vehicle: put spread or short stock size-limited (don’t naked short without defined risk). Example short-trigger: enter a bearish put spread if there’s a daily close below the 200‑SMA (~$330) on expanding volume and MACD histogram remains negative.
-- Targets: first target at 50‑SMA (~$323); if that breaks, next target 300 then 275 area. Use profit-taking in tranches.
+- Preferred vehicle: put spread or short stock size‑limited (don’t naked short without defined risk). Example short‑trigger: enter a bearish put spread if there’s a daily close below the 200‑SMA (~$330) on expanding volume and MACD histogram remains negative.
+- Targets: first target at 50‑SMA (~$323); if that breaks, next target 300 then 275 area. Use profit‑taking in tranches.
 - Stop/invalidator: a reclaim and hold above the VWMA/10‑EMA (~$337) on expanding volume and positive MACD histogram OR daily close back above $340 should prompt unwind of bearish trades.
 
-4) Re-entry / buy signals (strict, event‑driven — no narrative buys)
+4) Re‑entry / buy signals (strict, event‑driven — no narrative buys)
 - Primary bullish confirmation: decisive close above 10‑EMA/VWMA (~>$337) on expanding volume AND MACD histogram turning sustainably positive, followed by a higher high above prior swing ($351–363). Also demand corroborating fundamental signs: MoM stabilization or growth in China deliveries without additional price cuts, margin commentary improving, and FSD subscription growth that’s visible in unit economics.
 - Secondary opportunistic entry: disciplined, small buys on a stable test of 200‑SMA (~$330) that holds for multiple days with shrinking ATR and supportive volume profile; use tight ATR stops (1×ATR or ~$12 under the 200‑SMA) and keep sizing small until the pattern confirms.
 
