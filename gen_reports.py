@@ -7,13 +7,19 @@ from typing import Dict, List, Tuple, Optional
 from tradingagents.default_config import DEFAULT_CONFIG
 
 
-def decision_from_text_end(raw_text: str) -> str:
-    """Extract BUY/SELL/HOLD by scanning the last non-empty line of text.
+def decision_from_text_beginning(raw_text: str) -> str:
+    """Extract BUY/SELL/HOLD by prioritizing the first lines of text.
 
-    Rules:
-    - Look at the last non-empty line; try to match a trailing BUY/SELL/HOLD.
-    - If not found, scan the last 200 characters as a fallback.
-    - Default to HOLD if nothing decisive is found.
+    New generation contract puts a summary and the decision line at the top:
+    - Line 1: <=140-char summary
+    - Line 2: "Decision: BUY/SELL/HOLD" optionally with qualifiers
+
+    Extraction order:
+    1) Check the first 5 non-empty lines for a line that starts with "Decision:" and
+       parse BUY/SELL/HOLD from it.
+    2) Fallback: scan the first 300 characters for a standalone BUY/SELL/HOLD.
+    3) Legacy fallback: scan the last non-empty line and the last 200 characters.
+    4) Default HOLD.
     """
     if not raw_text:
         return "HOLD"
@@ -21,6 +27,25 @@ def decision_from_text_end(raw_text: str) -> str:
         lines = [ln.strip() for ln in raw_text.strip().splitlines() if ln.strip()]
         if not lines:
             return "HOLD"
+
+        # 1) Priority: explicit Decision line near the top
+        for ln in lines[:5]:
+            up = ln.upper()
+            if up.startswith("DECISION:"):
+                if "BUY" in up:
+                    return "BUY"
+                if "SELL" in up:
+                    return "SELL"
+                if "HOLD" in up:
+                    return "HOLD"
+
+        # 2) Fallback: scan the beginning chunk
+        head = ("\n".join(lines[:5]) + raw_text[:300]).upper()
+        for token in ("BUY", "SELL", "HOLD"):
+            if token in head:
+                return token
+
+        # 3) Legacy: old logic scanning the end
         last = lines[-1].upper().rstrip(" .!?)]")
         for token in ("BUY", "SELL", "HOLD"):
             if last.endswith(token) or last == token:
@@ -143,7 +168,7 @@ def save_reports(
 
         for filename, (title, content) in reports_map.items():
             localized_content = maybe_translate(content, locale, translator, translate)
-            decision_dir = decision_from_text_end(localized_content or content)
+            decision_dir = decision_from_text_beginning(localized_content or content)
             base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
             ensure_dir(base_dir)
             saved_files.append(
@@ -208,8 +233,8 @@ def main():
         except Exception:
             translator = None
 
-    # Derive decision from the end of the final decision text
-    decision_label = decision_from_text_end(final_state.get("final_trade_decision", ""))
+    # Derive decision prioritizing the beginning of the final decision text
+    decision_label = decision_from_text_beginning(final_state.get("final_trade_decision", ""))
 
     # Reports root under repository
     reports_root = get_project_root() / "reports"
