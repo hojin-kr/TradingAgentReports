@@ -72,9 +72,8 @@ def write_markdown_file(target_dir: Path, filename: str, title: str, content: st
     ensure_dir(target_dir)
     file_path = target_dir / filename
     with open(file_path, "w") as f:
-        f.write(f"# {title}\n\n")
+        # Save the content exactly as produced by the agent (no added titles or wrapping)
         f.write(content if content else "")
-        f.write("\n")
     return file_path
 
 
@@ -151,15 +150,7 @@ def save_reports(
                 write_markdown_file(base_dir, filename, title, localized_content)
             )
 
-        # Complete combined report, routed by its final line
-        combined = build_complete_markdown(final_state)
-        combined_localized = maybe_translate(combined, locale, translator, translate)
-        combined_decision = decision_from_text_end(combined_localized or combined)
-        combined_dir = reports_root / trade_date / combined_decision / ticker.upper() / locale
-        ensure_dir(combined_dir)
-        saved_files.append(
-            write_markdown_file(combined_dir, "complete.md", f"{ticker.upper()} Report ({trade_date})", combined_localized)
-        )
+        # Skip creating combined complete.md; save only the raw agent outputs above
 
     return saved_files
 
