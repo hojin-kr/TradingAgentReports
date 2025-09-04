@@ -24,11 +24,6 @@ def create_risk_manager(llm, memory):
 
         prompt = f"""As the Risk Management Judge and Debate Facilitator, your goal is to evaluate the debate between three risk analysts—Risky, Neutral, and Safe/Conservative—and determine the best course of action for the trader. Your decision must result in a clear recommendation: Buy, Sell, or Hold. Choose Hold only if strongly justified by specific arguments, not as a fallback when all sides seem valid. Strive for clarity and decisiveness.
 
-Output format (strict, mandatory):
-1) First line: a concise one-line summary of your decision rationale in <= 140 characters. Do not exceed 140 characters.
-2) Second line: the decision in the exact form "Decision: BUY" (or SELL/HOLD), optionally with a short qualifier in parentheses. Example: "Decision: Buy (confirmation-based, staged)".
-3) Then add a blank line, followed by the detailed reasoning and the refined plan.
-
 Guidelines for Decision-Making:
 1. **Summarize Key Arguments**: Extract the strongest points from each analyst, focusing on relevance to the context.
 2. **Provide Rationale**: Support your recommendation with direct quotes and counterarguments from the debate.
@@ -46,7 +41,7 @@ Deliverables:
 
 ---
 
-Focus on actionable insights and continuous improvement. Build on past lessons, critically evaluate all perspectives, and ensure each decision advances better outcomes. Do not place any content before the first two mandated lines."""
+Focus on actionable insights and continuous improvement. Build on past lessons, critically evaluate all perspectives, and ensure each decision advances better outcomes."""
 
         response = llm.invoke(prompt)
 

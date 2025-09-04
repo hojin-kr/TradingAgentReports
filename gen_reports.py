@@ -140,6 +140,77 @@ def maybe_translate(text: str, locale: str, translator: Optional[object], enable
         return text
 
 
+def _extract_existing_decision_line(text: str) -> Optional[str]:
+    """Search the first few lines for an existing 'Decision:' line and return it if found."""
+    if not text:
+        return None
+    lines = [ln.strip() for ln in text.splitlines()]
+    for ln in lines[:10]:
+        up = ln.upper()
+        if up.startswith("DECISION:"):
+            return ln.strip()
+    return None
+
+
+def _build_short_summary(text: str, max_len: int = 140) -> str:
+    """Heuristically build a <=140-char summary from the start of the text.
+
+    Preference order:
+    - First non-empty line that is not a 'Decision:' line
+    - Otherwise the first sentence from the text
+    - Fallback to the first max_len characters
+    """
+    if not text:
+        return ""
+    lines = [ln.strip() for ln in text.strip().splitlines() if ln.strip()]
+    for ln in lines[:10]:
+        if not ln.lower().startswith("decision:"):
+            summary = ln
+            if len(summary) <= max_len:
+                return summary
+            # Try to cut at a sentence boundary within limit
+            cut = summary[:max_len]
+            dot = cut.rfind(".")
+            if dot >= 40:  # avoid ultra-short chop
+                return cut[:dot+1].strip()
+            return cut.strip()
+
+    # Fallback to first sentence from full text
+    text_clean = " ".join(text.strip().split())
+    for sep in [". ", "! ", "? "]:
+        idx = text_clean.find(sep)
+        if idx != -1 and idx + 1 <= max_len:
+            return text_clean[: idx + 1]
+    return text_clean[:max_len].strip()
+
+
+def postprocess_final_trade_decision(text: str) -> str:
+    """Ensure final_trade_decision starts with a short summary and a top Decision line.
+
+    - Prepend a <=140-char summary line.
+    - Prepend a 'Decision: ...' line. If one exists, reuse it; otherwise build from extracted BUY/SELL/HOLD.
+    - Avoid duplicating existing leading 'Decision:' lines.
+    """
+    if not text:
+        return text
+
+    # Decide label
+    decision = decision_from_text_beginning(text)
+    existing_decision = _extract_existing_decision_line(text)
+    decision_line = existing_decision or f"Decision: {decision}"
+
+    # Build summary from current content
+    summary_line = _build_short_summary(text, max_len=140)
+
+    # Remove leading decision lines to avoid duplication near the top
+    lines = text.splitlines()
+    while lines and lines[0].strip().lower().startswith("decision:"):
+        lines.pop(0)
+    new_body = "\n".join(lines).lstrip("\n")
+
+    return f"{summary_line}\n{decision_line}\n\n{new_body}".strip()
+
+
 def save_reports(
     final_state: Dict,
     ticker: str,
@@ -168,11 +239,19 @@ def save_reports(
 
         for filename, (title, content) in reports_map.items():
             localized_content = maybe_translate(content, locale, translator, translate)
-            decision_dir = decision_from_text_beginning(localized_content or content)
+            text_for_routing = localized_content or content
+            decision_dir = decision_from_text_beginning(text_for_routing)
             base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
             ensure_dir(base_dir)
+
+            # Apply post-processing only to final_trade_decision.md
+            if filename == "final_trade_decision.md":
+                final_text = postprocess_final_trade_decision(text_for_routing)
+            else:
+                final_text = localized_content
+
             saved_files.append(
-                write_markdown_file(base_dir, filename, title, localized_content)
+                write_markdown_file(base_dir, filename, title, final_text)
             )
 
         # Skip creating combined complete.md; save only the raw agent outputs above
