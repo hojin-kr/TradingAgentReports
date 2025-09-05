@@ -185,9 +185,9 @@ def _build_short_summary(text: str, max_len: int = 140) -> str:
 
 
 def postprocess_final_trade_decision(text: str) -> str:
-    """Ensure final_trade_decision starts with a short summary and a top Decision line.
+    """Ensure final_trade_decision starts with a top 'Decision:' line only.
 
-    - Prepend a <=140-char summary line.
+    - Do not add any summary line.
     - Prepend a 'Decision: ...' line. If one exists, reuse it; otherwise build from extracted BUY/SELL/HOLD.
     - Avoid duplicating existing leading 'Decision:' lines.
     """
@@ -199,16 +199,13 @@ def postprocess_final_trade_decision(text: str) -> str:
     existing_decision = _extract_existing_decision_line(text)
     decision_line = existing_decision or f"Decision: {decision}"
 
-    # Build summary from current content
-    summary_line = _build_short_summary(text, max_len=140)
-
     # Remove leading decision lines to avoid duplication near the top
     lines = text.splitlines()
     while lines and lines[0].strip().lower().startswith("decision:"):
         lines.pop(0)
     new_body = "\n".join(lines).lstrip("\n")
 
-    return f"{summary_line}\n{decision_line}\n\n{new_body}".strip()
+    return f"{decision_line}\n\n{new_body}".strip()
 
 
 def save_reports(
@@ -220,13 +217,13 @@ def save_reports(
     translator: Optional[object],
     translate: bool,
 ) -> List[Path]:
-    """Persist reports, routing each file by its own decision (BUY/HOLD/SELL)."""
+    """Persist reports, routing all files by final_trade_decision (BUY/HOLD/SELL)."""
     saved_files: List[Path] = []
 
     for raw_locale in locales:
         locale = raw_locale.strip().upper()
 
-        # Individual report files (route per file by scanning the end of its text)
+        # Individual report files (route all files by final_trade_decision)
         reports_map = {
             "market_report.md": ("Market Report", final_state.get("market_report", "")),
             "sentiment_report.md": ("Sentiment Report", final_state.get("sentiment_report", "")),
@@ -239,13 +236,15 @@ def save_reports(
 
         for filename, (title, content) in reports_map.items():
             localized_content = maybe_translate(content, locale, translator, translate)
-            text_for_routing = localized_content or content
-            decision_dir = decision_from_text_beginning(text_for_routing)
+            # Route by final_trade_decision only
+            final_decision_text = final_state.get("final_trade_decision", "")
+            decision_dir = decision_from_text_beginning(final_decision_text)
             base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
             ensure_dir(base_dir)
 
             # Apply post-processing only to final_trade_decision.md
             if filename == "final_trade_decision.md":
+                text_for_routing = localized_content or content
                 final_text = postprocess_final_trade_decision(text_for_routing)
             else:
                 final_text = localized_content
