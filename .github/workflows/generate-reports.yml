@@ -70,7 +70,7 @@ jobs:
             TICKERS=("$INPUT_TICKER")
           else
             # Preset list (editable)
-            TICKERS=(PLTR NVDA)
+            TICKERS=(PLTR NVDA SPY FIG TSLA AMZN GOOGL META AMD)
           fi
           for T in "${TICKERS[@]}"; do
             echo "Running reports for $T on $DATE"
