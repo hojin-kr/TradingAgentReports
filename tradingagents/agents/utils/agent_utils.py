@@ -61,7 +61,7 @@ class Toolkit:
             str: A formatted dataframe containing the latest global news from Reddit in the specified time frame.
         """
         
-        global_news_result = interface.get_reddit_global_news(curr_date, 7, 5)
+        global_news_result = interface.get_reddit_global_news(curr_date, 3, 5)
 
         return global_news_result
 
@@ -115,7 +115,7 @@ class Toolkit:
             str: A formatted dataframe containing the latest news about the company on the given date
         """
 
-        stock_news_results = interface.get_reddit_company_news(ticker, curr_date, 7, 5)
+        stock_news_results = interface.get_reddit_company_news(ticker, curr_date, 3, 5)
 
         return stock_news_results
 
@@ -171,7 +171,7 @@ class Toolkit:
         curr_date: Annotated[
             str, "The current trading date you are trading on, YYYY-mm-dd"
         ],
-        look_back_days: Annotated[int, "how many days to look back"] = 30,
+        look_back_days: Annotated[int, "how many days to look back"] = 15,
     ) -> str:
         """
         Retrieve stock stats indicators for a given ticker symbol and indicator.
@@ -179,7 +179,7 @@ class Toolkit:
             symbol (str): Ticker symbol of the company, e.g. AAPL, TSM
             indicator (str): Technical indicator to get the analysis and report of
             curr_date (str): The current trading date you are trading on, YYYY-mm-dd
-            look_back_days (int): How many days to look back, default is 30
+            look_back_days (int): How many days to look back, default is 15
         Returns:
             str: A formatted dataframe containing the stock stats indicators for the specified ticker symbol and indicator.
         """
@@ -200,7 +200,7 @@ class Toolkit:
         curr_date: Annotated[
             str, "The current trading date you are trading on, YYYY-mm-dd"
         ],
-        look_back_days: Annotated[int, "how many days to look back"] = 30,
+        look_back_days: Annotated[int, "how many days to look back"] = 15,
     ) -> str:
         """
         Retrieve stock stats indicators for a given ticker symbol and indicator.
@@ -208,7 +208,7 @@ class Toolkit:
             symbol (str): Ticker symbol of the company, e.g. AAPL, TSM
             indicator (str): Technical indicator to get the analysis and report of
             curr_date (str): The current trading date you are trading on, YYYY-mm-dd
-            look_back_days (int): How many days to look back, default is 30
+            look_back_days (int): How many days to look back, default is 15
         Returns:
             str: A formatted dataframe containing the stock stats indicators for the specified ticker symbol and indicator.
         """
@@ -229,16 +229,16 @@ class Toolkit:
         ],
     ):
         """
-        Retrieve insider sentiment information about a company (retrieved from public SEC information) for the past 30 days
+        Retrieve insider sentiment information about a company (retrieved from public SEC information) for the past 15 days
         Args:
             ticker (str): ticker symbol of the company
             curr_date (str): current date you are trading at, yyyy-mm-dd
         Returns:
-            str: a report of the sentiment in the past 30 days starting at curr_date
+            str: a report of the sentiment in the past 15 days starting at curr_date
         """
 
         data_sentiment = interface.get_finnhub_company_insider_sentiment(
-            ticker, curr_date, 30
+            ticker, curr_date, 15
         )
 
         return data_sentiment
@@ -253,16 +253,16 @@ class Toolkit:
         ],
     ):
         """
-        Retrieve insider transaction information about a company (retrieved from public SEC information) for the past 30 days
+        Retrieve insider transaction information about a company (retrieved from public SEC information) for the past 15 days
         Args:
             ticker (str): ticker symbol of the company
             curr_date (str): current date you are trading at, yyyy-mm-dd
         Returns:
-            str: a report of the company's insider transactions/trading information in the past 30 days
+            str: a report of the company's insider transactions/trading information in the past 15 days
         """
 
         data_trans = interface.get_finnhub_company_insider_transactions(
-            ticker, curr_date, 30
+            ticker, curr_date, 15
         )
 
         return data_trans
@@ -357,7 +357,7 @@ class Toolkit:
             str: A formatted string containing the latest news from Google News based on the query and date range.
         """
 
-        google_news_results = interface.get_google_news(query, curr_date, 7)
+        google_news_results = interface.get_google_news(query, curr_date, 3)
 
         return google_news_results
 
