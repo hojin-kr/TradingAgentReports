@@ -193,9 +193,18 @@ class ReportPostProcessor:
         
         return "\n".join(prompt_parts)
     
-    def process_file(self, file_path: Path, output_path: Optional[Path] = None) -> bool:
+    def process_file(self, file_path: Path, output_path: Optional[Path] = None, force: bool = False) -> bool:
         """Process a single report file."""
         try:
+            # Determine output path
+            if output_path is None:
+                output_path = file_path.parent / f"simplified_{file_path.name}"
+            
+            # Check if output already exists and is newer than input (unless force=True)
+            if not force and self._should_skip_processing(file_path, output_path):
+                print(f"⏭ Skipped (already exists): {output_path}")
+                return True
+            
             # Read original content
             original_content = file_path.read_text(encoding='utf-8')
             
@@ -206,10 +215,6 @@ class ReportPostProcessor:
             # Simplify the report
             simplified_content = self.simplify_report(original_content, ticker, decision)
             
-            # Determine output path
-            if output_path is None:
-                output_path = file_path.parent / f"simplified_{file_path.name}"
-            
             # Save simplified version
             output_path.parent.mkdir(parents=True, exist_ok=True)
             output_path.write_text(simplified_content, encoding='utf-8')
@@ -219,6 +224,37 @@ class ReportPostProcessor:
             
         except Exception as e:
             print(f"✗ Error processing {file_path}: {e}")
+            return False
+    
+    def _should_skip_processing(self, input_path: Path, output_path: Path) -> bool:
+        """Check if processing should be skipped based on file existence and modification times."""
+        if not output_path.exists():
+            return False
+        
+        try:
+            # Check if the output file looks valid (not empty and has reasonable content)
+            if output_path.stat().st_size < 100:  # Less than 100 bytes is probably invalid
+                return False
+            
+            # Quick validation - check if it has expected structure
+            content = output_path.read_text(encoding='utf-8')
+            if not any(marker in content for marker in ['# Investment Report', '## Executive Summary', '## Investment Decision']):
+                return False
+            
+            # Get modification times
+            input_mtime = input_path.stat().st_mtime
+            output_mtime = output_path.stat().st_mtime
+            
+            # Skip if output is newer than or equal to input (allowing for small time differences)
+            time_diff = output_mtime - input_mtime
+            if time_diff >= -1:  # Allow 1 second tolerance for filesystem timing
+                return True
+            
+            # If input is significantly newer, we should reprocess
+            return False
+            
+        except Exception:
+            # If we can't check properly, process anyway
             return False
     
     def _extract_ticker_from_path(self, file_path: Path) -> str:
@@ -290,6 +326,11 @@ def main():
         action="store_true",
         help="Show what files would be processed without actually processing them"
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force processing even if simplified files already exist"
+    )
     
     args = parser.parse_args()
     
@@ -317,10 +358,29 @@ def main():
     print(f"Found {len(final_decision_files)} files to process for date {args.date}")
     
     if args.dry_run:
-        print("\nDRY RUN - Files that would be processed:")
+        print("\nDRY RUN - Processing analysis:")
+        
+        # Initialize a mock processor to check skip logic
+        try:
+            mock_processor = ReportPostProcessor(template_path)
+        except Exception as e:
+            print(f"ERROR: Failed to initialize processor for dry run: {e}")
+            return
+        
+        process_count = 0
+        skip_count = 0
+        
         for file_path in final_decision_files:
             output_path = file_path.parent / f"{args.output_suffix}{file_path.name}"
-            print(f"  {file_path} → {output_path}")
+            
+            if not args.force and mock_processor._should_skip_processing(file_path, output_path):
+                print(f"  ⏭ SKIP: {file_path} → {output_path} (already exists)")
+                skip_count += 1
+            else:
+                print(f"  ✓ PROCESS: {file_path} → {output_path}")
+                process_count += 1
+        
+        print(f"\nSummary: {process_count} files to process, {skip_count} files to skip")
         return
     
     # Initialize processor
@@ -332,6 +392,7 @@ def main():
     
     # Process files
     success_count = 0
+    skip_count = 0
     total_count = len(final_decision_files)
     
     print(f"\nProcessing {total_count} files...")
@@ -339,10 +400,19 @@ def main():
     for file_path in final_decision_files:
         output_path = file_path.parent / f"{args.output_suffix}{file_path.name}"
         
-        if processor.process_file(file_path, output_path):
+        # Check if we should skip (unless force is enabled)
+        if not args.force and processor._should_skip_processing(file_path, output_path):
+            print(f"⏭ Skipped (already exists): {output_path}")
+            skip_count += 1
+            success_count += 1  # Count as success since file exists
+        elif processor.process_file(file_path, output_path, force=args.force):
             success_count += 1
     
-    print(f"\nCompleted: {success_count}/{total_count} files processed successfully")
+    processed_count = success_count - skip_count
+    print(f"\nCompleted: {success_count}/{total_count} files handled successfully")
+    if skip_count > 0:
+        print(f"  - {processed_count} files processed")
+        print(f"  - {skip_count} files skipped (already exist)")
     
     if success_count < total_count:
         print(f"Warning: {total_count - success_count} files failed to process")

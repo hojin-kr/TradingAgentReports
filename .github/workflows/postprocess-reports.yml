@@ -13,6 +13,11 @@ on:
         required: false
         type: boolean
         default: false
+      force:
+        description: 'Force processing even if simplified files already exist'
+        required: false
+        type: boolean
+        default: false
 
   # Automatic trigger - runs daily at 2 AM UTC after reports are likely generated
   schedule:
@@ -54,10 +59,12 @@ jobs:
         if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
           echo "TARGET_DATE=${{ inputs.date }}" >> $GITHUB_OUTPUT
           echo "DRY_RUN=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+          echo "FORCE=${{ inputs.force }}" >> $GITHUB_OUTPUT
         else
           # For scheduled runs or push events, use yesterday's date
           echo "TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
           echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+          echo "FORCE=false" >> $GITHUB_OUTPUT
         fi
     
     - name: Validate template file
@@ -106,8 +113,14 @@ jobs:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         echo "Processing reports for date: ${{ steps.date.outputs.TARGET_DATE }}"
+        FORCE_FLAG=""
+        if [ "${{ steps.date.outputs.FORCE }}" = "true" ]; then
+          FORCE_FLAG="--force"
+          echo "Force processing enabled"
+        fi
         python postprocess_final_reports.py \
-          --date "${{ steps.date.outputs.TARGET_DATE }}"
+          --date "${{ steps.date.outputs.TARGET_DATE }}" \
+          $FORCE_FLAG
     
     - name: Commit and push simplified reports
       if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false'

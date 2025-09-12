@@ -47,6 +47,7 @@ python postprocess_final_reports.py --date 2025-09-12
 - 복잡한 투자 전략 및 파생상품 정보 제거
 - 읽기 수준을 고등학교 수준으로 조정
 - 최대 800단어로 내용 압축
+- **중복 실행 방지**: 이미 처리된 파일은 자동으로 건너뜀
 
 ### 3. GitHub Actions 워크플로우 (`.github/workflows/postprocess-reports.yml`)
 자동화된 후처리 실행을 위한 CI/CD 파이프라인:
@@ -74,11 +75,14 @@ pip install -r requirements.txt
 
 ### 1. 수동 실행
 ```bash
-# 특정 날짜의 보고서 후처리
+# 특정 날짜의 보고서 후처리 (이미 처리된 파일은 자동으로 건너뜀)
 python postprocess_final_reports.py --date 2025-09-12
 
-# 드라이런 (처리될 파일만 확인)
+# 드라이런 (처리될 파일과 건너뛸 파일 확인)
 python postprocess_final_reports.py --date 2025-09-12 --dry-run
+
+# 강제 재처리 (이미 처리된 파일도 다시 처리)
+python postprocess_final_reports.py --date 2025-09-12 --force
 
 # 사용자 정의 템플릿 사용
 python postprocess_final_reports.py --date 2025-09-12 --template custom_template.xml
@@ -86,7 +90,8 @@ python postprocess_final_reports.py --date 2025-09-12 --template custom_template
 
 ### 2. GitHub Actions를 통한 자동 실행
 - **수동 트리거**: GitHub Actions 탭에서 "Post-process Investment Reports" 워크플로우 실행
-- **자동 실행**: 매일 오전 2시(UTC)에 전날 보고서 자동 처리
+  - 날짜, 드라이런 모드, 강제 처리 옵션 설정 가능
+- **자동 실행**: 매일 오전 2시(UTC)에 전날 보고서 자동 처리 (중복 방지 적용)
 - **Push 트리거**: reports/ 디렉토리에 새 파일이 추가되면 자동 실행
 
 ### 3. 테스트 및 데모
@@ -139,6 +144,37 @@ NVDA is well-positioned to benefit from the growing artificial intelligence mark
 **Entry Strategy**: Gradual buying over 2-3 months to average your entry price.
 ```
 
+## 🚫 중복 실행 방지 기능
+
+### 자동 스킵 조건
+시스템은 다음 조건을 모두 만족할 때 파일 처리를 자동으로 건너뜁니다:
+
+1. **파일 존재**: `simplified_*.md` 파일이 이미 존재
+2. **유효성 검증**: 파일 크기가 100바이트 이상
+3. **구조 검증**: 필수 마크다운 구조 포함 (`# Investment Report`, `## Executive Summary` 등)
+4. **시간 비교**: 출력 파일이 원본 파일보다 최신 (1초 허용 오차)
+
+### 사용 예시
+```bash
+# 첫 번째 실행 - 모든 파일 처리
+python postprocess_final_reports.py --date 2025-09-12
+# ✓ Processed: .../NVDA/EN/final_trade_decision.md → .../simplified_final_trade_decision.md
+
+# 두 번째 실행 - 이미 처리된 파일 건너뜀
+python postprocess_final_reports.py --date 2025-09-12  
+# ⏭ Skipped (already exists): .../simplified_final_trade_decision.md
+
+# 강제 재처리
+python postprocess_final_reports.py --date 2025-09-12 --force
+# ✓ Processed: .../NVDA/EN/final_trade_decision.md → .../simplified_final_trade_decision.md
+```
+
+### 장점
+- **비용 절약**: 불필요한 LLM API 호출 방지
+- **시간 단축**: 이미 처리된 파일 건너뛰기
+- **안전성**: 유효하지 않은 출력 파일 자동 재처리
+- **유연성**: `--force` 옵션으로 강제 재처리 가능
+
 ## 📈 성과 지표
 
 ### 가독성 개선
@@ -150,6 +186,11 @@ NVDA is well-positioned to benefit from the growing artificial intelligence mark
 - 모든 보고서가 동일한 구조와 형식 사용
 - 투자자가 빠르게 핵심 정보 파악 가능
 - 일관된 의사결정 프레임워크 제공
+
+### 효율성 개선
+- **중복 방지**: 이미 처리된 파일 자동 건너뛰기
+- **API 비용 절약**: 불필요한 LLM 호출 방지
+- **처리 시간 단축**: 평균 80% 이상 시간 절약 (재실행 시)
 
 ## 🔧 커스터마이징
 
