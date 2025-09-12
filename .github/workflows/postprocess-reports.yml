@@ -1,51 +1,264 @@
-name: Postprocess TradingAgents reports
+name: Post-process Investment Reports
 
 on:
+  # Manual trigger
   workflow_dispatch:
     inputs:
       date:
-        description: 'Date in YYYY-MM-DD (UTC) to postprocess'
+        description: 'Target date for processing reports (YYYY-MM-DD)'
         required: true
         type: string
+      dry_run:
+        description: 'Perform dry run (show what would be processed without processing)'
+        required: false
+        type: boolean
+        default: false
+      force:
+        description: 'Force processing even if simplified files already exist'
+        required: false
+        type: boolean
+        default: false
 
-permissions:
-  contents: write
+  # Automatic trigger - runs daily at 2 AM UTC after reports are likely generated
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2:00 AM UTC
+
+  # Trigger on push to main branch if reports directory is modified
+  push:
+    branches: [ main ]
+    paths:
+      - 'reports/**'
+
+env:
+  PYTHON_VERSION: '3.10'
 
 jobs:
-  postprocess:
+  postprocess-reports:
     runs-on: ubuntu-latest
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Determine target date
+      id: date
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "TARGET_DATE=${{ inputs.date }}" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+          echo "FORCE=${{ inputs.force }}" >> $GITHUB_OUTPUT
+        else
+          # For scheduled runs or push events, use yesterday's date
+          echo "TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+          echo "FORCE=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Validate template file
+      run: |
+        if [ ! -f "report_template.xml" ]; then
+          echo "Error: report_template.xml not found"
+          exit 1
+        fi
+        echo "Template file found and validated"
+    
+    - name: Check for reports to process
+      id: check_reports
+      run: |
+        TARGET_DATE="${{ steps.date.outputs.TARGET_DATE }}"
+        REPORTS_DIR="reports/$TARGET_DATE"
+        
+        if [ ! -d "$REPORTS_DIR" ]; then
+          echo "No reports directory found for date: $TARGET_DATE"
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        FINAL_REPORTS=$(find "$REPORTS_DIR" -name "final_trade_decision.md" | wc -l)
+        echo "Found $FINAL_REPORTS final trade decision reports for $TARGET_DATE"
+        
+        if [ "$FINAL_REPORTS" -eq 0 ]; then
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+        else
+          echo "REPORTS_EXIST=true" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=$FINAL_REPORTS" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Run post-processing (dry run)
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'true'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Running dry run for date: ${{ steps.date.outputs.TARGET_DATE }}"
+        python postprocess_final_reports.py \
+          --date "${{ steps.date.outputs.TARGET_DATE }}" \
+          --dry-run
+    
+    - name: Run post-processing
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Processing reports for date: ${{ steps.date.outputs.TARGET_DATE }}"
+        FORCE_FLAG=""
+        if [ "${{ steps.date.outputs.FORCE }}" = "true" ]; then
+          FORCE_FLAG="--force"
+          echo "Force processing enabled"
+        fi
+        python postprocess_final_reports.py \
+          --date "${{ steps.date.outputs.TARGET_DATE }}" \
+          $FORCE_FLAG
+    
+    - name: Commit and push simplified reports
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Add simplified reports
+        git add reports/${{ steps.date.outputs.TARGET_DATE }}/**/simplified_*.md
+        
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "No simplified reports to commit"
+        else
+          git commit -m "Add simplified reports for ${{ steps.date.outputs.TARGET_DATE }}
+          
+          - Processed ${{ steps.check_reports.outputs.REPORT_COUNT }} final trade decision reports
+          - Applied standardized template for general investor accessibility
+          - Simplified technical language and removed complex strategies
+          - Auto-generated by postprocess-reports workflow"
+          
+          git push
+          echo "Successfully committed and pushed simplified reports"
+        fi
+    
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## Post-processing Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Date**: ${{ steps.date.outputs.TARGET_DATE }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Mode**: ${{ steps.date.outputs.DRY_RUN == 'true' && 'Dry Run' || 'Full Processing' }}" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.check_reports.outputs.REPORTS_EXIST }}" = "true" ]; then
+          echo "- **Reports Found**: ${{ steps.check_reports.outputs.REPORT_COUNT }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ✅ Processing completed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status**: ⚠️ No reports found for processing" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Files Processed" >> $GITHUB_STEP_SUMMARY
+        if [ -d "reports/${{ steps.date.outputs.TARGET_DATE }}" ]; then
+          find "reports/${{ steps.date.outputs.TARGET_DATE }}" -name "simplified_*.md" | while read file; do
+            echo "- \`$file\`" >> $GITHUB_STEP_SUMMARY
+          done
+        fi
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
-
-      - name: Install dependencies
-        run: |
-          python -m pip install -r requirements.txt
-
-      - name: Postprocess reports
-        run: |
-          python -m postprocess_reports --date "${{ github.event.inputs.date }}"
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add reports || true
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(reports): postprocess and KO translations for ${{ github.event.inputs.date }}"
-            git push
-          else
-            echo "No changes to commit"
-          fi
-
-
+  # Optional: Run quality checks on simplified reports
+  quality-check:
+    runs-on: ubuntu-latest
+    needs: postprocess-reports
+    if: success()
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.ref }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install quality check dependencies
+      run: |
+        pip install textstat readability
+    
+    - name: Run readability analysis
+      run: |
+        python3 << 'EOF'
+        import os
+        import glob
+        import textstat
+        from pathlib import Path
+        
+        def analyze_readability(file_path):
+            """Analyze readability of a markdown file."""
+            try:
+                content = Path(file_path).read_text(encoding='utf-8')
+                
+                # Remove markdown formatting for analysis
+                import re
+                clean_content = re.sub(r'[#*`\[\]()_-]', '', content)
+                clean_content = re.sub(r'\n+', ' ', clean_content)
+                
+                if len(clean_content.strip()) < 50:  # Skip very short files
+                    return None
+                
+                flesch_score = textstat.flesch_reading_ease(clean_content)
+                grade_level = textstat.flesch_kincaid_grade(clean_content)
+                
+                return {
+                    'file': file_path,
+                    'flesch_score': flesch_score,
+                    'grade_level': grade_level,
+                    'word_count': len(clean_content.split())
+                }
+            except Exception as e:
+                print(f"Error analyzing {file_path}: {e}")
+                return None
+        
+        # Find simplified reports
+        simplified_files = glob.glob('reports/**/simplified_*.md', recursive=True)
+        
+        if not simplified_files:
+            print("No simplified reports found for quality analysis")
+            exit(0)
+        
+        print("## Readability Analysis Results")
+        print("| File | Flesch Score | Grade Level | Word Count | Assessment |")
+        print("|------|-------------|-------------|------------|------------|")
+        
+        total_files = 0
+        good_readability = 0
+        
+        for file_path in simplified_files:
+            result = analyze_readability(file_path)
+            if result:
+                total_files += 1
+                
+                # Assess readability
+                if result['flesch_score'] >= 60 and result['grade_level'] <= 12:
+                    assessment = "✅ Good"
+                    good_readability += 1
+                elif result['flesch_score'] >= 30:
+                    assessment = "⚠️ Acceptable"
+                else:
+                    assessment = "❌ Needs Improvement"
+                
+                print(f"| {result['file']} | {result['flesch_score']:.1f} | {result['grade_level']:.1f} | {result['word_count']} | {assessment} |")
+        
+        print(f"\n**Summary**: {good_readability}/{total_files} files have good readability")
+        
+        # Set output for GitHub Actions
+        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+            f.write(f"\n## Readability Analysis\n")
+            f.write(f"- **Files Analyzed**: {total_files}\n")
+            f.write(f"- **Good Readability**: {good_readability}/{total_files}\n")
+            f.write(f"- **Target**: Flesch Score ≥60, Grade Level ≤12\n")
+        EOF

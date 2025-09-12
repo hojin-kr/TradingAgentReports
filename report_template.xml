@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report_template>
+  <metadata>
+    <version>1.0</version>
+    <description>Template for standardized investment reports accessible to general investors</description>
+    <target_audience>General stock investors without advanced financial background</target_audience>
+  </metadata>
+  
+  <structure>
+    <section name="executive_summary" required="true">
+      <description>Brief, clear summary in 2-3 sentences maximum</description>
+      <max_length>300</max_length>
+      <tone>conversational, non-technical</tone>
+      <include>
+        <item>Investment decision (Buy/Hold/Sell)</item>
+        <item>Main reason in simple terms</item>
+        <item>Key risk to watch</item>
+      </include>
+    </section>
+    
+    <section name="investment_decision" required="true">
+      <description>Clear recommendation with confidence level</description>
+      <format>Decision: [BUY/HOLD/SELL] - [Confidence: High/Medium/Low]</format>
+      <rationale_length>100-200</rationale_length>
+    </section>
+    
+    <section name="key_reasons" required="true">
+      <description>Main reasons supporting the decision</description>
+      <max_items>3</max_items>
+      <item_length>50-100</item_length>
+      <tone>simple, factual</tone>
+      <avoid>
+        <item>Technical jargon</item>
+        <item>Complex financial ratios</item>
+        <item>Academic terminology</item>
+      </avoid>
+    </section>
+    
+    <section name="risks_to_watch" required="true">
+      <description>Main risks that could change the investment thesis</description>
+      <max_items>2</max_items>
+      <item_length>50-100</item_length>
+      <focus>practical concerns average investors can understand</focus>
+    </section>
+    
+    <section name="simple_action_plan" required="true">
+      <description>Practical steps for implementation</description>
+      <include>
+        <item>Position size suggestion (as % of portfolio)</item>
+        <item>Entry strategy (all at once vs gradual)</item>
+        <item>Exit conditions (when to sell)</item>
+      </include>
+      <tone>actionable, specific</tone>
+      <avoid_complex_strategies>true</avoid_complex_strategies>
+    </section>
+    
+    <section name="market_context" required="false">
+      <description>Brief market backdrop if relevant</description>
+      <max_length>150</max_length>
+      <focus>factors that directly impact this stock</focus>
+    </section>
+  </structure>
+  
+  <formatting_guidelines>
+    <language>
+      <style>conversational</style>
+      <reading_level>high school</reading_level>
+      <avoid_jargon>true</avoid_jargon>
+      <use_analogies>when helpful for clarity</use_analogies>
+    </language>
+    
+    <length>
+      <total_max_words>800</total_max_words>
+      <paragraph_max_sentences>3</paragraph_max_sentences>
+    </length>
+    
+    <tone>
+      <professional>true</professional>
+      <accessible>true</accessible>
+      <confident_but_humble>true</confident_but_humble>
+      <avoid_hype>true</avoid_hype>
+    </tone>
+  </formatting_guidelines>
+  
+  <content_rules>
+    <simplification>
+      <replace_technical_terms>
+        <term original="EBITDA" simple="company profits before taxes and interest"/>
+        <term original="P/E ratio" simple="price compared to earnings"/>
+        <term original="market cap" simple="total company value"/>
+        <term original="volatility" simple="price swings"/>
+        <term original="liquidity" simple="how easily you can buy/sell"/>
+        <term original="catalyst" simple="event that could move the stock"/>
+        <term original="headwinds" simple="challenges"/>
+        <term original="tailwinds" simple="positive trends"/>
+      </replace_technical_terms>
+      
+      <remove_complex_concepts>
+        <item>Advanced options strategies</item>
+        <item>Complex derivatives</item>
+        <item>Detailed financial modeling</item>
+        <item>Academic finance theories</item>
+        <item>Regulatory minutiae</item>
+      </remove_complex_concepts>
+    </simplification>
+    
+    <focus_on_essentials>
+      <include>
+        <item>What the company does (in simple terms)</item>
+        <item>Why the stock might go up or down</item>
+        <item>What could change the outlook</item>
+        <item>How much risk is involved</item>
+        <item>Practical next steps</item>
+      </include>
+    </focus_on_essentials>
+  </content_rules>
+</report_template>
