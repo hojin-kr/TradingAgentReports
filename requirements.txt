@@ -26,3 +26,5 @@ langchain_anthropic
 langchain-google-genai
 beautifulsoup4
 tenacity
+textstat
+readability
