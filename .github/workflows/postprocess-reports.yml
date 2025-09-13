@@ -20,14 +20,10 @@ on:
         default: false
 
   # Automatic trigger - runs daily at 2 AM UTC after reports are likely generated
-  # schedule:
-  #   - cron: '0 2 * * *'  # Daily at 2:00 AM UTC
+  # Schedule trigger removed to prevent duplicate runs
 
-  # Trigger on push to main branch if reports directory is modified
-  push:
-    branches: [ main ]
-    paths:
-      - 'reports/**'
+  # Note: This workflow is now triggered by generate-reports workflow
+  # Push trigger removed to prevent duplicate runs
 
 permissions:
   contents: write
