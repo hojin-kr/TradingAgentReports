@@ -1,62 +1,153 @@
 import argparse
 import json
 import os
+import re
+import tempfile
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 
 from tradingagents.default_config import DEFAULT_CONFIG
 
 
-def decision_from_text_beginning(raw_text: str) -> str:
-    """Extract BUY/SELL/HOLD by prioritizing the first lines of text.
+def _normalize_decision_token(token: str) -> Optional[str]:
+    """Map various decision words/phrases (EN/KR and common analyst terms) to BUY/SELL/HOLD."""
+    if not token:
+        return None
+    t = token.strip().upper()
+    mapping = {
+        # BUY
+        "BUY": "BUY",
+        "STRONG BUY": "BUY",
+        "OUTPERFORM": "BUY",
+        "OVERWEIGHT": "BUY",
+        "ACCUMULATE": "BUY",
+        "LONG": "BUY",
+        "매수": "BUY",
+        # SELL
+        "SELL": "SELL",
+        "STRONG SELL": "SELL",
+        "UNDERPERFORM": "SELL",
+        "UNDERWEIGHT": "SELL",
+        "REDUCE": "SELL",
+        "SHORT": "SELL",
+        "매도": "SELL",
+        # HOLD
+        "HOLD": "HOLD",
+        "NEUTRAL": "HOLD",
+        "EQUAL WEIGHT": "HOLD",
+        "MARKET PERFORM": "HOLD",
+        "보유": "HOLD",
+        "중립": "HOLD",
+    }
+    return mapping.get(t)
 
-    New generation contract puts a summary and the decision line at the top:
-    - Line 1: <=140-char summary
-    - Line 2: "Decision: BUY/SELL/HOLD" optionally with qualifiers
 
-    Extraction order:
-    1) Check the first 5 non-empty lines for a line that starts with "Decision:" and
-       parse BUY/SELL/HOLD from it.
-    2) Fallback: scan the first 300 characters for a standalone BUY/SELL/HOLD.
-    3) Legacy fallback: scan the last non-empty line and the last 200 characters.
-    4) Default HOLD.
+def _extract_explicit_decision_line(lines: List[str]) -> Optional[str]:
+    """Return the explicit 'Decision: ...' line if present near the top."""
+    decision_regex = re.compile(r"^\s*decision\s*:\s*(.+)$", re.IGNORECASE)
+    for ln in lines[:10]:
+        m = decision_regex.match(ln)
+        if m:
+            return ln.strip()
+    return None
+
+
+def _classify_from_text_window(text: str) -> Optional[str]:
+    """Classify using bounded window with robust word boundaries and synonym mapping.
+
+    Avoid false positives (e.g., BUYBACK). Exclude negations like 'not a buy'.
+    """
+    if not text:
+        return None
+    window = text[:600]
+    # Candidate tokens with synonyms; order gives priority when multiple found
+    candidates = [
+        (r"\bstrong\s+sell\b", "SELL"),
+        (r"\bstrong\s+buy\b", "BUY"),
+        (r"\bund(er)?perform\b", "SELL"),
+        (r"\bunderweight\b", "SELL"),
+        (r"\breduce\b", "SELL"),
+        (r"\boverweight\b", "BUY"),
+        (r"\boutperform\b", "BUY"),
+        (r"\bequal\s+weight\b", "HOLD"),
+        (r"\bmarket\s+perform\b", "HOLD"),
+        (r"\bneutral\b", "HOLD"),
+        (r"\bbuy\b", "BUY"),
+        (r"\bsell\b", "SELL"),
+        (r"\bhold\b", "HOLD"),
+        (r"매수", "BUY"),
+        (r"매도", "SELL"),
+        (r"보유", "HOLD"),
+        (r"중립", "HOLD"),
+    ]
+
+    negations = re.compile(r"(?i)\b(not|no|avoid|never)\b.*\b(buy|sell|매수|매도)\b")
+    if negations.search(window):
+        # If there is a clear negation, bias to HOLD unless an explicit line exists elsewhere
+        return "HOLD"
+
+    lower_window = window.lower()
+    earliest_idx = None
+    chosen = None
+    for pattern, label in candidates:
+        m = re.search(pattern, lower_window)
+        if not m:
+            continue
+        idx = m.start()
+        if earliest_idx is None or idx < earliest_idx:
+            earliest_idx = idx
+            chosen = label
+    return chosen
+
+
+def decision_info_from_text_beginning(raw_text: str) -> Tuple[str, str, float]:
+    """Extract decision with source and confidence.
+
+    Returns (decision, source, confidence 0-1).
+    Source is one of: explicit_line, head_window, tail_legacy, default.
     """
     if not raw_text:
-        return "HOLD"
+        return ("HOLD", "default", 0.3)
     try:
         lines = [ln.strip() for ln in raw_text.strip().splitlines() if ln.strip()]
         if not lines:
-            return "HOLD"
+            return ("HOLD", "default", 0.3)
 
-        # 1) Priority: explicit Decision line near the top
-        for ln in lines[:5]:
-            up = ln.upper()
-            if up.startswith("DECISION:"):
-                if "BUY" in up:
-                    return "BUY"
-                if "SELL" in up:
-                    return "SELL"
-                if "HOLD" in up:
-                    return "HOLD"
+        # 1) Explicit Decision: line
+        explicit = _extract_explicit_decision_line(lines)
+        if explicit:
+            upper = explicit.upper()
+            # Capture the right-hand side and normalize
+            m = re.match(r"^\s*DECISION\s*:\s*(.+)$", explicit, re.IGNORECASE)
+            if m:
+                rhs = m.group(1).strip()
+                # Try direct normalization first, otherwise scan rhs tokens
+                normalized = _normalize_decision_token(rhs)
+                if not normalized:
+                    normalized = _classify_from_text_window(rhs) or "HOLD"
+                return (normalized, "explicit_line", 0.95)
 
-        # 2) Fallback: scan the beginning chunk
-        head = ("\n".join(lines[:5]) + raw_text[:300]).upper()
-        for token in ("BUY", "SELL", "HOLD"):
-            if token in head:
-                return token
+        # 2) Head window scan (first lines and first N chars)
+        head_blob = ("\n".join(lines[:8]) + "\n" + raw_text[:600])
+        classified = _classify_from_text_window(head_blob)
+        if classified:
+            return (classified, "head_window", 0.8)
 
-        # 3) Legacy: old logic scanning the end
-        last = lines[-1].upper().rstrip(" .!?)]")
-        for token in ("BUY", "SELL", "HOLD"):
-            if last.endswith(token) or last == token:
-                return token
-        tail = raw_text[-200:].upper()
-        for token in ("BUY", "SELL", "HOLD"):
-            if token in tail:
-                return token
+        # 3) Legacy tail scan
+        last = lines[-1].rstrip(" .!?)]")
+        tail_blob = (last + "\n" + raw_text[-300:])
+        classified_tail = _classify_from_text_window(tail_blob)
+        if classified_tail:
+            return (classified_tail, "tail_legacy", 0.55)
     except Exception:
         pass
-    return "HOLD"
+    return ("HOLD", "default", 0.3)
+
+
+def decision_from_text_beginning(raw_text: str) -> str:
+    """Backward-compatible wrapper returning only the decision label."""
+    return decision_info_from_text_beginning(raw_text)[0]
 
 
 def get_project_root() -> Path:
@@ -93,12 +184,25 @@ def get_trader_plan(final_state: Dict) -> str:
     return final_state.get("trader_investment_plan") or final_state.get("trader_investment_decision") or ""
 
 
+def _atomic_write(file_path: Path, text: str) -> None:
+    """Write text atomically to avoid partial files on crash."""
+    tmp_fd, tmp_path = tempfile.mkstemp(dir=str(file_path.parent), suffix=".tmp")
+    try:
+        with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+            f.write(text if text else "")
+        os.replace(tmp_path, file_path)
+    except Exception:
+        try:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+        finally:
+            raise
+
+
 def write_markdown_file(target_dir: Path, filename: str, title: str, content: str) -> Path:
     ensure_dir(target_dir)
     file_path = target_dir / filename
-    with open(file_path, "w") as f:
-        # Save the content exactly as produced by the agent (no added titles or wrapping)
-        f.write(content if content else "")
+    _atomic_write(file_path, content or "")
     return file_path
 
 
@@ -234,14 +338,28 @@ def save_reports(
             "final_trade_decision.md": ("Final Trade Decision", final_state.get("final_trade_decision", "")),
         }
 
+        # Resolve decision once per locale from the original final decision text
+        final_decision_text = final_state.get("final_trade_decision", "")
+        decision_label, decision_source, decision_conf = decision_info_from_text_beginning(final_decision_text)
+        decision_dir = decision_label
+        base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
+        ensure_dir(base_dir)
+
+        # Persist decision metadata for auditability
+        meta = {
+            "ticker": ticker.upper(),
+            "date": trade_date,
+            "locale": locale,
+            "decision": decision_label,
+            "source": decision_source,
+            "confidence": round(decision_conf, 2),
+            "generated_at": datetime.utcnow().isoformat() + "Z",
+        }
+        meta_path = base_dir / "_decision.json"
+        _atomic_write(meta_path, json.dumps(meta, ensure_ascii=False, indent=2))
+
         for filename, (title, content) in reports_map.items():
             localized_content = maybe_translate(content, locale, translator, translate)
-            # Route by final_trade_decision only
-            final_decision_text = final_state.get("final_trade_decision", "")
-            decision_dir = decision_from_text_beginning(final_decision_text)
-            base_dir = reports_root / trade_date / decision_dir / ticker.upper() / locale
-            ensure_dir(base_dir)
-
             # Apply post-processing only to final_trade_decision.md
             if filename == "final_trade_decision.md":
                 text_for_routing = localized_content or content
