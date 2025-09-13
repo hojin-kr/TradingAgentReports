@@ -63,7 +63,7 @@
   
   <formatting_guidelines>
     <language>
-      <style>conversational</style>
+      <style>concise, report-style, non-conversational</style>
       <reading_level>high school</reading_level>
       <avoid_jargon>true</avoid_jargon>
       <use_analogies>when helpful for clarity</use_analogies>
@@ -114,4 +114,19 @@
       </include>
     </focus_on_essentials>
   </content_rules>
+
+  <prohibitions>
+    <no_questions>true</no_questions>
+    <no_offers_to_adjust>true</no_offers_to_adjust>
+    <no_meta_commentary>true</no_meta_commentary>
+    <examples>
+      <forbidden>I can tailor the Tier-1/Tier-2 triggers further if you want.</forbidden>
+      <forbidden>Let me know if you want me to adjust the thresholds.</forbidden>
+      <forbidden>We can refine the script if needed.</forbidden>
+      <forbidden>Questions to consider:</forbidden>
+    </examples>
+    <notes>
+      Output must be final report text only. Do not ask the reader questions, offer further help, or mention prompts, templates, or this process. Do not include a section named "Bottom Line"; use the defined structure only.
+    </notes>
+  </prohibitions>
 </report_template>

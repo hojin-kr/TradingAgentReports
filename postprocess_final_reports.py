@@ -67,6 +67,15 @@ class ReportTemplate:
             for child in content_rules:
                 rules[child.tag] = self._parse_element_to_dict(child)
         return rules
+
+    def get_prohibitions(self) -> Dict:
+        """Extract prohibited patterns and flags from template."""
+        prohibitions: Dict = {}
+        node = self.template.find('prohibitions')
+        if node is None:
+            return prohibitions
+        prohibitions = self._parse_element_to_dict(node)
+        return prohibitions
     
     def _parse_element_to_dict(self, element: ET.Element) -> Dict:
         """Recursively parse XML element to dictionary."""
@@ -132,6 +141,7 @@ class ReportPostProcessor:
         sections = self.template.get_sections()
         guidelines = self.template.get_formatting_guidelines()
         rules = self.template.get_content_rules()
+        prohibitions = self.template.get_prohibitions()
         
         prompt_parts = [
             "You are an expert financial writer specializing in making investment analysis accessible to general investors.",
@@ -151,7 +161,7 @@ class ReportPostProcessor:
             "",
             "LANGUAGE GUIDELINES:",
             f"• Reading level: {guidelines.get('language', {}).get('reading_level', 'high school')}",
-            f"• Style: {guidelines.get('language', {}).get('style', 'conversational')}",
+            f"• Style: {guidelines.get('language', {}).get('style', 'concise, report-style, non-conversational')}",
             "• Avoid technical jargon - use simple, everyday language",
             "• Use analogies when they help explain complex concepts",
             f"• Maximum total length: {guidelines.get('length', {}).get('total_max_words', 800)} words",
@@ -185,11 +195,33 @@ class ReportPostProcessor:
             "",
             f"The original report recommends: {decision}",
             "",
-            "Format your response as clear, readable text with appropriate headings.",
-            "Write as if explaining to a friend who invests but isn't a financial expert.",
-            "Be confident but humble - acknowledge uncertainty where appropriate.",
-            "Avoid hype and overly promotional language.",
+            "Format your response as final report text with exactly these headings:",
+            "# Investment Report: {ticker}",
+            "## Executive Summary",
+            "## Investment Decision",
+            "## Key Reasons Supporting This Decision",
+            "## Risks To Watch",
+            "## Simple Action Plan",
+            "Do not include any other sections such as 'Bottom Line'.",
+            "Do not ask the reader questions, do not offer to adjust content, and do not include meta commentary about prompts or process.",
+            "Write in a concise, report-style tone. Avoid hype.",
         ])
+
+        # If template defines explicit forbidden example phrases, reinforce them
+        forbidden_examples: List[str] = []
+        examples = (prohibitions or {}).get('examples', {})
+        if isinstance(examples.get('forbidden'), list):
+            for item in examples['forbidden']:
+                if isinstance(item, dict) and 'text' in item:
+                    forbidden_examples.append(item['text'])
+        elif isinstance(examples.get('forbidden'), dict) and 'text' in examples['forbidden']:
+            forbidden_examples.append(examples['forbidden']['text'])
+
+        if forbidden_examples:
+            prompt_parts.append("")
+            prompt_parts.append("DO NOT INCLUDE the following kinds of sentences:")
+            for ex in forbidden_examples:
+                prompt_parts.append(f"• {ex}")
         
         return "\n".join(prompt_parts)
     
