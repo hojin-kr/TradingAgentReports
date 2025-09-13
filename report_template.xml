@@ -43,16 +43,7 @@
       <focus>practical concerns average investors can understand</focus>
     </section>
     
-    <section name="simple_action_plan" required="true">
-      <description>Practical steps for implementation</description>
-      <include>
-        <item>Position size suggestion (as % of portfolio)</item>
-        <item>Entry strategy (all at once vs gradual)</item>
-        <item>Exit conditions (when to sell)</item>
-      </include>
-      <tone>actionable, specific</tone>
-      <avoid_complex_strategies>true</avoid_complex_strategies>
-    </section>
+    <!-- Removed simple_action_plan to avoid execution plan content in final reports -->
     
     <section name="market_context" required="false">
       <description>Brief market backdrop if relevant</description>
@@ -110,7 +101,7 @@
         <item>Why the stock might go up or down</item>
         <item>What could change the outlook</item>
         <item>How much risk is involved</item>
-        <item>Practical next steps</item>
+        <!-- Removed practical next steps to avoid execution plan content -->
       </include>
     </focus_on_essentials>
   </content_rules>
@@ -119,14 +110,18 @@
     <no_questions>true</no_questions>
     <no_offers_to_adjust>true</no_offers_to_adjust>
     <no_meta_commentary>true</no_meta_commentary>
+    <no_execution_plans>true</no_execution_plans>
+    <no_future_discussion>true</no_future_discussion>
     <examples>
       <forbidden>I can tailor the Tier-1/Tier-2 triggers further if you want.</forbidden>
       <forbidden>Let me know if you want me to adjust the thresholds.</forbidden>
       <forbidden>We can refine the script if needed.</forbidden>
       <forbidden>Questions to consider:</forbidden>
+      <forbidden>Next steps we can take are:</forbidden>
+      <forbidden>In our follow-up discussion, we should consider...</forbidden>
     </examples>
     <notes>
-      Output must be final report text only. Do not ask the reader questions, offer further help, or mention prompts, templates, or this process. Do not include a section named "Bottom Line"; use the defined structure only.
+      Output must be final report text only. Do not ask questions, offer to adjust, describe execution plans, or suggest follow-up discussions. Do not include a section named "Bottom Line"; use the defined structure only.
     </notes>
   </prohibitions>
 </report_template>

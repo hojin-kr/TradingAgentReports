@@ -7,6 +7,7 @@ Uses XML template to ensure consistent structure and LLM for intelligent simplif
 
 import argparse
 import json
+import re
 import os
 import sys
 import xml.etree.ElementTree as ET
@@ -133,6 +134,9 @@ class ReportPostProcessor:
         # Process the content
         simplified = self._invoke_llm(system_prompt, original_content)
         
+        # Sanitize output to remove prohibited content (execution plans, future discussions, etc.)
+        simplified = self._sanitize_output(simplified, self.template.get_prohibitions())
+        
         return simplified
     
     def _build_system_prompt(self, ticker: str, decision: str) -> str:
@@ -191,19 +195,19 @@ class ReportPostProcessor:
             "• Why the stock might go up or down",
             "• What could change the outlook",
             "• How much risk is involved",
-            "• Practical next steps for investors",
             "",
             f"The original report recommends: {decision}",
             "",
             "Format your response as final report text with exactly these headings:",
-            "# Investment Report: {ticker}",
+            f"# Investment Report: {ticker}",
             "## Executive Summary",
             "## Investment Decision",
             "## Key Reasons Supporting This Decision",
             "## Risks To Watch",
-            "## Simple Action Plan",
             "Do not include any other sections such as 'Bottom Line'.",
             "Do not ask the reader questions, do not offer to adjust content, and do not include meta commentary about prompts or process.",
+            "Do not include execution plans, action plans, scripts, or 'next steps'.",
+            "Do not suggest follow-up or future discussions.",
             "Write in a concise, report-style tone. Avoid hype.",
         ])
 
@@ -224,6 +228,33 @@ class ReportPostProcessor:
                 prompt_parts.append(f"• {ex}")
         
         return "\n".join(prompt_parts)
+
+    def _sanitize_output(self, text: str, prohibitions: Dict) -> str:
+        """Remove lines that violate prohibitions such as execution plans or future discussion."""
+        if not text:
+            return text
+        patterns: List[str] = [
+            r"(?i)\bnext steps\b",
+            r"(?i)\b(action|execution) plan\b",
+            r"(?i)\bwe can (discuss|talk|review|refine|adjust|revisit)\b",
+            r"(?i)\bin our (next|follow[- ]?up) (discussion|meeting|call)\b",
+            r"(?i)\blet me know\b",
+            r"(?i)\bi can (tailor|adjust|refine|help)\b",
+            r"(?i)\bquestions to consider\b",
+            r"(?i)^#+\s*bottom line\b",
+        ]
+        # Honor flags if present
+        if prohibitions.get('no_execution_plans'):
+            patterns.extend([r"(?i)\bposition size\b", r"(?i)\bentry strategy\b", r"(?i)\bexit conditions\b"])
+        if prohibitions.get('no_future_discussion'):
+            patterns.append(r"(?i)\bfollow[- ]?up\b")
+        compiled = [re.compile(p) for p in patterns]
+        filtered_lines: List[str] = []
+        for line in text.splitlines():
+            if any(p.search(line) for p in compiled):
+                continue
+            filtered_lines.append(line)
+        return "\n".join(filtered_lines).strip()
     
     def process_file(self, file_path: Path, output_path: Optional[Path] = None, force: bool = False) -> bool:
         """Process a single report file."""
