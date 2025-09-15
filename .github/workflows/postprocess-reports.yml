@@ -19,11 +19,11 @@ on:
         type: boolean
         default: false
 
-  # Automatic trigger - runs daily at 2 AM UTC after reports are likely generated
-  # Schedule trigger removed to prevent duplicate runs
-
-  # Note: This workflow is now triggered by generate-reports workflow
-  # Push trigger removed to prevent duplicate runs
+  # Automatic trigger when generate-reports workflow completes successfully
+  workflow_run:
+    workflows: ["Generate daily TradingAgents reports"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: write
@@ -61,37 +61,28 @@ jobs:
           echo "TARGET_DATE=${{ inputs.date }}" >> $GITHUB_OUTPUT
           echo "DRY_RUN=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
           echo "FORCE=${{ inputs.force }}" >> $GITHUB_OUTPUT
-        elif [ "${{ github.event_name }}" = "push" ]; then
-          # For push events, detect the date from changed files in reports directory
-          echo "Detecting date from changed files in reports directory..."
+        elif [ "${{ github.event_name }}" = "workflow_run" ]; then
+          # For workflow_run events, detect the date from the most recent reports directory
+          echo "Detecting date from workflow_run trigger..."
           
-          # Get list of changed files in reports directory
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^reports/' || true)
+          # Find the most recent reports directory
+          LATEST_REPORTS_DIR=$(find reports -maxdepth 1 -type d -name "20*" | sort | tail -1)
           
-          if [ -n "$CHANGED_FILES" ]; then
-            # Extract dates from changed file paths (format: reports/YYYY-MM-DD/...)
-            CHANGED_DATES=$(echo "$CHANGED_FILES" | sed -n 's|^reports/\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)/.*|\1|p' | sort -u)
-            
-            if [ -n "$CHANGED_DATES" ]; then
-              # Use the most recent date from changed files
-              TARGET_DATE=$(echo "$CHANGED_DATES" | tail -1)
-              echo "Detected date from changed files: $TARGET_DATE"
-            else
-              # Fallback to yesterday if no date pattern found
-              TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)
-              echo "No date pattern found in changed files, using yesterday: $TARGET_DATE"
-            fi
+          if [ -n "$LATEST_REPORTS_DIR" ]; then
+            # Extract date from directory name (format: reports/YYYY-MM-DD)
+            TARGET_DATE=$(basename "$LATEST_REPORTS_DIR")
+            echo "Detected date from latest reports directory: $TARGET_DATE"
           else
-            # No reports files changed, use yesterday
+            # Fallback to yesterday if no reports directory found
             TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)
-            echo "No reports files changed, using yesterday: $TARGET_DATE"
+            echo "No reports directory found, using yesterday: $TARGET_DATE"
           fi
           
           echo "TARGET_DATE=$TARGET_DATE" >> $GITHUB_OUTPUT
           echo "DRY_RUN=false" >> $GITHUB_OUTPUT
           echo "FORCE=false" >> $GITHUB_OUTPUT
         else
-          # For scheduled runs, use yesterday's date
+          # For other events, use yesterday's date
           echo "TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
           echo "DRY_RUN=false" >> $GITHUB_OUTPUT
           echo "FORCE=false" >> $GITHUB_OUTPUT
