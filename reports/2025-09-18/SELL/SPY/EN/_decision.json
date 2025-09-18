@@ -1,0 +1,9 @@
+{
+  "ticker": "SPY",
+  "date": "2025-09-18",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-09-18T00:55:13.511196Z"
+}
