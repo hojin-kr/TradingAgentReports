@@ -1,0 +1,9 @@
+{
+  "ticker": "TSLA",
+  "date": "2025-09-19",
+  "locale": "EN",
+  "decision": "BUY",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-09-19T01:04:05.033516Z"
+}
