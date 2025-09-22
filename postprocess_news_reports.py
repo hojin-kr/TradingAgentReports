@@ -184,31 +184,25 @@ class NewsReportPostProcessor:
             "• Focus on immediate trading implications",
             "",
             "OUTPUT FORMAT:",
-            f"# Daily Market Intelligence: {ticker} - {trade_date}",
+            f"# Daily Trading Intelligence: {ticker} - {trade_date}",
             "",
         ]
         
         template_sections = [
             "## Executive Snapshot",
-            "## Key Catalysts & Market Drivers", 
-            "## Technical Analysis & Key Levels",
-            "## Risk Factors to Monitor",
-            "## Trading Scenarios & Targets",
-            "## Market Context & Macro Backdrop",
-            "## Data Signals & Indicators (if applicable)",
-            "## Upcoming Events Calendar (if applicable)",
+            "## Macro and Market Backdrop", 
+            "## Company-Specific Catalysts and News",
+            "## Price Action and Technical Levels",
+            "## Trading Scenarios and Outlook",
+            "## Key Data Points Summary (if applicable)",
             "",
-            "End with a summary table containing:",
-            "| Scenario | Price Target | Key Trigger | Risk Level |",
-            "|----------|-------------|-------------|------------|",
-            "",
-            "CRITICAL REQUIREMENTS:",
-            "• Include specific price levels (not just 'higher' or 'lower')",
-            "• Provide clear entry/exit conditions for each scenario",
-            "• Specify timeframes for price targets",
-            "• Include risk management guidance (stop levels, position sizing)",
-            "• Focus on actionable intelligence for active traders",
-            "• Maintain professional, analytical tone throughout",
+            "STRUCTURE REQUIREMENTS:",
+            "• Use bullet points for catalysts and key developments",
+            "• Include specific price levels and targets where available",
+            "• Organize trading scenarios as Base Case, Bull Case, Bear Case",
+            "• End with summary table if multiple key points need organization",
+            "• Focus on actionable intelligence for traders",
+            "• Maintain professional, analytical tone",
         ]
         
         prompt_parts.extend(formatting_rules)
@@ -261,7 +255,7 @@ class NewsReportPostProcessor:
             
             # Quick validation - check if it has expected structure
             content = output_path.read_text(encoding='utf-8')
-            if not any(marker in content for marker in ['# Daily Market Intelligence', '## Executive Snapshot', '## Key Catalysts']):
+            if not any(marker in content for marker in ['# Daily Trading Intelligence', '## Executive Snapshot', '## Macro and Market']):
                 return False
             
             # Get modification times
@@ -353,7 +347,7 @@ def main():
     
     # Set up paths
     project_root = get_project_root()
-    template_path = Path(args.template) if args.template else project_root / "news_report_template.xml"
+    template_path = Path(args.template) if args.template else project_root / "news_report_template_simple.xml"
     reports_root = project_root / "reports"
     
     if not template_path.exists():

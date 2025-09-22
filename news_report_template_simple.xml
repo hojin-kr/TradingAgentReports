@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<news_report_template>
+  <metadata>
+    <version>1.0</version>
+    <description>Simplified template for daily news reports based on actual report structure</description>
+    <target_audience>Traders and investors seeking actionable market intelligence</target_audience>
+  </metadata>
+  
+  <structure>
+    <section name="executive_snapshot" required="true">
+      <description>Brief summary of key developments and trading stance</description>
+      <max_length>800</max_length>
+      <include>
+        <item>Core driver or theme for the week</item>
+        <item>Key catalysts and analyst sentiment</item>
+        <item>Macro overlay and market context</item>
+        <item>Overall trading stance and key risks</item>
+      </include>
+    </section>
+    
+    <section name="macro_backdrop" required="true">
+      <description>Broader market conditions and macro factors affecting the asset</description>
+      <max_length>600</max_length>
+      <include>
+        <item>Policy and rate environment</item>
+        <item>Sector dynamics and leadership</item>
+        <item>Global demand and regional factors</item>
+      </include>
+    </section>
+    
+    <section name="company_specific_catalysts" required="true">
+      <description>Specific news events, earnings, and developments for the company</description>
+      <format>bullet_points</format>
+      <include>
+        <item>Product launches and business developments</item>
+        <item>Analyst upgrades and price targets</item>
+        <item>Regulatory and competitive dynamics</item>
+        <item>Financial and operational signals</item>
+      </include>
+    </section>
+    
+    <section name="price_action_technicals" required="true">
+      <description>Current price levels, technical analysis, and key levels to watch</description>
+      <max_length>400</max_length>
+      <include>
+        <item>Recent price momentum and trends</item>
+        <item>Key support and resistance levels</item>
+        <item>Volume and flow patterns</item>
+      </include>
+    </section>
+    
+    <section name="trading_scenarios" required="true">
+      <description>Bullish, bearish, and base case scenarios with specific targets</description>
+      <format>structured_scenarios</format>
+      <include>
+        <item>Base case with expected range</item>
+        <item>Bull case with upside triggers and targets</item>
+        <item>Bear case with downside risks and levels</item>
+      </include>
+    </section>
+    
+    <section name="key_data_points" required="false">
+      <description>Summary table of key points and signals to monitor</description>
+      <format>markdown_table</format>
+      <include>
+        <item>Category, key point, market impact, timing</item>
+      </include>
+    </section>
+  </structure>
+  
+  <formatting_guidelines>
+    <language>
+      <style>professional, analytical, trader-focused</style>
+      <tone>direct and actionable</tone>
+    </language>
+    
+    <length>
+      <total_max_words>2500</total_max_words>
+    </length>
+    
+    <structure_format>
+      <use_bullet_points>for catalysts and key points</use_bullet_points>
+      <include_price_levels>specific numbers where available</include_price_levels>
+      <end_with_table>summary of key points if applicable</end_with_table>
+    </structure_format>
+  </formatting_guidelines>
+  
+  <output_format>
+    <header>Daily Trading Intelligence: [TICKER] - [DATE]</header>
+    <sections>
+      <section id="executive_snapshot">Executive Snapshot</section>
+      <section id="macro_backdrop">Macro and Market Backdrop</section>
+      <section id="company_specific_catalysts">Company-Specific Catalysts and News</section>
+      <section id="price_action_technicals">Price Action and Technical Levels</section>
+      <section id="trading_scenarios">Trading Scenarios and Outlook</section>
+      <section id="key_data_points">Key Data Points Summary (Optional)</section>
+    </sections>
+  </output_format>
+</news_report_template>
