@@ -1,0 +1,326 @@
+name: Post-process News Reports
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Target date for processing news reports (YYYY-MM-DD)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Perform dry run (show what would be processed without processing)'
+        required: false
+        type: boolean
+        default: false
+      force:
+        description: 'Force processing even if structured files already exist'
+        required: false
+        type: boolean
+        default: false
+
+  # Automatic trigger when investment reports post-processing completes successfully
+  workflow_run:
+    workflows: ["Post-process Investment Reports"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+env:
+  PYTHON_VERSION: '3.10'
+
+jobs:
+  postprocess-news-reports:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+
+    - name: Install dependencies
+      run: |
+        python -m pip install langchain-openai tenacity
+      continue-on-error: true
+    
+    - name: Determine target date
+      id: date
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "TARGET_DATE=${{ inputs.date }}" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+          echo "FORCE=${{ inputs.force }}" >> $GITHUB_OUTPUT
+        elif [ "${{ github.event_name }}" = "workflow_run" ]; then
+          # For workflow_run events, detect the date from the most recent reports directory
+          echo "Detecting date from workflow_run trigger..."
+          
+          # Find the most recent reports directory
+          LATEST_REPORTS_DIR=$(find reports -maxdepth 1 -type d -name "20*" | sort | tail -1)
+          
+          if [ -n "$LATEST_REPORTS_DIR" ]; then
+            # Extract date from directory name (format: reports/YYYY-MM-DD)
+            TARGET_DATE=$(basename "$LATEST_REPORTS_DIR")
+            echo "Detected date from latest reports directory: $TARGET_DATE"
+          else
+            # Fallback to yesterday if no reports directory found
+            TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)
+            echo "No reports directory found, using yesterday: $TARGET_DATE"
+          fi
+          
+          echo "TARGET_DATE=$TARGET_DATE" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+          echo "FORCE=false" >> $GITHUB_OUTPUT
+        else
+          # For other events, use yesterday's date
+          echo "TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+          echo "FORCE=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Validate template file
+      run: |
+        if [ ! -f "news_report_template_simple.xml" ]; then
+          echo "Error: news_report_template_simple.xml not found"
+          exit 1
+        fi
+        echo "News report template file found and validated"
+    
+    - name: Check for news reports to process
+      id: check_reports
+      run: |
+        TARGET_DATE="${{ steps.date.outputs.TARGET_DATE }}"
+        REPORTS_DIR="reports/$TARGET_DATE"
+        
+        echo "Checking for news reports in directory: $REPORTS_DIR"
+        echo "Target date: $TARGET_DATE"
+        
+        if [ ! -d "$REPORTS_DIR" ]; then
+          echo "No reports directory found for date: $TARGET_DATE"
+          echo "Available report directories:"
+          ls -la reports/ || echo "No reports directory exists"
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        NEWS_REPORTS=$(find "$REPORTS_DIR" -name "news_report.md" | wc -l)
+        echo "Found $NEWS_REPORTS news reports for $TARGET_DATE"
+        
+        if [ "$NEWS_REPORTS" -eq 0 ]; then
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+        else
+          echo "REPORTS_EXIST=true" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=$NEWS_REPORTS" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Run news report post-processing (dry run)
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'true'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Running dry run for news reports on date: ${{ steps.date.outputs.TARGET_DATE }}"
+        python postprocess_news_reports.py \
+          --date "${{ steps.date.outputs.TARGET_DATE }}" \
+          --dry-run
+    
+    - name: Run news report post-processing
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Processing news reports for date: ${{ steps.date.outputs.TARGET_DATE }}"
+        FORCE_FLAG=""
+        if [ "${{ steps.date.outputs.FORCE }}" = "true" ]; then
+          FORCE_FLAG="--force"
+          echo "Force processing enabled"
+        fi
+        python postprocess_news_reports.py \
+          --date "${{ steps.date.outputs.TARGET_DATE }}" \
+          $FORCE_FLAG
+    
+    - name: Commit and push structured news reports
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git fetch origin
+        BRANCH="${GITHUB_REF_NAME:-main}"
+        git pull --rebase origin "$BRANCH" || true
+        
+        # Add structured news reports
+        git add reports/${{ steps.date.outputs.TARGET_DATE }}/**/structured_*.md || true
+        
+        # Check if there are changes to commit
+        if ! git diff --cached --quiet; then
+          git commit -m "Add structured news reports for ${{ steps.date.outputs.TARGET_DATE }}
+          
+          - Processed ${{ steps.check_reports.outputs.REPORT_COUNT }} news reports
+          - Applied standardized template for structured daily trading intelligence
+          - Organized content into Executive Snapshot, Market Backdrop, Catalysts, Technical Levels, and Trading Scenarios
+          - Auto-generated by postprocess-news-reports workflow"
+          
+          git push || true
+          echo "Successfully committed and pushed structured news reports"
+        else
+          echo "No structured news reports to commit"
+        fi
+    
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## News Report Post-processing Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Date**: ${{ steps.date.outputs.TARGET_DATE }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Mode**: ${{ steps.date.outputs.DRY_RUN == 'true' && 'Dry Run' || 'Full Processing' }}" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.check_reports.outputs.REPORTS_EXIST }}" = "true" ]; then
+          echo "- **News Reports Found**: ${{ steps.check_reports.outputs.REPORT_COUNT }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ✅ Processing completed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status**: ⚠️ No news reports found for processing" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Files Processed" >> $GITHUB_STEP_SUMMARY
+        if [ -d "reports/${{ steps.date.outputs.TARGET_DATE }}" ]; then
+          find "reports/${{ steps.date.outputs.TARGET_DATE }}" -name "structured_*.md" | while read file; do
+            echo "- \`$file\`" >> $GITHUB_STEP_SUMMARY
+          done
+        fi
+
+  # Quality check for structured news reports
+  quality-check:
+    runs-on: ubuntu-latest
+    needs: postprocess-news-reports
+    if: success()
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install quality check dependencies
+      run: |
+        pip install textstat readability
+    
+    - name: Run structured news report quality analysis
+      run: |
+        python3 << 'EOF'
+        import os
+        import glob
+        import re
+        from pathlib import Path
+        
+        def analyze_structure(file_path):
+            """Analyze structure of a structured news report."""
+            try:
+                content = Path(file_path).read_text(encoding='utf-8')
+                
+                # Check for required sections
+                required_sections = [
+                    "Executive Snapshot",
+                    "Macro and Market Backdrop",
+                    "Company-Specific Catalysts",
+                    "Price Action and Technical Levels",
+                    "Trading Scenarios"
+                ]
+                
+                found_sections = []
+                for section in required_sections:
+                    if section in content:
+                        found_sections.append(section)
+                
+                # Count bullet points and price mentions
+                bullet_points = len(re.findall(r'^[-•*]\s+', content, re.MULTILINE))
+                price_mentions = len(re.findall(r'\$\d+\.?\d*', content))
+                
+                # Check for trading scenarios
+                has_scenarios = any(scenario in content.lower() for scenario in ['base case', 'bull case', 'bear case'])
+                
+                return {
+                    'file': file_path,
+                    'sections_found': len(found_sections),
+                    'sections_total': len(required_sections),
+                    'missing_sections': [s for s in required_sections if s not in found_sections],
+                    'bullet_points': bullet_points,
+                    'price_mentions': price_mentions,
+                    'has_scenarios': has_scenarios,
+                    'word_count': len(content.split())
+                }
+            except Exception as e:
+                print(f"Error analyzing {file_path}: {e}")
+                return None
+        
+        # Find structured news reports
+        structured_files = glob.glob('reports/**/structured_news_report.md', recursive=True)
+        
+        if not structured_files:
+            print("No structured news reports found for quality analysis")
+            exit(0)
+        
+        print("## Structured News Report Quality Analysis")
+        print("| File | Sections | Bullet Points | Price Mentions | Scenarios | Word Count | Quality |")
+        print("|------|----------|---------------|----------------|-----------|------------|---------|")
+        
+        total_files = 0
+        good_quality = 0
+        
+        for file_path in structured_files:
+            result = analyze_structure(file_path)
+            if result:
+                total_files += 1
+                
+                # Assess quality
+                quality_score = 0
+                if result['sections_found'] >= 4:  # At least 4/5 required sections
+                    quality_score += 1
+                if result['bullet_points'] >= 5:  # Good use of bullet points
+                    quality_score += 1
+                if result['price_mentions'] >= 2:  # Contains specific price levels
+                    quality_score += 1
+                if result['has_scenarios']:  # Has trading scenarios
+                    quality_score += 1
+                if 500 <= result['word_count'] <= 3000:  # Appropriate length
+                    quality_score += 1
+                
+                if quality_score >= 4:
+                    assessment = "✅ Excellent"
+                    good_quality += 1
+                elif quality_score >= 3:
+                    assessment = "✅ Good"
+                    good_quality += 1
+                elif quality_score >= 2:
+                    assessment = "⚠️ Acceptable"
+                else:
+                    assessment = "❌ Needs Improvement"
+                
+                scenarios_check = "✅" if result['has_scenarios'] else "❌"
+                
+                print(f"| {result['file']} | {result['sections_found']}/{result['sections_total']} | {result['bullet_points']} | {result['price_mentions']} | {scenarios_check} | {result['word_count']} | {assessment} |")
+                
+                # Print missing sections if any
+                if result['missing_sections']:
+                    print(f"  Missing: {', '.join(result['missing_sections'])}")
+        
+        print(f"\n**Summary**: {good_quality}/{total_files} files have good quality structure")
+        
+        # Set output for GitHub Actions
+        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+            f.write(f"\n## News Report Structure Analysis\n")
+            f.write(f"- **Files Analyzed**: {total_files}\n")
+            f.write(f"- **Good Quality**: {good_quality}/{total_files}\n")
+            f.write(f"- **Criteria**: Sections ≥4/5, Bullet Points ≥5, Price Mentions ≥2, Has Scenarios, Word Count 500-3000\n")
+        EOF
