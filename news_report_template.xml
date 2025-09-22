@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<news_report_template>
+  <metadata>
+    <version>1.0</version>
+    <description>Template for standardized daily news reports for traders and investors</description>
+    <target_audience>Active traders and investors seeking actionable market intelligence</target_audience>
+  </metadata>
+  
+  <structure>
+    <section name="executive_snapshot" required="true">
+      <description>Brief, impactful summary highlighting the most critical developments and their trading implications</description>
+      <max_length>500</max_length>
+      <tone>concise, authoritative, trader-focused</tone>
+      <include>
+        <item>Core market-moving story or catalyst</item>
+        <item>Key price action or sentiment shift</item>
+        <item>Primary risk/opportunity for traders</item>
+        <item>Overall market stance recommendation</item>
+      </include>
+    </section>
+    
+    <section name="key_catalysts" required="true">
+      <description>Major news events, earnings, policy changes, or market developments that could drive price action</description>
+      <max_items>5</max_items>
+      <item_length>100-200</item_length>
+      <format>
+        <item>Event description</item>
+        <item>Market impact assessment</item>
+        <item>Trading implications</item>
+      </format>
+    </section>
+    
+    <section name="technical_levels" required="true">
+      <description>Key support, resistance, and price targets based on recent price action</description>
+      <max_items>4</max_items>
+      <include>
+        <item>Current price context</item>
+        <item>Key support levels</item>
+        <item>Resistance levels</item>
+        <item>Breakout/breakdown scenarios</item>
+      </include>
+    </section>
+    
+    <section name="risk_factors" required="true">
+      <description>Primary risks that could disrupt the current narrative or trading thesis</description>
+      <max_items>3</max_items>
+      <item_length>75-150</item_length>
+      <focus>immediate threats to current positioning</focus>
+    </section>
+    
+    <section name="trading_scenarios" required="true">
+      <description>Bullish, bearish, and base-case scenarios with specific price targets and triggers</description>
+      <scenarios>
+        <scenario name="bullish">
+          <triggers>Positive catalysts that could drive upside</triggers>
+          <targets>Specific price levels or percentage moves</targets>
+        </scenario>
+        <scenario name="base_case">
+          <description>Most likely outcome given current conditions</description>
+          <range>Expected trading range or direction</range>
+        </scenario>
+        <scenario name="bearish">
+          <triggers>Risk events that could drive downside</triggers>
+          <targets>Downside price levels or stops</targets>
+        </scenario>
+      </scenarios>
+    </section>
+    
+    <section name="market_context" required="true">
+      <description>Broader market conditions, sector rotation, and macro factors affecting the asset</description>
+      <max_length>300</max_length>
+      <focus>
+        <item>Sector performance and rotation</item>
+        <item>Macro economic backdrop</item>
+        <item>Relative performance vs benchmarks</item>
+        <item>Flow and sentiment indicators</item>
+      </focus>
+    </section>
+    
+    <section name="data_signals" required="false">
+      <description>Key metrics, volume patterns, options flow, or sentiment indicators</description>
+      <max_items>4</max_items>
+      <types>
+        <item>Volume and flow analysis</item>
+        <item>Options positioning</item>
+        <item>Sentiment metrics</item>
+        <item>Technical indicators</item>
+      </types>
+    </section>
+    
+    <section name="key_events_calendar" required="false">
+      <description>Upcoming events, earnings, announcements, or data releases to monitor</description>
+      <max_items>3</max_items>
+      <format>date, event, expected impact</format>
+    </section>
+  </structure>
+  
+  <formatting_guidelines>
+    <language>
+      <style>professional, direct, action-oriented</style>
+      <reading_level>professional trader/investor</reading_level>
+      <technical_terms>use industry standard terminology</technical_terms>
+      <tone>confident, analytical, practical</tone>
+    </language>
+    
+    <length>
+      <total_max_words>2000</total_max_words>
+      <paragraph_max_sentences>4</paragraph_max_sentences>
+      <bullet_points>use for key insights and levels</bullet_points>
+    </length>
+    
+    <structure_format>
+      <headings>use clear section headers</headings>
+      <tables>include summary tables for key levels and scenarios</tables>
+      <emphasis>bold for critical price levels and key insights</emphasis>
+    </structure_format>
+  </formatting_guidelines>
+  
+  <content_rules>
+    <focus_areas>
+      <priority_content>
+        <item>Actionable price levels and targets</item>
+        <item>Risk management guidelines</item>
+        <item>Catalyst timeline and impact assessment</item>
+        <item>Position sizing considerations</item>
+      </priority_content>
+      
+      <required_elements>
+        <item>Specific price levels (support/resistance)</item>
+        <item>Risk/reward ratios where applicable</item>
+        <item>Time horizon for scenarios</item>
+        <item>Position management guidance</item>
+      </required_elements>
+    </focus_areas>
+    
+    <data_integration>
+      <sources>
+        <item>Price action and volume analysis</item>
+        <item>News flow and fundamental developments</item>
+        <item>Options flow and positioning data</item>
+        <item>Macro economic indicators</item>
+        <item>Sector and peer performance</item>
+      </sources>
+    </data_integration>
+  </content_rules>
+  
+  <output_format>
+    <template_structure>
+      <header>Daily Market Intelligence: [TICKER] - [DATE]</header>
+      <sections>
+        <section id="executive_snapshot">Executive Snapshot</section>
+        <section id="key_catalysts">Key Catalysts and Market Drivers</section>
+        <section id="technical_levels">Technical Analysis and Key Levels</section>
+        <section id="risk_factors">Risk Factors to Monitor</section>
+        <section id="trading_scenarios">Trading Scenarios and Targets</section>
+        <section id="market_context">Market Context and Macro Backdrop</section>
+        <section id="data_signals">Data Signals and Indicators (Optional)</section>
+        <section id="key_events_calendar">Upcoming Events Calendar (Optional)</section>
+      </sections>
+      <footer>Summary table with key levels, targets, and risk parameters</footer>
+    </template_structure>
+  </output_format>
+  
+  <quality_standards>
+    <accuracy>
+      <price_data>verify all price levels and technical analysis</price_data>
+      <news_verification>cross-reference major news items</news_verification>
+      <timeline>ensure event dates and timings are accurate</timeline>
+    </accuracy>
+    
+    <actionability>
+      <specific_levels>provide exact price levels, not ranges</specific_levels>
+      <clear_triggers>define specific conditions for scenario activation</clear_triggers>
+      <risk_management>include stop levels and position sizing guidance</risk_management>
+    </actionability>
+    
+    <timeliness>
+      <market_hours>consider current market session and timing</market_hours>
+      <event_proximity>weight recent events more heavily</event_proximity>
+      <expiration_awareness>note when analysis may become stale</expiration_awareness>
+    </timeliness>
+  </quality_standards>
+</news_report_template>
