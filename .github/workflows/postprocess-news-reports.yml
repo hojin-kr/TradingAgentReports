@@ -19,9 +19,9 @@ on:
         type: boolean
         default: false
 
-  # Automatic trigger when generate-reports workflow completes successfully
+  # Automatic trigger when investment reports post-processing completes successfully
   workflow_run:
-    workflows: ["Generate daily TradingAgents reports"]
+    workflows: ["Post-process Investment Reports"]
     types: [completed]
     branches: [main]
 

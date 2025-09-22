@@ -1,0 +1,327 @@
+name: Post-process Reports Sequential
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Target date for processing reports (YYYY-MM-DD)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Perform dry run (show what would be processed without processing)'
+        required: false
+        type: boolean
+        default: false
+      force:
+        description: 'Force processing even if processed files already exist'
+        required: false
+        type: boolean
+        default: false
+
+  # Automatic trigger when generate-reports workflow completes successfully
+  workflow_run:
+    workflows: ["Generate daily TradingAgents reports"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+env:
+  PYTHON_VERSION: '3.10'
+
+jobs:
+  # Step 1: Process Investment Reports
+  process-investment-reports:
+    runs-on: ubuntu-latest
+    outputs:
+      target_date: ${{ steps.date.outputs.TARGET_DATE }}
+      dry_run: ${{ steps.date.outputs.DRY_RUN }}
+      force: ${{ steps.date.outputs.FORCE }}
+      investment_success: ${{ steps.process.outputs.SUCCESS }}
+      investment_count: ${{ steps.check_reports.outputs.REPORT_COUNT }}
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+
+    - name: Install dependencies
+      run: |
+        python -m pip install langchain-openai tenacity
+        python -m pip install -r requirements.txt || echo "Some requirements failed, continuing with minimal setup"
+      continue-on-error: true
+    
+    - name: Determine target date and settings
+      id: date
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "TARGET_DATE=${{ inputs.date }}" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+          echo "FORCE=${{ inputs.force }}" >> $GITHUB_OUTPUT
+        elif [ "${{ github.event_name }}" = "workflow_run" ]; then
+          # For workflow_run events, detect the date from the most recent reports directory
+          echo "Detecting date from workflow_run trigger..."
+          
+          # Find the most recent reports directory
+          LATEST_REPORTS_DIR=$(find reports -maxdepth 1 -type d -name "20*" | sort | tail -1)
+          
+          if [ -n "$LATEST_REPORTS_DIR" ]; then
+            TARGET_DATE=$(basename "$LATEST_REPORTS_DIR")
+            echo "Detected date from latest reports directory: $TARGET_DATE"
+          else
+            TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)
+            echo "No reports directory found, using yesterday: $TARGET_DATE"
+          fi
+          
+          echo "TARGET_DATE=$TARGET_DATE" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+          echo "FORCE=false" >> $GITHUB_OUTPUT
+        else
+          echo "TARGET_DATE=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          echo "DRY_RUN=false" >> $GITHUB_OUTPUT
+          echo "FORCE=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Validate investment template
+      run: |
+        if [ ! -f "report_template.xml" ]; then
+          echo "Error: report_template.xml not found"
+          exit 1
+        fi
+        echo "Investment report template validated"
+    
+    - name: Check for investment reports
+      id: check_reports
+      run: |
+        TARGET_DATE="${{ steps.date.outputs.TARGET_DATE }}"
+        REPORTS_DIR="reports/$TARGET_DATE"
+        
+        if [ ! -d "$REPORTS_DIR" ]; then
+          echo "No reports directory found for date: $TARGET_DATE"
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=0" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        FINAL_REPORTS=$(find "$REPORTS_DIR" -name "final_trade_decision.md" | wc -l)
+        echo "Found $FINAL_REPORTS investment reports for $TARGET_DATE"
+        
+        if [ "$FINAL_REPORTS" -eq 0 ]; then
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=0" >> $GITHUB_OUTPUT
+        else
+          echo "REPORTS_EXIST=true" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=$FINAL_REPORTS" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Process investment reports
+      id: process
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Processing investment reports for date: ${{ steps.date.outputs.TARGET_DATE }}"
+        
+        FORCE_FLAG=""
+        DRY_RUN_FLAG=""
+        
+        if [ "${{ steps.date.outputs.FORCE }}" = "true" ]; then
+          FORCE_FLAG="--force"
+          echo "Force processing enabled"
+        fi
+        
+        if [ "${{ steps.date.outputs.DRY_RUN }}" = "true" ]; then
+          DRY_RUN_FLAG="--dry-run"
+          echo "Dry run mode enabled"
+        fi
+        
+        python postprocess_final_reports.py \
+          --date "${{ steps.date.outputs.TARGET_DATE }}" \
+          $FORCE_FLAG $DRY_RUN_FLAG
+        
+        echo "SUCCESS=true" >> $GITHUB_OUTPUT
+    
+    - name: Commit investment reports
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false' && steps.process.outputs.SUCCESS == 'true'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git fetch origin
+        BRANCH="${GITHUB_REF_NAME:-main}"
+        git pull --rebase origin "$BRANCH" || true
+        
+        # Add simplified investment reports
+        git add reports/${{ steps.date.outputs.TARGET_DATE }}/**/simplified_*.md || true
+        
+        if ! git diff --cached --quiet; then
+          git commit -m "Add simplified investment reports for ${{ steps.date.outputs.TARGET_DATE }}
+          
+          - Processed ${{ steps.check_reports.outputs.REPORT_COUNT }} investment reports
+          - Applied standardized template for general investor accessibility
+          - Auto-generated by sequential workflow (step 1/2)"
+          
+          git push || true
+          echo "Investment reports committed successfully"
+        fi
+
+  # Step 2: Process News Reports (depends on investment reports)
+  process-news-reports:
+    runs-on: ubuntu-latest
+    needs: process-investment-reports
+    if: always() # Run even if investment processing fails
+    outputs:
+      news_success: ${{ steps.process.outputs.SUCCESS }}
+      news_count: ${{ steps.check_reports.outputs.REPORT_COUNT }}
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+
+    - name: Install dependencies
+      run: |
+        python -m pip install langchain-openai tenacity
+      continue-on-error: true
+    
+    - name: Validate news template
+      run: |
+        if [ ! -f "news_report_template_simple.xml" ]; then
+          echo "Error: news_report_template_simple.xml not found"
+          exit 1
+        fi
+        echo "News report template validated"
+    
+    - name: Check for news reports
+      id: check_reports
+      run: |
+        TARGET_DATE="${{ needs.process-investment-reports.outputs.target_date }}"
+        REPORTS_DIR="reports/$TARGET_DATE"
+        
+        if [ ! -d "$REPORTS_DIR" ]; then
+          echo "No reports directory found for date: $TARGET_DATE"
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=0" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        NEWS_REPORTS=$(find "$REPORTS_DIR" -name "news_report.md" | wc -l)
+        echo "Found $NEWS_REPORTS news reports for $TARGET_DATE"
+        
+        if [ "$NEWS_REPORTS" -eq 0 ]; then
+          echo "REPORTS_EXIST=false" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=0" >> $GITHUB_OUTPUT
+        else
+          echo "REPORTS_EXIST=true" >> $GITHUB_OUTPUT
+          echo "REPORT_COUNT=$NEWS_REPORTS" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Process news reports
+      id: process
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Processing news reports for date: ${{ needs.process-investment-reports.outputs.target_date }}"
+        
+        FORCE_FLAG=""
+        DRY_RUN_FLAG=""
+        
+        if [ "${{ needs.process-investment-reports.outputs.force }}" = "true" ]; then
+          FORCE_FLAG="--force"
+          echo "Force processing enabled"
+        fi
+        
+        if [ "${{ needs.process-investment-reports.outputs.dry_run }}" = "true" ]; then
+          DRY_RUN_FLAG="--dry-run"
+          echo "Dry run mode enabled"
+        fi
+        
+        python postprocess_news_reports.py \
+          --date "${{ needs.process-investment-reports.outputs.target_date }}" \
+          $FORCE_FLAG $DRY_RUN_FLAG
+        
+        echo "SUCCESS=true" >> $GITHUB_OUTPUT
+    
+    - name: Commit news reports
+      if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && needs.process-investment-reports.outputs.dry_run == 'false' && steps.process.outputs.SUCCESS == 'true'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git fetch origin
+        BRANCH="${GITHUB_REF_NAME:-main}"
+        git pull --rebase origin "$BRANCH" || true
+        
+        # Add structured news reports
+        git add reports/${{ needs.process-investment-reports.outputs.target_date }}/**/structured_*.md || true
+        
+        if ! git diff --cached --quiet; then
+          git commit -m "Add structured news reports for ${{ needs.process-investment-reports.outputs.target_date }}
+          
+          - Processed ${{ steps.check_reports.outputs.REPORT_COUNT }} news reports
+          - Applied structured template for daily trading intelligence
+          - Auto-generated by sequential workflow (step 2/2)"
+          
+          git push || true
+          echo "News reports committed successfully"
+        fi
+
+  # Step 3: Final Summary
+  create-summary:
+    runs-on: ubuntu-latest
+    needs: [process-investment-reports, process-news-reports]
+    if: always()
+    
+    steps:
+    - name: Create comprehensive summary
+      run: |
+        echo "## Sequential Post-processing Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Date**: ${{ needs.process-investment-reports.outputs.target_date }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Mode**: ${{ needs.process-investment-reports.outputs.dry_run == 'true' && 'Dry Run' || 'Full Processing' }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        echo "### Step 1: Investment Reports" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ needs.process-investment-reports.outputs.investment_success }}" = "true" ]; then
+          echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reports Processed**: ${{ needs.process-investment-reports.outputs.investment_count }}" >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ needs.process-investment-reports.outputs.investment_count }}" = "0" ]; then
+          echo "- **Status**: ⚠️ No reports found" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status**: ❌ Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Step 2: News Reports" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ needs.process-news-reports.outputs.news_success }}" = "true" ]; then
+          echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reports Processed**: ${{ needs.process-news-reports.outputs.news_count }}" >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ needs.process-news-reports.outputs.news_count }}" = "0" ]; then
+          echo "- **Status**: ⚠️ No reports found" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status**: ❌ Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Processing Order" >> $GITHUB_STEP_SUMMARY
+        echo "1. ✅ Investment Reports → Simplified" >> $GITHUB_STEP_SUMMARY
+        echo "2. ✅ News Reports → Structured" >> $GITHUB_STEP_SUMMARY
+        echo "3. ✅ Summary Generated" >> $GITHUB_STEP_SUMMARY

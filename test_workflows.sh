@@ -44,6 +44,7 @@ files_to_check=(
     ".github/workflows/postprocess-news-reports.yml"
     ".github/workflows/postprocess-reports.yml"
     ".github/workflows/postprocess-all-reports.yml"
+    ".github/workflows/postprocess-sequential.yml"
 )
 
 missing_files=0
@@ -215,8 +216,11 @@ echo "4. Test with manual workflow dispatch first"
 
 echo ""
 echo "💡 Quick test commands:"
+echo "   # Test sequential processing (RECOMMENDED):"
+echo "   gh workflow run postprocess-sequential.yml -f date=YYYY-MM-DD -f dry_run=true"
+echo ""
 echo "   # Test news reports only:"
 echo "   gh workflow run postprocess-news-reports.yml -f date=YYYY-MM-DD -f dry_run=true"
 echo ""
-echo "   # Test all reports:"  
+echo "   # Test all reports in parallel:"  
 echo "   gh workflow run postprocess-all-reports.yml -f date=YYYY-MM-DD -f dry_run=true"
