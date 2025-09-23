@@ -56,7 +56,7 @@ python3 postprocess_news_reports.py --date 2025-09-22
 
 ### 출력 형식
 ```markdown
-# Daily Trading Intelligence: [TICKER] - [DATE]
+# Daily Trading Intelligence: [TICKER]
 
 ## Executive Snapshot
 - 핵심 드라이버와 주요 테마

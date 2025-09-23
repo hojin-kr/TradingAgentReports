@@ -184,7 +184,7 @@ class NewsReportPostProcessor:
             "• Focus on immediate trading implications",
             "",
             "OUTPUT FORMAT:",
-            f"# Daily Trading Intelligence: {ticker} - {trade_date}",
+            f"# Daily Trading Intelligence: {ticker}",
             "",
         ]
         
