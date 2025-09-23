@@ -146,7 +146,7 @@
   
   <output_format>
     <template_structure>
-      <header>Daily Market Intelligence: [TICKER] - [DATE]</header>
+      <header>Daily Market Intelligence: [TICKER]</header>
       <sections>
         <section id="executive_snapshot">Executive Snapshot</section>
         <section id="key_catalysts">Key Catalysts and Market Drivers</section>

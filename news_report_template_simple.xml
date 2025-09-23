@@ -86,7 +86,7 @@
   </formatting_guidelines>
   
   <output_format>
-    <header>Daily Trading Intelligence: [TICKER] - [DATE]</header>
+    <header>Daily Trading Intelligence: [TICKER]</header>
     <sections>
       <section id="executive_snapshot">Executive Snapshot</section>
       <section id="macro_backdrop">Macro and Market Backdrop</section>
