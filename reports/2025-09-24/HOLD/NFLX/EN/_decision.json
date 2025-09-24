@@ -1,0 +1,9 @@
+{
+  "ticker": "NFLX",
+  "date": "2025-09-24",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-09-24T01:40:51.343890Z"
+}
