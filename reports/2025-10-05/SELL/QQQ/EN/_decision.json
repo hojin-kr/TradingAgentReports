@@ -1,0 +1,9 @@
+{
+  "ticker": "QQQ",
+  "date": "2025-10-05",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2025-10-05T01:35:16.272646Z"
+}
