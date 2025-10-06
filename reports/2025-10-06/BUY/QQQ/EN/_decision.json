@@ -1,0 +1,9 @@
+{
+  "ticker": "QQQ",
+  "date": "2025-10-06",
+  "locale": "EN",
+  "decision": "BUY",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-10-06T01:30:25.851404Z"
+}
