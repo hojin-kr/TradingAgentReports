@@ -1,0 +1,9 @@
+{
+  "ticker": "NFLX",
+  "date": "2025-10-10",
+  "locale": "EN",
+  "decision": "BUY",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-10-10T01:47:20.433249Z"
+}
