@@ -125,11 +125,14 @@ class ReportPostProcessor:
         result = self.llm.invoke(messages)
         return getattr(result, "content", str(result))
     
-    def simplify_report(self, original_content: str, ticker: str, decision: str) -> str:
-        """Transform complex report into simplified format using template guidelines."""
+    def simplify_report(self, original_content: str, ticker: str, decision: str, confidence_percent: Optional[int] = None) -> str:
+        """Transform complex report into simplified format using template guidelines.
+
+        Optionally include a top-of-post SNS summary block with a provided confidence percentage.
+        """
         
         # Build comprehensive system prompt based on template
-        system_prompt = self._build_system_prompt(ticker, decision)
+        system_prompt = self._build_system_prompt(ticker, decision, confidence_percent)
         
         # Process the content
         simplified = self._invoke_llm(system_prompt, original_content)
@@ -139,8 +142,12 @@ class ReportPostProcessor:
         
         return simplified
     
-    def _build_system_prompt(self, ticker: str, decision: str) -> str:
-        """Build detailed system prompt based on XML template."""
+    def _build_system_prompt(self, ticker: str, decision: str, confidence_percent: Optional[int] = None) -> str:
+        """Build detailed system prompt based on XML template.
+
+        If SNS summary is enabled in the template, instruct the model to prepend
+        a concise X(SNS)-ready summary block before the main headings.
+        """
         
         sections = self.template.get_sections()
         guidelines = self.template.get_formatting_guidelines()
@@ -153,6 +160,29 @@ class ReportPostProcessor:
             "",
             "REQUIRED STRUCTURE:",
         ]
+
+        # Optional SNS summary block instructions
+        sns_cfg = (guidelines or {}).get('sns_summary', {})
+        sns_enabled = str(sns_cfg.get('enabled', 'true')).lower() == 'true'
+        if sns_enabled:
+            cp_text = (
+                f"Use exactly this confidence line: Confidence: {int(confidence_percent)}%"
+                if isinstance(confidence_percent, int) and 0 <= confidence_percent <= 100
+                else "Include a confidence line like: Confidence: 82%"
+            )
+            char_limit = int(sns_cfg.get('character_limit', 100)) if str(sns_cfg.get('character_limit', '')).strip().isdigit() else 100
+            prompt_parts.extend([
+                "",
+                "At the VERY TOP, before any headings, output an X (Twitter) ready summary block for this ticker, following these exact rules:",
+                f"• First line: ${ticker.upper()}",
+                "• Blank line",
+                f"• One single English sentence (<= {char_limit} characters) focusing on a unique insight from THIS report (risk, pivot, shift, issue update). Avoid generic phrases like 'strong AI growth' or 'solid earnings'.",
+                "• Blank line",
+                f"• {cp_text}",
+                "• Blank line",
+                "• One line of auto hashtags including #" + ticker.upper() + " and relevant tags (e.g., #AI #Tech #Stocks #Investing) that fit the company/sector. Keep it compact.",
+                "• Separate results for each ticker by blank lines and ensure it's clean to post on X immediately.",
+            ])
         
         # Add section requirements
         for section in sections:
@@ -198,7 +228,7 @@ class ReportPostProcessor:
             "",
             f"The original report recommends: {decision}",
             "",
-            "Format your response as final report text with exactly these headings:",
+            "After the SNS block, format your response as final report text with exactly these headings:",
             f"# Investment Report: {ticker}",
             "## Executive Summary",
             "## Investment Decision",
@@ -275,8 +305,11 @@ class ReportPostProcessor:
             ticker = self._extract_ticker_from_path(file_path)
             decision = self._extract_decision_from_content(original_content)
             
+            # Load confidence percent from sibling decision metadata if available
+            confidence_percent = self._load_confidence_percent(file_path)
+
             # Simplify the report
-            simplified_content = self.simplify_report(original_content, ticker, decision)
+            simplified_content = self.simplify_report(original_content, ticker, decision, confidence_percent)
             
             # Save simplified version
             output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -288,6 +321,30 @@ class ReportPostProcessor:
         except Exception as e:
             print(f"✗ Error processing {file_path}: {e}")
             return False
+
+    def _load_confidence_percent(self, file_path: Path) -> Optional[int]:
+        """Load decision confidence from sibling _decision.json and convert to 0-100 int.
+
+        Returns None if not available or malformed.
+        """
+        try:
+            meta_path = file_path.parent / "_decision.json"
+            if not meta_path.exists():
+                return None
+            with open(meta_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            conf = data.get("confidence")
+            if conf is None:
+                return None
+            if isinstance(conf, (int, float)):
+                if 0 <= conf <= 1:
+                    pct = int(round(conf * 100))
+                else:
+                    pct = int(round(conf))
+                return max(0, min(100, pct))
+            return None
+        except Exception:
+            return None
     
     def _should_skip_processing(self, input_path: Path, output_path: Path) -> bool:
         """Check if processing should be skipped based on file existence and modification times."""
