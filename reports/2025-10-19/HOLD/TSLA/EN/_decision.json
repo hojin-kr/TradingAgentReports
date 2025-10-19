@@ -1,0 +1,9 @@
+{
+  "ticker": "TSLA",
+  "date": "2025-10-19",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-10-19T01:05:12.587637Z"
+}
