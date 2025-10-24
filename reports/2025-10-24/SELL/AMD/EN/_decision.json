@@ -1,0 +1,9 @@
+{
+  "ticker": "AMD",
+  "date": "2025-10-24",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2025-10-24T01:38:20.407909Z"
+}
