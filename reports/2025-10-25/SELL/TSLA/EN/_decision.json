@@ -1,0 +1,9 @@
+{
+  "ticker": "TSLA",
+  "date": "2025-10-25",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2025-10-25T01:06:31.615319Z"
+}

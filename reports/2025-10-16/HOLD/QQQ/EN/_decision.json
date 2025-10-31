@@ -1,0 +1,9 @@
+{
+  "ticker": "QQQ",
+  "date": "2025-10-16",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-10-16T01:48:56.048877Z"
+}

@@ -1,0 +1,9 @@
+{
+  "ticker": "AAPL",
+  "date": "2025-10-22",
+  "locale": "EN",
+  "decision": "BUY",
+  "source": "tail_legacy",
+  "confidence": 0.55,
+  "generated_at": "2025-10-22T01:45:59.951178Z"
+}

@@ -1,0 +1,9 @@
+{
+  "ticker": "AAPL",
+  "date": "2025-10-24",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "explicit_line",
+  "confidence": 0.95,
+  "generated_at": "2025-10-24T01:47:06.837496Z"
+}
