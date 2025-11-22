@@ -28,7 +28,8 @@ class FinancialSituationMemory:
             # Ollama client uses embed() method (singular, not embeddings)
             import ollama
             try:
-                response = self.client.embed(model=self.embedding, prompt=text)
+                # Ollama embed() method uses 'input' parameter, not 'prompt'
+                response = self.client.embed(model=self.embedding, input=text)
                 # Ollama returns EmbeddingsResponse object or dict with 'embedding' key
                 # Handle EmbeddingsResponse object
                 if hasattr(response, 'embedding'):
@@ -56,7 +57,7 @@ class FinancialSituationMemory:
                         print(f"Warning: Embedding model '{self.embedding}' not found. Attempting to pull it...")
                         self.client.pull(self.embedding)
                         # Retry after pulling
-                        response = self.client.embed(model=self.embedding, prompt=text)
+                        response = self.client.embed(model=self.embedding, input=text)
                         # Handle EmbeddingsResponse object
                         if hasattr(response, 'embedding'):
                             return response.embedding
