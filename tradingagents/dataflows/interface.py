@@ -719,7 +719,7 @@ def get_stock_news_openai(ticker, curr_date):
     
     if provider == "ollama":
         config = get_config()
-        model = config.get("ollama_model", "gemma3:4b")
+        model = config.get("ollama_model", "llama3.2")
         response = client.chat(
             model=model,
             messages=[
@@ -769,7 +769,7 @@ def get_global_news_openai(curr_date):
     
     if provider == "ollama":
         config = get_config()
-        model = config.get("ollama_model", "gemma3:4b")
+        model = config.get("ollama_model", "llama3.2")
         response = client.chat(
             model=model,
             messages=[
@@ -819,7 +819,7 @@ def get_fundamentals_openai(ticker, curr_date):
     
     if provider == "ollama":
         config = get_config()
-        model = config.get("ollama_model", "gemma3:4b")
+        model = config.get("ollama_model", "llama3.2")
         response = client.chat(
             model=model,
             messages=[

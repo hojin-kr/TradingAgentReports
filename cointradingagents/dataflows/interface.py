@@ -185,7 +185,7 @@ def get_stock_news_openai(ticker: str, curr_date: str) -> str:
     
     if provider == "ollama":
         cfg = config.get_config()
-        model = cfg.get("ollama_model", "gemma3:4b")
+        model = cfg.get("ollama_model", "llama3.2")
         response = client.chat(
             model=model,
             messages=[
@@ -237,7 +237,7 @@ def get_global_news_openai(curr_date: str) -> str:
     
     if provider == "ollama":
         cfg = config.get_config()
-        model = cfg.get("ollama_model", "gemma3:4b")
+        model = cfg.get("ollama_model", "llama3.2")
         response = client.chat(
             model=model,
             messages=[

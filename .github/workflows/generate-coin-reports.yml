@@ -32,7 +32,7 @@ jobs:
       COIN_LLM_PROVIDER: ollama
       TRADING_LLM_PROVIDER: ollama
       OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
-      OLLAMA_MODEL: gemma3:4b
+      OLLAMA_MODEL: llama3.2
       REDIS_URL: ${{ secrets.REDIS_URL }}
 
     steps:

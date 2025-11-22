@@ -58,7 +58,7 @@ class CoinTradingAgentsGraph:
         if self.config["llm_provider"].lower() == "ollama":
             from langchain_ollama import ChatOllama
             base_url = self.config.get("ollama_base_url", "http://localhost:11434")
-            model = self.config.get("ollama_model", "gemma3:4b")
+            model = self.config.get("ollama_model", "llama3.2")
             self.deep_thinking_llm = ChatOllama(model=model, base_url=base_url)
             self.quick_thinking_llm = ChatOllama(model=model, base_url=base_url)
         elif self.config["llm_provider"].lower() == "openai" or self.config["llm_provider"] == "openrouter":

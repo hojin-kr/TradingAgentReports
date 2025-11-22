@@ -131,7 +131,7 @@ jobs:
         COIN_LLM_PROVIDER: ollama
         TRADING_LLM_PROVIDER: ollama
         OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
-        OLLAMA_MODEL: gemma3:4b
+        OLLAMA_MODEL: llama3.2
       run: |
         echo "Running dry run for date: ${{ steps.date.outputs.TARGET_DATE }}"
         python postprocess_final_reports.py \
@@ -146,7 +146,7 @@ jobs:
         COIN_LLM_PROVIDER: ollama
         TRADING_LLM_PROVIDER: ollama
         OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
-        OLLAMA_MODEL: gemma3:4b
+        OLLAMA_MODEL: llama3.2
       run: |
         echo "Processing reports for date: ${{ steps.date.outputs.TARGET_DATE }}"
         FORCE_FLAG=""
