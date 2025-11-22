@@ -2,6 +2,17 @@
 
 ## 🚀 Available Workflows
 
+### 0. `generate-coin-reports.yml` - 일일 코인 리포트 생성
+Binance 24h USDT 거래대금 기준 상위 코인(기본 10개)에 대해 `gen_coin_reports.py`를 실행하여 `coin_reports/`와 `coin_eval_results/`를 갱신합니다.
+
+**트리거:**
+- 매일 00:30 UTC (schedule)
+- 수동 실행 (`workflow_dispatch`) – `date`, `tickers`, `top_count` 입력 가능
+
+**출력:**
+- `coin_reports/YYYY-MM-DD/BUY|HOLD|SELL/SYMBOL/LOCALE/*.md`
+- `coin_eval_results/SYMBOL/CoinTradingAgents_logs/full_states_log_<DATE>.json`
+
 ### 1. `postprocess-news-reports.yml` - 뉴스 리포트 구조화
 뉴스 리포트를 구조화된 일일 거래 인텔리전스 형태로 변환합니다.
 
@@ -69,7 +80,7 @@ gh workflow run postprocess-all-reports.yml -f date=2025-09-22 -f force=true
 
 ### 자동 실행
 
-`generate-reports.yml` 워크플로우가 성공적으로 완료되면 자동으로 실행됩니다.
+`generate-reports.yml` 혹은 `generate-coin-reports.yml` 워크플로우가 성공적으로 완료되면 후속 처리 워크플로우가 자동으로 실행됩니다.
 
 ## 📊 품질 검사
 
@@ -122,6 +133,25 @@ reports/
           └── simplified_final_trade_decision.md # 간소화된 투자 결정
 ```
 
+코인 리포트는 다음과 같이 저장됩니다:
+
+```
+coin_reports/
+  YYYY-MM-DD/
+    BUY|HOLD|SELL/
+      SYMBOL/
+        EN/
+          market_report.md
+          sentiment_report.md
+          news_report.md
+          trader_investment_plan.md
+          final_trade_decision.md
+coin_eval_results/
+  SYMBOL/
+    CoinTradingAgents_logs/
+      full_states_log_YYYY-MM-DD.json
+```
+
 ## 🎯 워크플로우 선택 가이드
 
 - **뉴스 리포트만 처리**: `postprocess-news-reports.yml`
@@ -132,7 +162,7 @@ reports/
 ## 🔄 자동화 흐름
 
 ```
-1. generate-reports.yml 실행
+1. generate-reports.yml 또는 generate-coin-reports.yml 실행
    ↓
 2. 리포트 생성 완료
    ↓  

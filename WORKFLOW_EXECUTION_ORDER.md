@@ -2,12 +2,13 @@
 
 ## 🔄 업데이트된 실행 순서
 
-뉴스 리포트 처리 워크플로우가 **투자 리포트 처리 완료 후**에 실행되도록 구성했습니다.
+뉴스 리포트 처리 워크플로우가 **투자 리포트 처리 완료 후**에 실행되도록 구성했습니다.  
+주식/지수 리포트를 생성하는 `Generate daily TradingAgents reports` 뿐 아니라, 코인 리포트를 생성하는 `Generate daily CoinTradingAgents reports`도 동일한 후속 파이프라인을 트리거하도록 연결되어 있습니다.
 
 ### 자동 실행 흐름
 
 ```
-1. Generate daily TradingAgents reports
+1. Generate daily TradingAgents reports 또는 Generate daily CoinTradingAgents reports
    ↓ (완료 시 자동 트리거)
 2. Post-process Investment Reports  
    ↓ (완료 시 자동 트리거)
@@ -91,7 +92,7 @@ gh workflow run postprocess-reports.yml -f date=2025-09-22
 ### 변경 전
 ```yaml
 workflow_run:
-  workflows: ["Generate daily TradingAgents reports"]
+  workflows: ["Generate daily TradingAgents reports", "Generate daily CoinTradingAgents reports"]
   types: [completed]
 ```
 
@@ -126,7 +127,7 @@ workflow_run:
 ### 완전 자동화 흐름
 ```
 매일 자동:
-Generate Reports → Process Investment Reports → Process News Reports → 완료
+Generate (Stocks or Coins) Reports → Process Investment Reports → Process News Reports → 완료
 ```
 
 ### 수동 실행 흐름  

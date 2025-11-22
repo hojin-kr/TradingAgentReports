@@ -75,6 +75,23 @@ reports/
           ... 동일 파일명 ...
 ```
 
+### 4) 코인 리포트 생성
+Binance 24h USDT 거래대금 상위 코인에 대해 기존 TradingAgents 파이프라인과 동일한 마크다운 리포트를 생성합니다.
+
+```bash
+# 상위 10개 코인 자동 실행
+python gen_coin_reports.py --date 2025-09-03 --locales EN
+
+# 특정 코인만 지정 (티커는 BTC 혹은 BTCUSDT 형태 모두 허용)
+python gen_coin_reports.py \
+  --ticker BTC,ETH,SOL \
+  --date 2025-09-03 \
+  --locales EN,KO
+```
+
+- 결과물은 `coin_reports/<DATE>/<BUY|HOLD|SELL>/<SYMBOL>/<LOCALE>/` 구조로 저장되며, 상태 로그는 `coin_eval_results/` 에 기록됩니다.
+- GitHub Actions 워크플로 `generate-coin-reports.yml`가 매일 UTC 00:30에 자동 실행되어 상위 10개 코인 리포트를 생성하고 커밋합니다. 필요 시 `workflow_dispatch` 입력으로 특정 날짜/코인을 지정할 수 있습니다.
+
 ## 설정 커스터마이징
 - 기본 설정은 `tradingagents/default_config.py`를 참고하세요.
   - `llm_provider`, `deep_think_llm`, `quick_think_llm`, `backend_url` 등 LLM 관련 설정
@@ -87,6 +104,8 @@ reports/
 - 번역이 생성되지 않음: `--translate` 옵션은 `gen_reports.py`에서만 사용됩니다. `postprocess_reports.py`는 EN 문서를 기준으로 자동 KO 번역을 시도합니다.
 - 데이터 경로 오류: `data_dir`가 로컬 환경에 맞지 않으면 오프라인 도구 결과가 비어 있을 수 있습니다. 필요한 경우 `tradingagents/default_config.py`에서 수정하세요.
 - 뉴스/크롤링 제한: Google News는 비공식 스크래핑으로, 레이트 리밋에 걸릴 수 있습니다. 재시도 시 지연이 포함됩니다.
+
+- 코인 리포트는 `cointradingagents/default_config.py`에서 `coin_reports_dir`, `coin_eval_results_dir`, `binance_base_url` 등을 조정할 수 있습니다.
 
 ## 라이선스
 프로젝트 루트의 라이선스 파일을 확인하세요(없다면 내부/사내 용도로 간주하십시오).
