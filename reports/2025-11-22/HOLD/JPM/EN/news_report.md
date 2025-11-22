@@ -1,0 +1,1 @@
+{"name":"get_finnhub_news","parameters\":{\"ticker\":\"JPM\"}}

@@ -1,0 +1,1 @@
+No data available for SPY on 2025-11-22.
