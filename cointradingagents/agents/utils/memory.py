@@ -25,12 +25,11 @@ class FinancialSituationMemory:
     def get_embedding(self, text):
         """Get embedding for a text"""
         if self.use_ollama:
-            response = self.client.embeddings.create(
-                model=self.embedding, input=text
-            )
-            # Ollama returns embeddings in a list format
-            if isinstance(response, dict) and 'embeddings' in response:
-                return response['embeddings'][0]
+            # Ollama client uses embeddings() method directly
+            response = self.client.embeddings(model=self.embedding, prompt=text)
+            # Ollama returns embeddings in a dict format with 'embedding' key
+            if isinstance(response, dict) and 'embedding' in response:
+                return response['embedding']
             elif isinstance(response, list):
                 return response[0]
             else:

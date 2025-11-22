@@ -225,12 +225,15 @@ class CoinTradingAgentsGraph:
         }
 
         # Save to file
-        directory = Path(self.config["coin_eval_results_dir"]) / self.ticker / "CoinTradingAgents_logs"
-        directory.mkdir(parents=True, exist_ok=True)
+        try:
+            directory = Path(self.config["coin_eval_results_dir"]) / self.ticker / "CoinTradingAgents_logs"
+            directory.mkdir(parents=True, exist_ok=True)
 
-        log_file = directory / f"full_states_log_{trade_date}.json"
-        with open(log_file, "w") as f:
-            json.dump(self.log_states_dict, f, indent=4)
+            log_file = directory / f"full_states_log_{trade_date}.json"
+            with open(log_file, "w") as f:
+                json.dump(self.log_states_dict, f, indent=4)
+        except (OSError, IOError, json.JSONEncodeError) as e:
+            print(f"Error saving log state to file: {e}")
 
     def reflect_and_remember(self, returns_losses):
         """Reflect on decisions and update memory based on returns."""

@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from langchain_openai import ChatOpenAI
+from langchain_core.language_models.chat_models import BaseChatModel
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from tradingagents.default_config import DEFAULT_CONFIG
@@ -109,14 +110,21 @@ class ReportPostProcessor:
         self.template = ReportTemplate(template_path)
         self.llm = self._create_llm()
         
-    def _create_llm(self) -> ChatOpenAI:
-        """Initialize LLM using existing OpenAI API key."""
-        if not os.getenv("OPENAI_API_KEY"):
-            raise ValueError("OPENAI_API_KEY environment variable is required")
+    def _create_llm(self) -> BaseChatModel:
+        """Initialize LLM using configured provider."""
+        llm_provider = DEFAULT_CONFIG.get("llm_provider", "openai").lower()
         
-        model = DEFAULT_CONFIG.get("quick_think_llm", "gpt-4o-mini")
-        base_url = DEFAULT_CONFIG.get("backend_url", "https://api.openai.com/v1")
-        return ChatOpenAI(model=model, base_url=base_url, temperature=0.1)
+        if llm_provider == "ollama":
+            from langchain_ollama import ChatOllama
+            base_url = DEFAULT_CONFIG.get("ollama_base_url", "http://localhost:11434")
+            model = DEFAULT_CONFIG.get("ollama_model", "llama3.2")
+            return ChatOllama(model=model, base_url=base_url, temperature=0.1)
+        else:
+            if not os.getenv("OPENAI_API_KEY"):
+                raise ValueError("OPENAI_API_KEY environment variable is required")
+            model = DEFAULT_CONFIG.get("quick_think_llm", "gpt-4o-mini")
+            base_url = DEFAULT_CONFIG.get("backend_url", "https://api.openai.com/v1")
+            return ChatOpenAI(model=model, base_url=base_url, temperature=0.1)
     
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
     def _invoke_llm(self, system_prompt: str, user_content: str) -> str:

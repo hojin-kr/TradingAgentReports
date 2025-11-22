@@ -779,47 +779,63 @@ def get_stock_news_openai(ticker, curr_date):
     if provider == "ollama":
         config = get_config()
         model = config.get("ollama_model", "llama3.2")
-        response = client.chat(
-            model=model,
-            messages=[
-                {"role": "system", "content": prompt}
-            ],
-            options={
-                "temperature": 1.0,
-                "num_predict": 4096,
-            }
-        )
-        return response["message"]["content"]
+        try:
+            response = client.chat(
+                model=model,
+                messages=[
+                    {"role": "system", "content": prompt}
+                ],
+                options={
+                    "temperature": 1.0,
+                    "num_predict": 4096,
+                }
+            )
+            # Safe access to response content
+            if isinstance(response, dict):
+                if "message" in response and isinstance(response["message"], dict):
+                    return response["message"].get("content", "")
+                elif "content" in response:
+                    return response["content"]
+            return str(response) if response else ""
+        except Exception as e:
+            return f"Error getting stock news: {str(e)}"
     else:
         config = get_config()
-        response = client.responses.create(
-            model=config["quick_think_llm"],
-            input=[
-                {
-                    "role": "system",
-                    "content": [
-                        {
-                            "type": "input_text",
-                            "text": prompt,
-                        }
-                    ],
-                }
-            ],
-            text={"format": {"type": "text"}},
-            reasoning={},
-            tools=[
-                {
-                    "type": "web_search_preview",
-                    "user_location": {"type": "approximate"},
-                    "search_context_size": "low",
-                }
-            ],
-            temperature=1,
-            max_output_tokens=4096,
-            top_p=1,
-            store=True,
-        )
-        return response.output[1].content[0].text
+        try:
+            response = client.responses.create(
+                model=config["quick_think_llm"],
+                input=[
+                    {
+                        "role": "system",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": prompt,
+                            }
+                        ],
+                    }
+                ],
+                text={"format": {"type": "text"}},
+                reasoning={},
+                tools=[
+                    {
+                        "type": "web_search_preview",
+                        "user_location": {"type": "approximate"},
+                        "search_context_size": "low",
+                    }
+                ],
+                temperature=1,
+                max_output_tokens=4096,
+                top_p=1,
+                store=True,
+            )
+            # Safe access to response content
+            if hasattr(response, "output") and len(response.output) > 1:
+                if hasattr(response.output[1], "content") and len(response.output[1].content) > 0:
+                    return response.output[1].content[0].text
+            return ""
+        except Exception as e:
+            return f"Error getting stock news: {str(e)}"
 
 
 def get_global_news_openai(curr_date):
@@ -829,47 +845,63 @@ def get_global_news_openai(curr_date):
     if provider == "ollama":
         config = get_config()
         model = config.get("ollama_model", "llama3.2")
-        response = client.chat(
-            model=model,
-            messages=[
-                {"role": "system", "content": prompt}
-            ],
-            options={
-                "temperature": 1.0,
-                "num_predict": 4096,
-            }
-        )
-        return response["message"]["content"]
+        try:
+            response = client.chat(
+                model=model,
+                messages=[
+                    {"role": "system", "content": prompt}
+                ],
+                options={
+                    "temperature": 1.0,
+                    "num_predict": 4096,
+                }
+            )
+            # Safe access to response content
+            if isinstance(response, dict):
+                if "message" in response and isinstance(response["message"], dict):
+                    return response["message"].get("content", "")
+                elif "content" in response:
+                    return response["content"]
+            return str(response) if response else ""
+        except Exception as e:
+            return f"Error getting stock news: {str(e)}"
     else:
         config = get_config()
-        response = client.responses.create(
-            model=config["quick_think_llm"],
-            input=[
-                {
-                    "role": "system",
-                    "content": [
-                        {
-                            "type": "input_text",
-                            "text": prompt,
-                        }
-                    ],
-                }
-            ],
-            text={"format": {"type": "text"}},
-            reasoning={},
-            tools=[
-                {
-                    "type": "web_search_preview",
-                    "user_location": {"type": "approximate"},
-                    "search_context_size": "low",
-                }
-            ],
-            temperature=1,
-            max_output_tokens=4096,
-            top_p=1,
-            store=True,
-        )
-        return response.output[1].content[0].text
+        try:
+            response = client.responses.create(
+                model=config["quick_think_llm"],
+                input=[
+                    {
+                        "role": "system",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": prompt,
+                            }
+                        ],
+                    }
+                ],
+                text={"format": {"type": "text"}},
+                reasoning={},
+                tools=[
+                    {
+                        "type": "web_search_preview",
+                        "user_location": {"type": "approximate"},
+                        "search_context_size": "low",
+                    }
+                ],
+                temperature=1,
+                max_output_tokens=4096,
+                top_p=1,
+                store=True,
+            )
+            # Safe access to response content
+            if hasattr(response, "output") and len(response.output) > 1:
+                if hasattr(response.output[1], "content") and len(response.output[1].content) > 0:
+                    return response.output[1].content[0].text
+            return ""
+        except Exception as e:
+            return f"Error getting stock news: {str(e)}"
 
 
 def get_fundamentals_openai(ticker, curr_date):
@@ -879,44 +911,60 @@ def get_fundamentals_openai(ticker, curr_date):
     if provider == "ollama":
         config = get_config()
         model = config.get("ollama_model", "llama3.2")
-        response = client.chat(
-            model=model,
-            messages=[
-                {"role": "system", "content": prompt}
-            ],
-            options={
-                "temperature": 1.0,
-                "num_predict": 4096,
-            }
-        )
-        return response["message"]["content"]
+        try:
+            response = client.chat(
+                model=model,
+                messages=[
+                    {"role": "system", "content": prompt}
+                ],
+                options={
+                    "temperature": 1.0,
+                    "num_predict": 4096,
+                }
+            )
+            # Safe access to response content
+            if isinstance(response, dict):
+                if "message" in response and isinstance(response["message"], dict):
+                    return response["message"].get("content", "")
+                elif "content" in response:
+                    return response["content"]
+            return str(response) if response else ""
+        except Exception as e:
+            return f"Error getting stock news: {str(e)}"
     else:
         config = get_config()
-        response = client.responses.create(
-            model=config["quick_think_llm"],
-            input=[
-                {
-                    "role": "system",
-                    "content": [
-                        {
-                            "type": "input_text",
-                            "text": prompt,
-                        }
-                    ],
-                }
-            ],
-            text={"format": {"type": "text"}},
-            reasoning={},
-            tools=[
-                {
-                    "type": "web_search_preview",
-                    "user_location": {"type": "approximate"},
-                    "search_context_size": "low",
-                }
-            ],
-            temperature=1,
-            max_output_tokens=4096,
-            top_p=1,
-            store=True,
-        )
-        return response.output[1].content[0].text
+        try:
+            response = client.responses.create(
+                model=config["quick_think_llm"],
+                input=[
+                    {
+                        "role": "system",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": prompt,
+                            }
+                        ],
+                    }
+                ],
+                text={"format": {"type": "text"}},
+                reasoning={},
+                tools=[
+                    {
+                        "type": "web_search_preview",
+                        "user_location": {"type": "approximate"},
+                        "search_context_size": "low",
+                    }
+                ],
+                temperature=1,
+                max_output_tokens=4096,
+                top_p=1,
+                store=True,
+            )
+            # Safe access to response content
+            if hasattr(response, "output") and len(response.output) > 1:
+                if hasattr(response.output[1], "content") and len(response.output[1].content) > 0:
+                    return response.output[1].content[0].text
+            return ""
+        except Exception as e:
+            return f"Error getting stock news: {str(e)}"
