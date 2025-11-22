@@ -62,70 +62,89 @@ def fetch_top_from_category(
     ] = "reddit_data",
 ):
     base_path = data_path
+    category_path = os.path.join(base_path, category)
 
     all_content = []
 
-    if max_limit < len(os.listdir(os.path.join(base_path, category))):
+    # Check if directory exists, return empty list if not
+    if not os.path.exists(category_path) or not os.path.isdir(category_path):
+        return all_content
+
+    try:
+        files_in_category = os.listdir(category_path)
+    except (FileNotFoundError, OSError):
+        return all_content
+
+    if len(files_in_category) == 0:
+        return all_content
+
+    if max_limit < len(files_in_category):
         raise ValueError(
             "REDDIT FETCHING ERROR: max limit is less than the number of files in the category. Will not be able to fetch any posts"
         )
 
-    limit_per_subreddit = max_limit // len(
-        os.listdir(os.path.join(base_path, category))
-    )
+    limit_per_subreddit = max_limit // len(files_in_category)
 
-    for data_file in os.listdir(os.path.join(base_path, category)):
+    for data_file in files_in_category:
         # check if data_file is a .jsonl file
         if not data_file.endswith(".jsonl"):
             continue
 
         all_content_curr_subreddit = []
 
-        with open(os.path.join(base_path, category, data_file), "rb") as f:
-            for i, line in enumerate(f):
-                # skip empty lines
-                if not line.strip():
-                    continue
+        file_path = os.path.join(category_path, data_file)
+        if not os.path.exists(file_path):
+            continue
 
-                parsed_line = json.loads(line)
-
-                # select only lines that are from the date
-                post_date = datetime.utcfromtimestamp(
-                    parsed_line["created_utc"]
-                ).strftime("%Y-%m-%d")
-                if post_date != date:
-                    continue
-
-                # if is company_news, check that the title or the content has the company's name (query) mentioned
-                if "company" in category and query:
-                    search_terms = []
-                    if "OR" in ticker_to_company[query]:
-                        search_terms = ticker_to_company[query].split(" OR ")
-                    else:
-                        search_terms = [ticker_to_company[query]]
-
-                    search_terms.append(query)
-
-                    found = False
-                    for term in search_terms:
-                        if re.search(
-                            term, parsed_line["title"], re.IGNORECASE
-                        ) or re.search(term, parsed_line["selftext"], re.IGNORECASE):
-                            found = True
-                            break
-
-                    if not found:
+        try:
+            with open(file_path, "rb") as f:
+                for i, line in enumerate(f):
+                    # skip empty lines
+                    if not line.strip():
                         continue
 
-                post = {
-                    "title": parsed_line["title"],
-                    "content": parsed_line["selftext"],
-                    "url": parsed_line["url"],
-                    "upvotes": parsed_line["ups"],
-                    "posted_date": post_date,
-                }
+                    parsed_line = json.loads(line)
 
-                all_content_curr_subreddit.append(post)
+                    # select only lines that are from the date
+                    post_date = datetime.utcfromtimestamp(
+                        parsed_line["created_utc"]
+                    ).strftime("%Y-%m-%d")
+                    if post_date != date:
+                        continue
+
+                    # if is company_news, check that the title or the content has the company's name (query) mentioned
+                    if "company" in category and query:
+                        search_terms = []
+                        if "OR" in ticker_to_company[query]:
+                            search_terms = ticker_to_company[query].split(" OR ")
+                        else:
+                            search_terms = [ticker_to_company[query]]
+
+                        search_terms.append(query)
+
+                        found = False
+                        for term in search_terms:
+                            if re.search(
+                                term, parsed_line["title"], re.IGNORECASE
+                            ) or re.search(term, parsed_line["selftext"], re.IGNORECASE):
+                                found = True
+                                break
+
+                        if not found:
+                            continue
+
+                    post = {
+                        "title": parsed_line["title"],
+                        "content": parsed_line["selftext"],
+                        "url": parsed_line["url"],
+                        "upvotes": parsed_line["ups"],
+                        "posted_date": post_date,
+                    }
+
+                    all_content_curr_subreddit.append(post)
+        except (FileNotFoundError, json.JSONDecodeError, KeyError, OSError) as e:
+            # Skip files that can't be read or parsed
+            continue
 
         # sort all_content_curr_subreddit by upvote_ratio in descending order
         all_content_curr_subreddit.sort(key=lambda x: x["upvotes"], reverse=True)

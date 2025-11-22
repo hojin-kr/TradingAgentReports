@@ -40,7 +40,10 @@ def get_finnhub_news(
     before = start_date - relativedelta(days=look_back_days)
     before = before.strftime("%Y-%m-%d")
 
-    result = get_data_in_range(ticker, before, curr_date, "news_data", DATA_DIR)
+    try:
+        result = get_data_in_range(ticker, before, curr_date, "news_data", DATA_DIR)
+    except (FileNotFoundError, OSError, json.JSONDecodeError):
+        return ""
 
     if len(result) == 0:
         return ""
@@ -79,7 +82,10 @@ def get_finnhub_company_insider_sentiment(
     before = date_obj - relativedelta(days=look_back_days)
     before = before.strftime("%Y-%m-%d")
 
-    data = get_data_in_range(ticker, before, curr_date, "insider_senti", DATA_DIR)
+    try:
+        data = get_data_in_range(ticker, before, curr_date, "insider_senti", DATA_DIR)
+    except (FileNotFoundError, OSError, json.JSONDecodeError):
+        return ""
 
     if len(data) == 0:
         return ""
@@ -120,7 +126,10 @@ def get_finnhub_company_insider_transactions(
     before = date_obj - relativedelta(days=look_back_days)
     before = before.strftime("%Y-%m-%d")
 
-    data = get_data_in_range(ticker, before, curr_date, "insider_trans", DATA_DIR)
+    try:
+        data = get_data_in_range(ticker, before, curr_date, "insider_trans", DATA_DIR)
+    except (FileNotFoundError, OSError, json.JSONDecodeError):
+        return ""
 
     if len(data) == 0:
         return ""
@@ -158,7 +167,14 @@ def get_simfin_balance_sheet(
         "us",
         f"us-balance-{freq}.csv",
     )
-    df = pd.read_csv(data_path, sep=";")
+    
+    if not os.path.exists(data_path):
+        return ""
+    
+    try:
+        df = pd.read_csv(data_path, sep=";")
+    except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
+        return ""
 
     # Convert date strings to datetime objects and remove any time components
     df["Report Date"] = pd.to_datetime(df["Report Date"], utc=True).dt.normalize()
@@ -205,7 +221,14 @@ def get_simfin_cashflow(
         "us",
         f"us-cashflow-{freq}.csv",
     )
-    df = pd.read_csv(data_path, sep=";")
+    
+    if not os.path.exists(data_path):
+        return ""
+    
+    try:
+        df = pd.read_csv(data_path, sep=";")
+    except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
+        return ""
 
     # Convert date strings to datetime objects and remove any time components
     df["Report Date"] = pd.to_datetime(df["Report Date"], utc=True).dt.normalize()
@@ -252,7 +275,14 @@ def get_simfin_income_statements(
         "us",
         f"us-income-{freq}.csv",
     )
-    df = pd.read_csv(data_path, sep=";")
+    
+    if not os.path.exists(data_path):
+        return ""
+    
+    try:
+        df = pd.read_csv(data_path, sep=";")
+    except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
+        return ""
 
     # Convert date strings to datetime objects and remove any time components
     df["Report Date"] = pd.to_datetime(df["Report Date"], utc=True).dt.normalize()
@@ -335,13 +365,17 @@ def get_reddit_global_news(
 
     while curr_date <= start_date:
         curr_date_str = curr_date.strftime("%Y-%m-%d")
-        fetch_result = fetch_top_from_category(
-            "global_news",
-            curr_date_str,
-            max_limit_per_day,
-            data_path=os.path.join(DATA_DIR, "reddit_data"),
-        )
-        posts.extend(fetch_result)
+        try:
+            fetch_result = fetch_top_from_category(
+                "global_news",
+                curr_date_str,
+                max_limit_per_day,
+                data_path=os.path.join(DATA_DIR, "reddit_data"),
+            )
+            posts.extend(fetch_result)
+        except (FileNotFoundError, OSError, ValueError):
+            # Skip if Reddit data directory doesn't exist or other errors
+            pass
         curr_date += relativedelta(days=1)
         pbar.update(1)
 
@@ -392,14 +426,18 @@ def get_reddit_company_news(
 
     while curr_date <= start_date:
         curr_date_str = curr_date.strftime("%Y-%m-%d")
-        fetch_result = fetch_top_from_category(
-            "company_news",
-            curr_date_str,
-            max_limit_per_day,
-            ticker,
-            data_path=os.path.join(DATA_DIR, "reddit_data"),
-        )
-        posts.extend(fetch_result)
+        try:
+            fetch_result = fetch_top_from_category(
+                "company_news",
+                curr_date_str,
+                max_limit_per_day,
+                ticker,
+                data_path=os.path.join(DATA_DIR, "reddit_data"),
+            )
+            posts.extend(fetch_result)
+        except (FileNotFoundError, OSError, ValueError):
+            # Skip if Reddit data directory doesn't exist or other errors
+            pass
         curr_date += relativedelta(days=1)
 
         pbar.update(1)
