@@ -64,7 +64,13 @@ class TradingAgentsGraph:
 
         # Initialize LLMs
         if self.config["llm_provider"].lower() == "ollama":
-            from langchain_ollama import ChatOllama
+            try:
+                from langchain_ollama import ChatOllama
+            except ImportError:
+                raise ImportError(
+                    "langchain-ollama package is required for Ollama support. "
+                    "Please install it with: pip install langchain-ollama"
+                )
             base_url = self.config.get("ollama_base_url", "http://localhost:11434")
             model = self.config.get("ollama_model", "llama3.2")
             self.deep_thinking_llm = ChatOllama(model=model, base_url=base_url)

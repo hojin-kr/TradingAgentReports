@@ -115,7 +115,13 @@ class NewsReportPostProcessor:
         llm_provider = DEFAULT_CONFIG.get("llm_provider", "openai").lower()
         
         if llm_provider == "ollama":
-            from langchain_ollama import ChatOllama
+            try:
+                from langchain_ollama import ChatOllama
+            except ImportError:
+                raise ImportError(
+                    "langchain-ollama package is required for Ollama support. "
+                    "Please install it with: pip install langchain-ollama"
+                )
             base_url = DEFAULT_CONFIG.get("ollama_base_url", "http://localhost:11434")
             model = DEFAULT_CONFIG.get("ollama_model", "llama3.2")
             return ChatOllama(model=model, base_url=base_url, temperature=0.1)
