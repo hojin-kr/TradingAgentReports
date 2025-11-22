@@ -508,34 +508,45 @@ def get_stock_stats_indicators_window(
         )
 
     end_date = curr_date
-    curr_date = datetime.strptime(curr_date, "%Y-%m-%d")
-    before = curr_date - relativedelta(days=look_back_days)
+    curr_date_obj = datetime.strptime(curr_date, "%Y-%m-%d")
+    before = curr_date_obj - relativedelta(days=look_back_days)
 
     if not online:
-        # read from YFin data
-        data = pd.read_csv(
-            os.path.join(
-                DATA_DIR,
-                f"market_data/price_data/{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
-            )
+        # Try to read from local file, fallback to online if file doesn't exist
+        file_path = os.path.join(
+            DATA_DIR,
+            f"market_data/price_data/{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
         )
-        data["Date"] = pd.to_datetime(data["Date"], utc=True)
-        dates_in_df = data["Date"].astype(str).str[:10]
+        
+        if not os.path.exists(file_path):
+            # Fallback to online mode if local file doesn't exist
+            online = True
+        else:
+            try:
+                data = pd.read_csv(file_path)
+                data["Date"] = pd.to_datetime(data["Date"], utc=True)
+                dates_in_df = data["Date"].astype(str).str[:10]
 
-        ind_string = ""
-        while curr_date >= before:
-            # only do the trading dates
-            if curr_date.strftime("%Y-%m-%d") in dates_in_df.values:
-                indicator_value = get_stockstats_indicator(
-                    symbol, indicator, curr_date.strftime("%Y-%m-%d"), online
-                )
+                ind_string = ""
+                curr_date_loop = curr_date_obj
+                while curr_date_loop >= before:
+                    # only do the trading dates
+                    if curr_date_loop.strftime("%Y-%m-%d") in dates_in_df.values:
+                        indicator_value = get_stockstats_indicator(
+                            symbol, indicator, curr_date_loop.strftime("%Y-%m-%d"), online
+                        )
 
-                ind_string += f"{curr_date.strftime('%Y-%m-%d')}: {indicator_value}\n"
+                        ind_string += f"{curr_date_loop.strftime('%Y-%m-%d')}: {indicator_value}\n"
 
-            curr_date = curr_date - relativedelta(days=1)
-    else:
+                    curr_date_loop = curr_date_loop - relativedelta(days=1)
+            except (FileNotFoundError, pd.errors.EmptyDataError):
+                # Fallback to online mode if file read fails
+                online = True
+    
+    if online:
         # online gathering
         ind_string = ""
+        curr_date = curr_date_obj  # Reset curr_date for online mode
         while curr_date >= before:
             indicator_value = get_stockstats_indicator(
                 symbol, indicator, curr_date.strftime("%Y-%m-%d"), online
