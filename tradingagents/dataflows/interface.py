@@ -768,9 +768,17 @@ def get_YFin_data(
 def _build_llm_client():
     cfg = get_config()
     if cfg.get("llm_provider", "").lower() == "ollama":
-        import ollama
-        base_url = cfg.get("ollama_base_url", "http://localhost:11434")
-        return ollama.Client(host=base_url), "ollama"
+        try:
+            import ollama
+            base_url = cfg.get("ollama_base_url", "http://localhost:11434")
+            return ollama.Client(host=base_url), "ollama"
+        except ImportError:
+            raise ImportError(
+                "ollama package is required for Ollama support. "
+                "Please install it with: pip install ollama"
+            )
+        except Exception as e:
+            raise RuntimeError(f"Failed to initialize Ollama client: {str(e)}")
     else:
         from openai import OpenAI
         return OpenAI(base_url=cfg["backend_url"]), "openai"
@@ -796,10 +804,20 @@ def get_stock_news_openai(ticker, curr_date):
                 }
             )
             # Safe access to response content
-            if isinstance(response, dict):
-                if "message" in response and isinstance(response["message"], dict):
-                    return response["message"].get("content", "")
-                elif "content" in response:
+            # Handle ChatResponse object
+            if hasattr(response, 'message') and hasattr(response.message, 'content'):
+                return response.message.content
+            elif hasattr(response, 'content'):
+                return response.content
+            # Handle dict format
+            elif isinstance(response, dict):
+                if "message" in response:
+                    message = response["message"]
+                    if isinstance(message, dict) and "content" in message:
+                        return message.get("content", "")
+                    elif hasattr(message, 'content'):
+                        return message.content
+                if "content" in response:
                     return response["content"]
             return str(response) if response else ""
         except Exception as e:
@@ -863,10 +881,20 @@ def get_global_news_openai(curr_date):
                 }
             )
             # Safe access to response content
-            if isinstance(response, dict):
-                if "message" in response and isinstance(response["message"], dict):
-                    return response["message"].get("content", "")
-                elif "content" in response:
+            # Handle ChatResponse object
+            if hasattr(response, 'message') and hasattr(response.message, 'content'):
+                return response.message.content
+            elif hasattr(response, 'content'):
+                return response.content
+            # Handle dict format
+            elif isinstance(response, dict):
+                if "message" in response:
+                    message = response["message"]
+                    if isinstance(message, dict) and "content" in message:
+                        return message.get("content", "")
+                    elif hasattr(message, 'content'):
+                        return message.content
+                if "content" in response:
                     return response["content"]
             return str(response) if response else ""
         except Exception as e:
@@ -930,10 +958,20 @@ def get_fundamentals_openai(ticker, curr_date):
                 }
             )
             # Safe access to response content
-            if isinstance(response, dict):
-                if "message" in response and isinstance(response["message"], dict):
-                    return response["message"].get("content", "")
-                elif "content" in response:
+            # Handle ChatResponse object
+            if hasattr(response, 'message') and hasattr(response.message, 'content'):
+                return response.message.content
+            elif hasattr(response, 'content'):
+                return response.content
+            # Handle dict format
+            elif isinstance(response, dict):
+                if "message" in response:
+                    message = response["message"]
+                    if isinstance(message, dict) and "content" in message:
+                        return message.get("content", "")
+                    elif hasattr(message, 'content'):
+                        return message.content
+                if "content" in response:
                     return response["content"]
             return str(response) if response else ""
         except Exception as e:

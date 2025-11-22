@@ -6,11 +6,19 @@ class FinancialSituationMemory:
     def __init__(self, name, config):
         self.config = config
         if config.get("llm_provider", "").lower() == "ollama":
-            import ollama
-            base_url = config.get("ollama_base_url", "http://localhost:11434")
-            self.client = ollama.Client(host=base_url)
-            self.embedding = "nomic-embed-text"
-            self.use_ollama = True
+            try:
+                import ollama
+                base_url = config.get("ollama_base_url", "http://localhost:11434")
+                self.client = ollama.Client(host=base_url)
+                self.embedding = "nomic-embed-text"
+                self.use_ollama = True
+            except ImportError:
+                raise ImportError(
+                    "ollama package is required for Ollama support. "
+                    "Please install it with: pip install ollama"
+                )
+            except Exception as e:
+                raise RuntimeError(f"Failed to initialize Ollama client: {str(e)}")
         else:
             from openai import OpenAI
             if config.get("backend_url", "") == "http://localhost:11434/v1":
@@ -30,21 +38,47 @@ class FinancialSituationMemory:
             try:
                 # Ollama embed() method uses 'input' parameter, not 'prompt'
                 response = self.client.embed(model=self.embedding, input=text)
-                # Ollama returns EmbeddingsResponse object or dict with 'embedding' key
-                # Handle EmbeddingsResponse object
-                if hasattr(response, 'embedding'):
-                    return response.embedding
+                # Ollama returns EmbedResponse object with 'embeddings' (plural) attribute
+                # Handle EmbedResponse object - embeddings is a list of lists
+                if hasattr(response, 'embeddings'):
+                    # embeddings is a list of lists, get the first list
+                    if isinstance(response.embeddings, list) and len(response.embeddings) > 0:
+                        return response.embeddings[0]
+                    else:
+                        return response.embeddings
+                # Handle 'embedding' (singular) attribute for backward compatibility
+                elif hasattr(response, 'embedding'):
+                    embedding = response.embedding
+                    # If it's a list of lists, get the first list
+                    if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+                        return embedding[0]
+                    return embedding
                 # Handle dict format
-                elif isinstance(response, dict) and 'embedding' in response:
-                    return response['embedding']
+                elif isinstance(response, dict):
+                    if 'embeddings' in response:
+                        embeddings = response['embeddings']
+                        if isinstance(embeddings, list) and len(embeddings) > 0:
+                            return embeddings[0] if isinstance(embeddings[0], list) else embeddings
+                        return embeddings
+                    elif 'embedding' in response:
+                        embedding = response['embedding']
+                        if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+                            return embedding[0]
+                        return embedding
                 # Handle list format
                 elif isinstance(response, list):
                     if len(response) > 0:
-                        # If list contains EmbeddingsResponse objects, extract embedding
-                        if hasattr(response[0], 'embedding'):
-                            return response[0].embedding
+                        # If list contains EmbedResponse objects, extract embeddings
+                        if hasattr(response[0], 'embeddings'):
+                            embeddings = response[0].embeddings
+                            return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                        elif hasattr(response[0], 'embedding'):
+                            embedding = response[0].embedding
+                            if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+                                return embedding[0]
+                            return embedding
                         else:
-                            return response[0]
+                            return response[0] if not isinstance(response[0], list) or len(response[0]) == 0 or not isinstance(response[0][0], list) else response[0][0]
                     else:
                         return []
                 else:
@@ -55,22 +89,41 @@ class FinancialSituationMemory:
                     # Model not found - try to pull the model first
                     try:
                         print(f"Warning: Embedding model '{self.embedding}' not found. Attempting to pull it...")
-                        self.client.pull(self.embedding)
+                        try:
+                            self.client.pull(self.embedding)
+                        except Exception as pull_init_error:
+                            print(f"Warning: Failed to pull model '{self.embedding}': {str(pull_init_error)}")
+                            raise pull_init_error
                         # Retry after pulling
                         response = self.client.embed(model=self.embedding, input=text)
-                        # Handle EmbeddingsResponse object
-                        if hasattr(response, 'embedding'):
-                            return response.embedding
-                        # Handle dict format
-                        elif isinstance(response, dict) and 'embedding' in response:
-                            return response['embedding']
-                        # Handle list format
+                        # Handle EmbedResponse object - embeddings is a list of lists
+                        if hasattr(response, 'embeddings'):
+                            if isinstance(response.embeddings, list) and len(response.embeddings) > 0:
+                                return response.embeddings[0]
+                            else:
+                                return response.embeddings
+                        elif hasattr(response, 'embedding'):
+                            embedding = response.embedding
+                            if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+                                return embedding[0]
+                            return embedding
+                        elif isinstance(response, dict):
+                            if 'embeddings' in response:
+                                embeddings = response['embeddings']
+                                return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                            elif 'embedding' in response:
+                                embedding = response['embedding']
+                                return embedding[0] if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list) else embedding
                         elif isinstance(response, list):
                             if len(response) > 0:
-                                if hasattr(response[0], 'embedding'):
-                                    return response[0].embedding
+                                if hasattr(response[0], 'embeddings'):
+                                    embeddings = response[0].embeddings
+                                    return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                                elif hasattr(response[0], 'embedding'):
+                                    embedding = response[0].embedding
+                                    return embedding[0] if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list) else embedding
                                 else:
-                                    return response[0]
+                                    return response[0] if not isinstance(response[0], list) or len(response[0]) == 0 or not isinstance(response[0][0], list) else response[0][0]
                             else:
                                 return []
                         else:
@@ -80,19 +133,34 @@ class FinancialSituationMemory:
                         try:
                             # Try embeddings() method with 'prompt' parameter
                             response = self.client.embeddings(model=self.embedding, prompt=text)
-                            # Handle EmbeddingsResponse object
-                            if hasattr(response, 'embedding'):
-                                return response.embedding
-                            # Handle dict format
-                            elif isinstance(response, dict) and 'embedding' in response:
-                                return response['embedding']
-                            # Handle list format
+                            # Handle EmbedResponse object - embeddings is a list of lists
+                            if hasattr(response, 'embeddings'):
+                                if isinstance(response.embeddings, list) and len(response.embeddings) > 0:
+                                    return response.embeddings[0]
+                                else:
+                                    return response.embeddings
+                            elif hasattr(response, 'embedding'):
+                                embedding = response.embedding
+                                if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+                                    return embedding[0]
+                                return embedding
+                            elif isinstance(response, dict):
+                                if 'embeddings' in response:
+                                    embeddings = response['embeddings']
+                                    return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                                elif 'embedding' in response:
+                                    embedding = response['embedding']
+                                    return embedding[0] if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list) else embedding
                             elif isinstance(response, list):
                                 if len(response) > 0:
-                                    if hasattr(response[0], 'embedding'):
-                                        return response[0].embedding
+                                    if hasattr(response[0], 'embeddings'):
+                                        embeddings = response[0].embeddings
+                                        return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                                    elif hasattr(response[0], 'embedding'):
+                                        embedding = response[0].embedding
+                                        return embedding[0] if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list) else embedding
                                     else:
-                                        return response[0]
+                                        return response[0] if not isinstance(response[0], list) or len(response[0]) == 0 or not isinstance(response[0][0], list) else response[0][0]
                                 else:
                                     return []
                             else:
@@ -107,19 +175,34 @@ class FinancialSituationMemory:
                     try:
                         # Fallback to embeddings() method with 'prompt' parameter
                         response = self.client.embeddings(model=self.embedding, prompt=text)
-                        # Handle EmbeddingsResponse object
-                        if hasattr(response, 'embedding'):
-                            return response.embedding
-                        # Handle dict format
-                        elif isinstance(response, dict) and 'embedding' in response:
-                            return response['embedding']
-                        # Handle list format
+                        # Handle EmbedResponse object - embeddings is a list of lists
+                        if hasattr(response, 'embeddings'):
+                            if isinstance(response.embeddings, list) and len(response.embeddings) > 0:
+                                return response.embeddings[0]
+                            else:
+                                return response.embeddings
+                        elif hasattr(response, 'embedding'):
+                            embedding = response.embedding
+                            if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+                                return embedding[0]
+                            return embedding
+                        elif isinstance(response, dict):
+                            if 'embeddings' in response:
+                                embeddings = response['embeddings']
+                                return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                            elif 'embedding' in response:
+                                embedding = response['embedding']
+                                return embedding[0] if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list) else embedding
                         elif isinstance(response, list):
                             if len(response) > 0:
-                                if hasattr(response[0], 'embedding'):
-                                    return response[0].embedding
+                                if hasattr(response[0], 'embeddings'):
+                                    embeddings = response[0].embeddings
+                                    return embeddings[0] if isinstance(embeddings, list) and len(embeddings) > 0 else embeddings
+                                elif hasattr(response[0], 'embedding'):
+                                    embedding = response[0].embedding
+                                    return embedding[0] if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list) else embedding
                                 else:
-                                    return response[0]
+                                    return response[0] if not isinstance(response[0], list) or len(response[0]) == 0 or not isinstance(response[0][0], list) else response[0][0]
                             else:
                                 return []
                         else:
