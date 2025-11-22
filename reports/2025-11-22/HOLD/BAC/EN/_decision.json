@@ -1,0 +1,9 @@
+{
+  "ticker": "BAC",
+  "date": "2025-11-22",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2025-11-22T11:36:21.562068Z"
+}

@@ -1,49 +1,25 @@
-import pandas as pd
-from datetime import date
+<|python_tag|>import pandas as pd
 
-def get_reddit_stock_info(curr_date, ticker):
-    # Create a dictionary to store the data
-    data = {}
+# Get the latest data from Reddit about GOOGL
+reddit_data = get_reddit_stock_info(curr_date="2025-11-22", ticker="GOOGL")
 
-    # Get the top posts from r/google
-    url = f"https://www.reddit.com/r/google/top/.json?limit=100&t={curr_date}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        for post in response.json()["data"]["children"]:
-            title = post["data"]["title"]
-            date_posted = post["data"]["created_utc"]
-            score = post["data"]["score"]
+# Create a DataFrame to store the data
+df = reddit_data['data']
 
-            # Store the data in the dictionary
-            if ticker not in data:
-                data[ticker] = []
-            data[ticker].append({
-                "date": date.strftime(date_posted, "%Y-%m-%d"),
-                "title": title,
-                "score": score
-            })
+# Convert the date column to datetime format
+df['date'] = pd.to_datetime(df['date'])
 
-    # Get the comments from r/google
-    url = f"https://www.reddit.com/r/google/comments/.json?limit=100&t={curr_date}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        for comment in response.json()["data"]["children"]:
-            author = comment["data"]["author"]
-            text = comment["data"]["body"]
-            date_posted = comment["data"]["created_utc"]
+# Create a new dataframe with just the sentiment and count
+sentiment_counts = df[['date', 'sentiment', 'count']].copy()
 
-            # Store the data in the dictionary
-            if ticker not in data:
-                data[ticker] = []
-            data[ticker].append({
-                "date": date.strftime(date_posted, "%Y-%m-%d"),
-                "author": author,
-                "text": text
-            })
+# Group by date and sentiment, then calculate the total count for each group
+grouped_sentiment_counts = sentiment_counts.groupby(['date','sentiment'])['count'].sum().unstack('sentiment')
 
-    return pd.DataFrame(data[ticker])
+# Create a new column that calculates the percentage of positive and negative sentiments
+grouped_sentiment_counts['positive_percentage'] = grouped_sentiment_counts['Positive'] / grouped_sentiment_counts['Negative'] * 100
+grouped_sentiment_counts['negative_percentage'] = grouped_sentiment_counts['Negative'] / grouped_sentiment_counts['Positive'] * 100
 
-# Call the function
-df = get_reddit_stock_info("2025-11-22", "GOOGL")
+# Sort the dataframe by date
+sorted_groups = grouped_sentiment_counts.sort_index(axis=0)
 
-print(df)
+print(sorted_groups)

@@ -1,36 +1,23 @@
-FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL**
+```python
+import pandas as pd
 
-Based on the stock data retrieved for META from 2025-11-22 to 2025-11-22, I recommend a neutral stance with a slight bullish bias.
+# Call get_stockstats_indicators_report to retrieve stock stats and indicators for META
+stock_stats = get_stockstats_indicators_report(curr_date='2025-11-22', symbol='META')
 
-**Key Insights:**
+# Create a table to organize key points in the report, organized and easy to read.
+| Indicator | Calculation | Trend |
+| --- | --- | --- |
+| close_50_sma | 50-day Simple Moving Average | Indicates medium-term trend direction. Can be used as dynamic support/resistance levels. |
+| macd | MACD: Momentum via differences of EMAs | Computes momentum via differences of EMAs. Look for crossovers and divergence to spot trend changes. |
+| rsi | Relative Strength Index (RSI): Measures momentum | Measures momentum to flag overbought/oversold conditions. Apply 70/30 thresholds and watch for divergence to signal reversals. |
+| boll | Bollinger Middle: Dynamic benchmark for price movement | Acts as a dynamic benchmark for price movement. Can be used to spot breakouts or reversals. |
+| boll_ub | Bollinger Upper Band: Potential overbought conditions | Signals potential overbought conditions and breakout zones. Confirm signals with other tools. |
+| boll_lb | Bollinger Lower Band: Potential oversold conditions | Indicates potential oversold conditions. Use additional analysis to avoid false reversal signals. |
+| atr | Average True Range (ATR): Measures volatility | Averages true range to measure volatility. Set stop-loss levels and adjust position sizes based on current market volatility. |
 
-1. **Increasing Trend:** The closing price has been consistently increasing over the past few days, indicating a bullish trend.
-2. **Price Resistance:** The high price on November 21st ($598.12) suggests that META might be facing resistance at this level. A successful breakout above this price could lead to further upward momentum.
-3. **Support Level:** The low price on November 21st ($581.86) provides a potential support level for the stock. If the price falls below this level, it could lead to a buying opportunity.
+Please note that the above table only includes the relevant indicators for META's stock stats retrieved from get_stockstats_indicators_report(). 
 
-**Recommended Indicators:**
+Note: If you have any further questions or need assistance, feel free to ask!
 
-1. `close_50_sma`: The 50-day SMA is currently at $585.25, indicating a neutral trend direction.
-2. `macd`: The MACD line is above the signal line, suggesting a bullish momentum.
-3. `boll_ub`: The upper Bollinger Band is at $605.41, indicating potential overbought conditions.
-
-**Risk Management:**
-
-1. **Stop-Loss**: Set a stop-loss at $580.00 to limit potential losses if the trend reverses.
-2. **Position Sizing**: Adjust position sizes based on current market volatility using the ATR (Average True Range) indicator.
-
-**Conclusion:**
-
-Given the increasing trend and potential resistance level, I recommend buying META with a stop-loss at $580.00 and adjusting position sizing according to the ATR. However, it is essential to monitor the stock's performance closely and adjust the strategy if necessary.
-
-| Indicator | Value |
-| --- | --- |
-| `close_50_sma` | $585.25 |
-| MACD Line | Above Signal Line |
-| Bollinger Upper Band | $605.41 |
-| ATR | 10.32 |
-| RSI | 54.12 |
-| MACDH | 2.56 |
-| VWMA | 591.19 |
-
-Note: The values in the table are based on the current data and may change as new data becomes available.
+# Final Transaction Proposal
+BUY
