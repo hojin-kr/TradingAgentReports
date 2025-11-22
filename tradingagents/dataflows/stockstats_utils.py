@@ -29,16 +29,20 @@ class StockstatsUtils:
         data = None
 
         if not online:
-            try:
-                data = pd.read_csv(
-                    os.path.join(
-                        data_dir,
-                        f"{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
-                    )
-                )
-                df = wrap(data)
-            except FileNotFoundError:
-                raise Exception("Stockstats fail: Yahoo Finance data not fetched yet!")
+            file_path = os.path.join(
+                data_dir,
+                f"{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
+            )
+            if not os.path.exists(file_path):
+                # Fallback to online mode if local file doesn't exist
+                online = True
+            else:
+                try:
+                    data = pd.read_csv(file_path)
+                    df = wrap(data)
+                except FileNotFoundError:
+                    # Fallback to online mode if file read fails
+                    online = True
         else:
             # Get today's date as YYYY-mm-dd to add to cache
             today_date = pd.Timestamp.today()

@@ -594,13 +594,18 @@ def get_YFin_data_window(
     before = date_obj - relativedelta(days=look_back_days)
     start_date = before.strftime("%Y-%m-%d")
 
-    # read in data
-    data = pd.read_csv(
-        os.path.join(
-            DATA_DIR,
-            f"market_data/price_data/{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
-        )
+    # Try to read from local file, fallback to online if file doesn't exist
+    file_path = os.path.join(
+        DATA_DIR,
+        f"market_data/price_data/{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
     )
+    
+    if not os.path.exists(file_path):
+        # Fallback to online data if local file doesn't exist
+        return get_YFin_data_online(symbol, start_date, curr_date)
+
+    # read in data
+    data = pd.read_csv(file_path)
 
     # Extract just the date part for comparison
     data["DateOnly"] = data["Date"].str[:10]
@@ -672,13 +677,18 @@ def get_YFin_data(
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
     end_date: Annotated[str, "End date in yyyy-mm-dd format"],
 ) -> str:
-    # read in data
-    data = pd.read_csv(
-        os.path.join(
-            DATA_DIR,
-            f"market_data/price_data/{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
-        )
+    # Try to read from local file, fallback to online if file doesn't exist
+    file_path = os.path.join(
+        DATA_DIR,
+        f"market_data/price_data/{symbol}-YFin-data-2015-01-01-2025-03-25.csv",
     )
+    
+    if not os.path.exists(file_path):
+        # Fallback to online data if local file doesn't exist
+        return get_YFin_data_online(symbol, start_date, end_date)
+    
+    # read in data
+    data = pd.read_csv(file_path)
 
     if end_date > "2025-03-25":
         raise Exception(
