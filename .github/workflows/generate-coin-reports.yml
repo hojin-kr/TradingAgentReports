@@ -28,6 +28,11 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      # Ollama configuration
+      COIN_LLM_PROVIDER: ollama
+      TRADING_LLM_PROVIDER: ollama
+      OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
+      OLLAMA_MODEL: gemma3:4b
       REDIS_URL: ${{ secrets.REDIS_URL }}
 
     steps:

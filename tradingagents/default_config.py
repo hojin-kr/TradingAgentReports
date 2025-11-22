@@ -9,10 +9,13 @@ DEFAULT_CONFIG = {
         "dataflows/data_cache",
     ),
     # LLM settings
-    "llm_provider": "openai",
-    "deep_think_llm": "gpt-5-nano",
-    "quick_think_llm": "gpt-5-nano",
-    "backend_url": "https://api.openai.com/v1",
+    "llm_provider": os.getenv("TRADING_LLM_PROVIDER", "openai"),
+    "deep_think_llm": os.getenv("TRADING_DEEP_LLM", "gpt-5-nano"),
+    "quick_think_llm": os.getenv("TRADING_QUICK_LLM", "gpt-5-nano"),
+    "backend_url": os.getenv("TRADING_BACKEND_URL", "https://api.openai.com/v1"),
+    # Ollama settings
+    "ollama_base_url": os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+    "ollama_model": os.getenv("OLLAMA_MODEL", "gemma3:4b"),
     # Debate and discussion settings
     "max_debate_rounds": 1,
     "max_risk_discuss_rounds": 1,

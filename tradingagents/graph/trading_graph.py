@@ -63,7 +63,13 @@ class TradingAgentsGraph:
         )
 
         # Initialize LLMs
-        if self.config["llm_provider"].lower() == "openai" or self.config["llm_provider"] == "ollama" or self.config["llm_provider"] == "openrouter":
+        if self.config["llm_provider"].lower() == "ollama":
+            from langchain_ollama import ChatOllama
+            base_url = self.config.get("ollama_base_url", "http://localhost:11434")
+            model = self.config.get("ollama_model", "gemma3:4b")
+            self.deep_thinking_llm = ChatOllama(model=model, base_url=base_url)
+            self.quick_thinking_llm = ChatOllama(model=model, base_url=base_url)
+        elif self.config["llm_provider"].lower() == "openai" or self.config["llm_provider"] == "openrouter":
             self.deep_thinking_llm = ChatOpenAI(model=self.config["deep_think_llm"], base_url=self.config["backend_url"])
             self.quick_thinking_llm = ChatOpenAI(model=self.config["quick_think_llm"], base_url=self.config["backend_url"])
         elif self.config["llm_provider"].lower() == "anthropic":

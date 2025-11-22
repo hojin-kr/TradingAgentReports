@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from typing import Dict, List
 
 import pandas as pd
-from openai import OpenAI
 
 from tradingagents.dataflows.googlenews_utils import getNewsData
 
@@ -164,83 +163,121 @@ def get_top_coins(limit: int = 10) -> List[Dict]:
     return _get_top_usdt_symbols(limit=limit)
 
 
-def _build_openai_client() -> OpenAI:
+def _build_llm_client():
     cfg = config.get_config()
-    return OpenAI(base_url=cfg["backend_url"])
+    if cfg.get("llm_provider", "").lower() == "ollama":
+        import ollama
+        base_url = cfg.get("ollama_base_url", "http://localhost:11434")
+        return ollama.Client(host=base_url), "ollama"
+    else:
+        from openai import OpenAI
+        return OpenAI(base_url=cfg["backend_url"]), "openai"
 
 
 def get_stock_news_openai(ticker: str, curr_date: str) -> str:
-    client = _build_openai_client()
-    response = client.responses.create(
-        model=config.get_config()["quick_think_llm"],
-        input=[
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": (
-                            f"Collect up to 8 concise headlines and sentiment snippets"
-                            f" about {ticker} for the 3 days leading up to {curr_date}. "
-                            "Focus on crypto, macro, and regulatory narratives that could"
-                            " move price."
-                        ),
-                    }
-                ],
-            }
-        ],
-        text={"format": {"type": "text"}},
-        reasoning={},
-        tools=[
-            {
-                "type": "web_search_preview",
-                "user_location": {"type": "approximate"},
-                "search_context_size": "medium",
-            }
-        ],
-        temperature=0.7,
-        max_output_tokens=2048,
-        top_p=1,
-        store=False,
+    client, provider = _build_llm_client()
+    prompt = (
+        f"Collect up to 8 concise headlines and sentiment snippets"
+        f" about {ticker} for the 3 days leading up to {curr_date}. "
+        "Focus on crypto, macro, and regulatory narratives that could"
+        " move price."
     )
-
-    return response.output[1].content[0].text
+    
+    if provider == "ollama":
+        cfg = config.get_config()
+        model = cfg.get("ollama_model", "gemma3:4b")
+        response = client.chat(
+            model=model,
+            messages=[
+                {"role": "system", "content": prompt}
+            ],
+            options={
+                "temperature": 0.7,
+                "num_predict": 2048,
+            }
+        )
+        return response["message"]["content"]
+    else:
+        response = client.responses.create(
+            model=config.get_config()["quick_think_llm"],
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": prompt,
+                        }
+                    ],
+                }
+            ],
+            text={"format": {"type": "text"}},
+            reasoning={},
+            tools=[
+                {
+                    "type": "web_search_preview",
+                    "user_location": {"type": "approximate"},
+                    "search_context_size": "medium",
+                }
+            ],
+            temperature=0.7,
+            max_output_tokens=2048,
+            top_p=1,
+            store=False,
+        )
+        return response.output[1].content[0].text
 
 
 def get_global_news_openai(curr_date: str) -> str:
-    client = _build_openai_client()
-    response = client.responses.create(
-        model=config.get_config()["quick_think_llm"],
-        input=[
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": (
-                            "Summarize the 6 most important macro, liquidity, and"
-                            f" regulatory events influencing crypto markets for {curr_date}."
-                        ),
-                    }
-                ],
-            }
-        ],
-        text={"format": {"type": "text"}},
-        reasoning={},
-        tools=[
-            {
-                "type": "web_search_preview",
-                "user_location": {"type": "approximate"},
-                "search_context_size": "medium",
-            }
-        ],
-        temperature=0.6,
-        max_output_tokens=2048,
-        top_p=1,
-        store=False,
+    client, provider = _build_llm_client()
+    prompt = (
+        "Summarize the 6 most important macro, liquidity, and"
+        f" regulatory events influencing crypto markets for {curr_date}."
     )
-
-    return response.output[1].content[0].text
+    
+    if provider == "ollama":
+        cfg = config.get_config()
+        model = cfg.get("ollama_model", "gemma3:4b")
+        response = client.chat(
+            model=model,
+            messages=[
+                {"role": "system", "content": prompt}
+            ],
+            options={
+                "temperature": 0.6,
+                "num_predict": 2048,
+            }
+        )
+        return response["message"]["content"]
+    else:
+        response = client.responses.create(
+            model=config.get_config()["quick_think_llm"],
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": prompt,
+                        }
+                    ],
+                }
+            ],
+            text={"format": {"type": "text"}},
+            reasoning={},
+            tools=[
+                {
+                    "type": "web_search_preview",
+                    "user_location": {"type": "approximate"},
+                    "search_context_size": "medium",
+                }
+            ],
+            temperature=0.6,
+            max_output_tokens=2048,
+            top_p=1,
+            store=False,
+        )
+        return response.output[1].content[0].text
 
 
 def get_google_news(query: str, curr_date: str, look_back_days: int = 3) -> str:

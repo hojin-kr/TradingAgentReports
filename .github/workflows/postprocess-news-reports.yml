@@ -127,6 +127,11 @@ jobs:
       if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'true'
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # Ollama configuration
+        COIN_LLM_PROVIDER: ollama
+        TRADING_LLM_PROVIDER: ollama
+        OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
+        OLLAMA_MODEL: gemma3:4b
       run: |
         echo "Running dry run for news reports on date: ${{ steps.date.outputs.TARGET_DATE }}"
         python postprocess_news_reports.py \
@@ -137,6 +142,11 @@ jobs:
       if: steps.check_reports.outputs.REPORTS_EXIST == 'true' && steps.date.outputs.DRY_RUN == 'false'
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # Ollama configuration
+        COIN_LLM_PROVIDER: ollama
+        TRADING_LLM_PROVIDER: ollama
+        OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
+        OLLAMA_MODEL: gemma3:4b
       run: |
         echo "Processing news reports for date: ${{ steps.date.outputs.TARGET_DATE }}"
         FORCE_FLAG=""

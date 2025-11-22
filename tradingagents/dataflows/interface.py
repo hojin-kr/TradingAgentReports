@@ -702,106 +702,162 @@ def get_YFin_data(
     return filtered_data
 
 
+def _build_llm_client():
+    cfg = get_config()
+    if cfg.get("llm_provider", "").lower() == "ollama":
+        import ollama
+        base_url = cfg.get("ollama_base_url", "http://localhost:11434")
+        return ollama.Client(host=base_url), "ollama"
+    else:
+        from openai import OpenAI
+        return OpenAI(base_url=cfg["backend_url"]), "openai"
+
+
 def get_stock_news_openai(ticker, curr_date):
-    config = get_config()
-    client = OpenAI(base_url=config["backend_url"])
-
-    response = client.responses.create(
-        model=config["quick_think_llm"],
-        input=[
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": f"Can you search Social Media for {ticker} from 3 days before {curr_date} to {curr_date}? Make sure you only get the data posted during that period.",
-                    }
-                ],
+    client, provider = _build_llm_client()
+    prompt = f"Can you search Social Media for {ticker} from 3 days before {curr_date} to {curr_date}? Make sure you only get the data posted during that period."
+    
+    if provider == "ollama":
+        config = get_config()
+        model = config.get("ollama_model", "gemma3:4b")
+        response = client.chat(
+            model=model,
+            messages=[
+                {"role": "system", "content": prompt}
+            ],
+            options={
+                "temperature": 1.0,
+                "num_predict": 4096,
             }
-        ],
-        text={"format": {"type": "text"}},
-        reasoning={},
-        tools=[
-            {
-                "type": "web_search_preview",
-                "user_location": {"type": "approximate"},
-                "search_context_size": "low",
-            }
-        ],
-        temperature=1,
-        max_output_tokens=4096,
-        top_p=1,
-        store=True,
-    )
-
-    return response.output[1].content[0].text
+        )
+        return response["message"]["content"]
+    else:
+        config = get_config()
+        response = client.responses.create(
+            model=config["quick_think_llm"],
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": prompt,
+                        }
+                    ],
+                }
+            ],
+            text={"format": {"type": "text"}},
+            reasoning={},
+            tools=[
+                {
+                    "type": "web_search_preview",
+                    "user_location": {"type": "approximate"},
+                    "search_context_size": "low",
+                }
+            ],
+            temperature=1,
+            max_output_tokens=4096,
+            top_p=1,
+            store=True,
+        )
+        return response.output[1].content[0].text
 
 
 def get_global_news_openai(curr_date):
-    config = get_config()
-    client = OpenAI(base_url=config["backend_url"])
-
-    response = client.responses.create(
-        model=config["quick_think_llm"],
-        input=[
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": f"Can you search global or macroeconomics news from 3 days before {curr_date} to {curr_date} that would be informative for trading purposes? Make sure you only get the data posted during that period.",
-                    }
-                ],
+    client, provider = _build_llm_client()
+    prompt = f"Can you search global or macroeconomics news from 3 days before {curr_date} to {curr_date} that would be informative for trading purposes? Make sure you only get the data posted during that period."
+    
+    if provider == "ollama":
+        config = get_config()
+        model = config.get("ollama_model", "gemma3:4b")
+        response = client.chat(
+            model=model,
+            messages=[
+                {"role": "system", "content": prompt}
+            ],
+            options={
+                "temperature": 1.0,
+                "num_predict": 4096,
             }
-        ],
-        text={"format": {"type": "text"}},
-        reasoning={},
-        tools=[
-            {
-                "type": "web_search_preview",
-                "user_location": {"type": "approximate"},
-                "search_context_size": "low",
-            }
-        ],
-        temperature=1,
-        max_output_tokens=4096,
-        top_p=1,
-        store=True,
-    )
-
-    return response.output[1].content[0].text
+        )
+        return response["message"]["content"]
+    else:
+        config = get_config()
+        response = client.responses.create(
+            model=config["quick_think_llm"],
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": prompt,
+                        }
+                    ],
+                }
+            ],
+            text={"format": {"type": "text"}},
+            reasoning={},
+            tools=[
+                {
+                    "type": "web_search_preview",
+                    "user_location": {"type": "approximate"},
+                    "search_context_size": "low",
+                }
+            ],
+            temperature=1,
+            max_output_tokens=4096,
+            top_p=1,
+            store=True,
+        )
+        return response.output[1].content[0].text
 
 
 def get_fundamentals_openai(ticker, curr_date):
-    config = get_config()
-    client = OpenAI(base_url=config["backend_url"])
-
-    response = client.responses.create(
-        model=config["quick_think_llm"],
-        input=[
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": f"Can you search Fundamental for discussions on {ticker} during of the month before {curr_date} to the month of {curr_date}. Make sure you only get the data posted during that period. List as a table, with PE/PS/Cash flow/ etc",
-                    }
-                ],
+    client, provider = _build_llm_client()
+    prompt = f"Can you search Fundamental for discussions on {ticker} during of the month before {curr_date} to the month of {curr_date}. Make sure you only get the data posted during that period. List as a table, with PE/PS/Cash flow/ etc"
+    
+    if provider == "ollama":
+        config = get_config()
+        model = config.get("ollama_model", "gemma3:4b")
+        response = client.chat(
+            model=model,
+            messages=[
+                {"role": "system", "content": prompt}
+            ],
+            options={
+                "temperature": 1.0,
+                "num_predict": 4096,
             }
-        ],
-        text={"format": {"type": "text"}},
-        reasoning={},
-        tools=[
-            {
-                "type": "web_search_preview",
-                "user_location": {"type": "approximate"},
-                "search_context_size": "low",
-            }
-        ],
-        temperature=1,
-        max_output_tokens=4096,
-        top_p=1,
-        store=True,
-    )
-
-    return response.output[1].content[0].text
+        )
+        return response["message"]["content"]
+    else:
+        config = get_config()
+        response = client.responses.create(
+            model=config["quick_think_llm"],
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": prompt,
+                        }
+                    ],
+                }
+            ],
+            text={"format": {"type": "text"}},
+            reasoning={},
+            tools=[
+                {
+                    "type": "web_search_preview",
+                    "user_location": {"type": "approximate"},
+                    "search_context_size": "low",
+                }
+            ],
+            temperature=1,
+            max_output_tokens=4096,
+            top_p=1,
+            store=True,
+        )
+        return response.output[1].content[0].text

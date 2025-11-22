@@ -2,7 +2,7 @@
 
 from typing import Any, Dict
 
-from langchain_openai import ChatOpenAI
+from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import ToolNode
 
@@ -18,8 +18,8 @@ class GraphSetup:
 
     def __init__(
         self,
-        quick_thinking_llm: ChatOpenAI,
-        deep_thinking_llm: ChatOpenAI,
+        quick_thinking_llm: BaseChatModel,
+        deep_thinking_llm: BaseChatModel,
         toolkit: Toolkit,
         tool_nodes: Dict[str, ToolNode],
         bull_memory,

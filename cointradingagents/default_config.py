@@ -17,6 +17,9 @@ DEFAULT_CONFIG = {
     "deep_think_llm": os.getenv("COIN_DEEP_LLM", "gpt-5-nano"),
     "quick_think_llm": os.getenv("COIN_QUICK_LLM", "gpt-5-nano"),
     "backend_url": os.getenv("COIN_BACKEND_URL", "https://api.openai.com/v1"),
+    # Ollama settings
+    "ollama_base_url": os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+    "ollama_model": os.getenv("OLLAMA_MODEL", "gemma3:4b"),
     # Debate and discussion settings
     "max_debate_rounds": 1,
     "max_risk_discuss_rounds": 1,
