@@ -467,6 +467,12 @@ def get_stock_stats_indicators_window(
     online: Annotated[bool, "to fetch data online or offline"],
 ) -> str:
 
+    # Validate indicator parameter
+    if not indicator or not indicator.strip():
+        return f"Error: Indicator parameter is empty or invalid. Please provide one of the supported indicators: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma', 'mfi']"
+    
+    indicator = indicator.strip()
+
     best_ind_params = {
         # Moving Averages
         "close_50_sma": (
@@ -541,9 +547,7 @@ def get_stock_stats_indicators_window(
     }
 
     if indicator not in best_ind_params:
-        raise ValueError(
-            f"Indicator {indicator} is not supported. Please choose from: {list(best_ind_params.keys())}"
-        )
+        return f"Error: Indicator '{indicator}' is not supported. Please choose from: {list(best_ind_params.keys())}"
 
     end_date = curr_date
     curr_date_obj = datetime.strptime(curr_date, "%Y-%m-%d")
@@ -780,6 +784,7 @@ def get_stock_news_openai(ticker, curr_date):
         config = get_config()
         model = config.get("ollama_model", "llama3.2")
         try:
+            # Ollama chat API: options can be passed directly or in options dict
             response = client.chat(
                 model=model,
                 messages=[
@@ -846,6 +851,7 @@ def get_global_news_openai(curr_date):
         config = get_config()
         model = config.get("ollama_model", "llama3.2")
         try:
+            # Ollama chat API: options can be passed directly or in options dict
             response = client.chat(
                 model=model,
                 messages=[
@@ -912,6 +918,7 @@ def get_fundamentals_openai(ticker, curr_date):
         config = get_config()
         model = config.get("ollama_model", "llama3.2")
         try:
+            # Ollama chat API: options can be passed directly or in options dict
             response = client.chat(
                 model=model,
                 messages=[

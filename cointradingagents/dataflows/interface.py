@@ -124,11 +124,14 @@ def get_binance_indicator_report(
     curr_date: str,
     look_back_days: int,
 ) -> str:
+    # Validate indicator parameter
+    if not indicator or not indicator.strip():
+        return f"Error: Indicator parameter is empty or invalid. Please provide one of: {', '.join(sorted(INDICATOR_DESCRIPTIONS.keys()))}"
+    
+    indicator = indicator.strip()
+    
     if indicator not in INDICATOR_DESCRIPTIONS:
-        raise ValueError(
-            f"Indicator {indicator} is not supported. "
-            f"Available: {', '.join(sorted(INDICATOR_DESCRIPTIONS.keys()))}"
-        )
+        return f"Error: Indicator '{indicator}' is not supported. Available: {', '.join(sorted(INDICATOR_DESCRIPTIONS.keys()))}"
 
     end_dt = _parse_date(curr_date)
     history = ensure_history_window(symbol, end_dt, window_days=look_back_days)

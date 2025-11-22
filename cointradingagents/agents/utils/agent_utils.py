@@ -83,20 +83,26 @@ class Toolkit:
     @tool
     def get_stockstats_indicators_report(
         symbol: Annotated[str, "Coin pair symbol, e.g., BTCUSDT"],
-        indicator: Annotated[str, "Indicator name"],
+        indicator: Annotated[str, "Indicator name. Must be one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma']"],
         curr_date: Annotated[str, "Current date in yyyy-mm-dd format"],
         look_back_days: Annotated[int, "how many days to look back"] = 30,
     ) -> str:
+        # Validate indicator before calling
+        if not indicator or not indicator.strip():
+            return f"Error: Indicator parameter is required and cannot be empty. Please provide one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma']"
         return interface.get_binance_indicator_report(symbol, indicator, curr_date, look_back_days)
 
     @staticmethod
     @tool
     def get_stockstats_indicators_report_online(
         symbol: Annotated[str, "Coin pair symbol, e.g., BTCUSDT"],
-        indicator: Annotated[str, "Indicator name"],
+        indicator: Annotated[str, "Indicator name. Must be one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma']"],
         curr_date: Annotated[str, "Current date in yyyy-mm-dd format"],
         look_back_days: Annotated[int, "how many days to look back"] = 30,
     ) -> str:
+        # Validate indicator before calling
+        if not indicator or not indicator.strip():
+            return f"Error: Indicator parameter is required and cannot be empty. Please provide one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma']"
         return interface.get_binance_indicator_report(symbol, indicator, curr_date, look_back_days)
 
     @staticmethod

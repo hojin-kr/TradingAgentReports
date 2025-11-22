@@ -177,12 +177,15 @@ class Toolkit:
         Retrieve stock stats indicators for a given ticker symbol and indicator.
         Args:
             symbol (str): Ticker symbol of the company, e.g. AAPL, TSM
-            indicator (str): Technical indicator to get the analysis and report of
+            indicator (str): Technical indicator to get the analysis and report of. Must be one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma', 'mfi']
             curr_date (str): The current trading date you are trading on, YYYY-mm-dd
             look_back_days (int): How many days to look back, default is 15
         Returns:
             str: A formatted dataframe containing the stock stats indicators for the specified ticker symbol and indicator.
         """
+        # Validate indicator before calling
+        if not indicator or not indicator.strip():
+            return f"Error: Indicator parameter is required and cannot be empty. Please provide one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma', 'mfi']"
 
         result_stockstats = interface.get_stock_stats_indicators_window(
             symbol, indicator, curr_date, look_back_days, False
@@ -206,12 +209,15 @@ class Toolkit:
         Retrieve stock stats indicators for a given ticker symbol and indicator.
         Args:
             symbol (str): Ticker symbol of the company, e.g. AAPL, TSM
-            indicator (str): Technical indicator to get the analysis and report of
+            indicator (str): Technical indicator to get the analysis and report of. Must be one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma', 'mfi']
             curr_date (str): The current trading date you are trading on, YYYY-mm-dd
             look_back_days (int): How many days to look back, default is 15
         Returns:
             str: A formatted dataframe containing the stock stats indicators for the specified ticker symbol and indicator.
         """
+        # Validate indicator before calling
+        if not indicator or not indicator.strip():
+            return f"Error: Indicator parameter is required and cannot be empty. Please provide one of: ['close_50_sma', 'close_200_sma', 'close_10_ema', 'macd', 'macds', 'macdh', 'rsi', 'boll', 'boll_ub', 'boll_lb', 'atr', 'vwma', 'mfi']"
 
         result_stockstats = interface.get_stock_stats_indicators_window(
             symbol, indicator, curr_date, look_back_days, True

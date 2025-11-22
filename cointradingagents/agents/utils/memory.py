@@ -25,15 +25,106 @@ class FinancialSituationMemory:
     def get_embedding(self, text):
         """Get embedding for a text"""
         if self.use_ollama:
-            # Ollama client uses embeddings() method directly
-            response = self.client.embeddings(model=self.embedding, prompt=text)
-            # Ollama returns embeddings in a dict format with 'embedding' key
-            if isinstance(response, dict) and 'embedding' in response:
-                return response['embedding']
-            elif isinstance(response, list):
-                return response[0]
-            else:
-                return response
+            # Ollama client uses embed() method (singular, not embeddings)
+            import ollama
+            try:
+                response = self.client.embed(model=self.embedding, prompt=text)
+                # Ollama returns EmbeddingsResponse object or dict with 'embedding' key
+                # Handle EmbeddingsResponse object
+                if hasattr(response, 'embedding'):
+                    return response.embedding
+                # Handle dict format
+                elif isinstance(response, dict) and 'embedding' in response:
+                    return response['embedding']
+                # Handle list format
+                elif isinstance(response, list):
+                    if len(response) > 0:
+                        # If list contains EmbeddingsResponse objects, extract embedding
+                        if hasattr(response[0], 'embedding'):
+                            return response[0].embedding
+                        else:
+                            return response[0]
+                    else:
+                        return []
+                else:
+                    return response
+            except (AttributeError, ollama.ResponseError) as e:
+                # Handle AttributeError (method doesn't exist) or ResponseError (model not found)
+                if isinstance(e, ollama.ResponseError) and "not found" in str(e).lower():
+                    # Model not found - try to pull the model first
+                    try:
+                        print(f"Warning: Embedding model '{self.embedding}' not found. Attempting to pull it...")
+                        self.client.pull(self.embedding)
+                        # Retry after pulling
+                        response = self.client.embed(model=self.embedding, prompt=text)
+                        # Handle EmbeddingsResponse object
+                        if hasattr(response, 'embedding'):
+                            return response.embedding
+                        # Handle dict format
+                        elif isinstance(response, dict) and 'embedding' in response:
+                            return response['embedding']
+                        # Handle list format
+                        elif isinstance(response, list):
+                            if len(response) > 0:
+                                if hasattr(response[0], 'embedding'):
+                                    return response[0].embedding
+                                else:
+                                    return response[0]
+                            else:
+                                return []
+                        else:
+                            return response
+                    except Exception as pull_error:
+                        # If pull fails, try embeddings() method
+                        try:
+                            response = self.client.embeddings(model=self.embedding, prompt=text)
+                            # Handle EmbeddingsResponse object
+                            if hasattr(response, 'embedding'):
+                                return response.embedding
+                            # Handle dict format
+                            elif isinstance(response, dict) and 'embedding' in response:
+                                return response['embedding']
+                            # Handle list format
+                            elif isinstance(response, list):
+                                if len(response) > 0:
+                                    if hasattr(response[0], 'embedding'):
+                                        return response[0].embedding
+                                    else:
+                                        return response[0]
+                                else:
+                                    return []
+                            else:
+                                return response
+                        except Exception:
+                            # If all methods fail, return zero vector as fallback
+                            print(f"Warning: Failed to get embedding model '{self.embedding}'. Error: {str(pull_error)}. Using zero vector as fallback.")
+                            # Return a zero vector (typical embedding dimension is 768 for nomic-embed-text)
+                            return [0.0] * 768
+                else:
+                    # Fallback to embeddings() if embed() doesn't exist
+                    try:
+                        response = self.client.embeddings(model=self.embedding, prompt=text)
+                        # Handle EmbeddingsResponse object
+                        if hasattr(response, 'embedding'):
+                            return response.embedding
+                        # Handle dict format
+                        elif isinstance(response, dict) and 'embedding' in response:
+                            return response['embedding']
+                        # Handle list format
+                        elif isinstance(response, list):
+                            if len(response) > 0:
+                                if hasattr(response[0], 'embedding'):
+                                    return response[0].embedding
+                                else:
+                                    return response[0]
+                            else:
+                                return []
+                        else:
+                            return response
+                    except Exception as e2:
+                        # If all methods fail, return zero vector as fallback
+                        print(f"Warning: Failed to get embedding from Ollama: {str(e2)}. Using zero vector as fallback.")
+                        return [0.0] * 768
         else:
             response = self.client.embeddings.create(
                 model=self.embedding, input=text
