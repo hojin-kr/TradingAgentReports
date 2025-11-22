@@ -13,4 +13,3 @@ Buy Tesla (TSLA)
 ## Risks To Watch
 * Increased competition from established automakers
 * Regulatory challenges, although mitigated by federal approval for Autopilot
-* Elon Musk's leadership style and potential impact on the company
