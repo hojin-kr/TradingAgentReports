@@ -1,0 +1,1 @@
+{"name":"get_reddit_stock_info","parameters {"ticker": "AAPL", "curr_date": "2025-11-22"}}
