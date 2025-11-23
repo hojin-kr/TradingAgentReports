@@ -1,0 +1,9 @@
+{
+  "ticker": "PLTR",
+  "date": "2025-11-23",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2025-11-23T02:49:21.508990Z"
+}

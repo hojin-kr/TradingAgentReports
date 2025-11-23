@@ -1,0 +1,1 @@
+{"name":"get_finnhub_news","parameters\":{\"ticker\":\"SPY\",\"start_date\":\"2025-11-16\",\"end_date\":\"2025-11-23"}}; {"name":"get_reddit_news","parameters":{"curr_date":"2025-11-23"}}; {"name":"get_google_news","parameters":{"query":"macroeconomics news November 2025","curr_date":"2025-11-23","look_back_days":30}}

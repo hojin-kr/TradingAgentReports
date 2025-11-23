@@ -1,0 +1,1 @@
+{"name":"get_reddit_stock_info","parameters {"ticker": "ADBE", "curr_date": "2025-11-23"}}

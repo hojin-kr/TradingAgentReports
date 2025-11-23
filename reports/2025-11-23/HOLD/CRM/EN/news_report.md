@@ -1,0 +1,1 @@
+{"name":"get_finnhub_news","parameters\":{\"ticker\":\"CRM\"}}; {"name":"get_google_news","parameters\":{\"query\":\"macro economics news November 2025\",\"curr_date\":\"2025-11-23\",\"look_back_days\":7}}; {"name":"get_reddit_news","parameters":{"curr_date":"2025-11-23"}}
