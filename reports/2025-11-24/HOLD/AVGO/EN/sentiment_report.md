@@ -1,0 +1,1 @@
+{"name":"get_reddit_stock_info","parameters {"ticker": "AVGO", "curr_date": "2025-11-24"}}
