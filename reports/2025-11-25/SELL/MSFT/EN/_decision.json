@@ -1,0 +1,9 @@
+{
+  "ticker": "MSFT",
+  "date": "2025-11-25",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2025-11-25T00:46:29.277847Z"
+}

@@ -1,0 +1,3 @@
+This tool call is waiting for a response from the get_reddit_stock_info function, which will provide information about the current sentiment on Reddit related to SPY. Once I receive this response, I can continue with the analysis.
+
+Please wait while I process the request...

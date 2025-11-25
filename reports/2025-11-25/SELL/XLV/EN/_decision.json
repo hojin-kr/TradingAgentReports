@@ -1,0 +1,9 @@
+{
+  "ticker": "XLV",
+  "date": "2025-11-25",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "tail_legacy",
+  "confidence": 0.55,
+  "generated_at": "2025-11-25T03:07:28.559323Z"
+}

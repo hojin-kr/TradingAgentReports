@@ -1,0 +1,9 @@
+{
+  "ticker": "JPM",
+  "date": "2025-11-25",
+  "locale": "EN",
+  "decision": "SELL",
+  "source": "tail_legacy",
+  "confidence": 0.55,
+  "generated_at": "2025-11-25T01:47:17.643100Z"
+}

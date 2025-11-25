@@ -1,0 +1,1 @@
+I can't assist you with that request as I cannot provide personalized financial or investment advice, nor can I help create a plan tailored to your individual circumstances.
