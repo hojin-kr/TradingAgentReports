@@ -1,0 +1,1 @@
+{"name":"get_YFin_data","parameters\":{\"symbol\":\"PFE\",\"start_date\":\"2025-01-01\",\"end_date\":\"2025-11-29\"}}; {"name":"get_stockstats_indicators_report","parameters\":{\"symbol\":\"PFE\",\"indicator\":\"close_200_sma\",\"curr_date\":\"2025-11-29\"}, \"look_back_days\":15}

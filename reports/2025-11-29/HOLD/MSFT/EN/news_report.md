@@ -1,0 +1,1 @@
+{"name":"get_finnhub_news","parameters\":{\"ticker\":\"MSFT\",\"start_date\":\"2025-11-22\",\"end_date\":\"2025-11-29"}}; {"name":"get_reddit_news","parameters":{"curr_date":"2025-11-29"}}; {"name":"get_google_news","parameters":{"query":"MSFT stock news November 2025","curr_date":"2025-11-29","look_back_days":7}}
