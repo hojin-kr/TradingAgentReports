@@ -1,8 +1,8 @@
 name: Generate daily CoinTradingAgents reports
 
 on:
-  schedule:
-    - cron: "30 0 * * *" # every day at 00:30 UTC
+  # schedule:
+  #  - cron: "30 0 * * *" # every day at 00:30 UTC
   workflow_dispatch:
     inputs:
       date:
