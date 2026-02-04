@@ -60,6 +60,21 @@
       <use_analogies>when helpful for clarity</use_analogies>
     </language>
     
+    <!-- SNS summary block to be prepended before headings in simplified reports -->
+    <sns_summary>
+      <enabled>true</enabled>
+      <character_limit>100</character_limit>
+      <rules>
+        <item>Prefix ticker with $ (e.g., $AAPL)</item>
+        <item>One English sentence under the character limit</item>
+        <item>Focus on unique insight/shift/risks from THIS report</item>
+        <item>Avoid generic phrases like “strong AI growth”, “solid earnings”</item>
+        <item>Add line: Confidence: NN%</item>
+        <item>Include compact, relevant hashtags (e.g., #AI #Tech #Stocks #Investing) and #TICKER</item>
+        <item>Output must be clean and X-post ready</item>
+      </rules>
+    </sns_summary>
+
     <length>
       <total_max_words>800</total_max_words>
       <paragraph_max_sentences>3</paragraph_max_sentences>
