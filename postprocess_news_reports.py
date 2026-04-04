@@ -123,7 +123,7 @@ class NewsReportPostProcessor:
                     "Please install it with: pip install langchain-ollama"
                 )
             base_url = DEFAULT_CONFIG.get("ollama_base_url", "http://localhost:11434")
-            model = DEFAULT_CONFIG.get("ollama_model", "llama3.2")
+            model = DEFAULT_CONFIG.get("ollama_model", "gemma4:e4b")
             return ChatOllama(model=model, base_url=base_url, temperature=0.1)
         else:
             if not os.getenv("OPENAI_API_KEY"):
