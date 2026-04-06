@@ -1,0 +1,9 @@
+{
+  "ticker": "TSLA",
+  "date": "2026-04-06",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "tail_legacy",
+  "confidence": 0.55,
+  "generated_at": "2026-04-06T02:06:21.382961Z"
+}
