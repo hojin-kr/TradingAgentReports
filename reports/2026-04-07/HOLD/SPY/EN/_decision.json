@@ -1,0 +1,9 @@
+{
+  "ticker": "SPY",
+  "date": "2026-04-07",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2026-04-07T03:00:06.406219Z"
+}
