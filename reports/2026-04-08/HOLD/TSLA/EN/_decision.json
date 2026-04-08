@@ -1,0 +1,9 @@
+{
+  "ticker": "TSLA",
+  "date": "2026-04-08",
+  "locale": "EN",
+  "decision": "HOLD",
+  "source": "head_window",
+  "confidence": 0.8,
+  "generated_at": "2026-04-08T01:18:52.767694Z"
+}
